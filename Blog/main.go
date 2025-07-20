@@ -2,9 +2,16 @@ package main
 
 import (
 	//"github.com/gorilla/mux"
+	"blog/handler"
+	"blog/model"
+	"blog/repository"
+	"blog/router"
+	"blog/service"
+	"log"
+	"net/http"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"blog/model"
 )
 
 func initDB() *gorm.DB {
@@ -27,6 +34,13 @@ func initDB() *gorm.DB {
 
 func main(){
 	
-	initDB()
+	db :=initDB()
 
+	// Repository (implementacija)
+	blogRepo := &repository.BlogRepositoryImpl{DbConnection: db}
+	// Service
+	blogService := &service.BlogService{BlogRepository: blogRepo}
+	blogHandler := &handler.BlogHandler{BlogService: blogService}
+	router := router.SetupRouter(blogHandler)
+	log.Fatal(http.ListenAndServe(":8082",router))
 }
