@@ -1,6 +1,0 @@
-@Stakeholder_HostAddress = http://localhost:5145
-
-GET {{Stakeholder_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
