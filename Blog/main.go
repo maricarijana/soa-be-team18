@@ -41,6 +41,14 @@ func main(){
 	// Service
 	blogService := &service.BlogService{BlogRepository: blogRepo}
 	blogHandler := &handler.BlogHandler{BlogService: blogService}
-	router := router.SetupRouter(blogHandler)
+
+		// COMMENT
+	commentRepo := &repository.CommentRepositoryImpl{DbConnection: db}
+	commentService := &service.CommentService{CommentRepository: commentRepo}
+	commentHandler := &handler.CommentHandler{CommentService: commentService}
+
+	router := router.SetupRouter(blogHandler, commentHandler)
+	log.Println("Server running on http://localhost:8082")
+
 	log.Fatal(http.ListenAndServe(":8082",router))
 }
