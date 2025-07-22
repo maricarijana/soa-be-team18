@@ -14,3 +14,16 @@ func (service *BlogService) Create(blog *model.Blog) error {
 	err := service.BlogRepository.Create(blog)
 	return err
 }
+
+func (service *BlogService) LikeBlog(blogId int64, userId int64) error {
+	blog, err := service.BlogRepository.GetByID(blogId)
+	if err != nil {
+		return err
+	}
+
+	if err := blog.AddRating(1, userId); err != nil {
+		return err
+	}
+
+	return service.BlogRepository.Update(blog)
+}
