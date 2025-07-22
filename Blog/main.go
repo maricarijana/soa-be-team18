@@ -26,15 +26,14 @@ func initDB() *gorm.DB {
 	}
 	println("Successful connection")
 	// Migracija tabele, otkom kad bude modela
-	database.AutoMigrate(&model.Blog{},&model.Comment{})
+	database.AutoMigrate(&model.Blog{}, &model.Comment{})
 
 	return database
 }
 
+func main() {
 
-func main(){
-	
-	db :=initDB()
+	db := initDB()
 
 	// Repository (implementacija)
 	blogRepo := &repository.BlogRepositoryImpl{DbConnection: db}
@@ -42,5 +41,5 @@ func main(){
 	blogService := &service.BlogService{BlogRepository: blogRepo}
 	blogHandler := &handler.BlogHandler{BlogService: blogService}
 	router := router.SetupRouter(blogHandler)
-	log.Fatal(http.ListenAndServe(":8082",router))
+	log.Fatal(http.ListenAndServe(":8082", router))
 }

@@ -11,15 +11,15 @@ type BlogHandler struct {
 	BlogService *service.BlogService
 }
 
-func (handler *BlogHandler) Create(w http.ResponseWriter, r *http.Request){
+func (handler *BlogHandler) Create(w http.ResponseWriter, r *http.Request) {
 	var blog model.Blog
-	if err:= json.NewDecoder(r.Body).Decode(&blog); err!=nil{
-		http.Error(w,"Invalid JSON format",http.StatusBadRequest)
+	if err := json.NewDecoder(r.Body).Decode(&blog); err != nil {
+		http.Error(w, "Invalid JSON format", http.StatusBadRequest)
 		return
 	}
 
-	if err:= handler.BlogService.Create(&blog); err!=nil{
-		http.Error(w,"Error while creating new blog",http.StatusInternalServerError)
+	if err := handler.BlogService.Create(&blog); err != nil {
+		http.Error(w, "Error while creating new blog", http.StatusInternalServerError)
 		return
 	}
 
