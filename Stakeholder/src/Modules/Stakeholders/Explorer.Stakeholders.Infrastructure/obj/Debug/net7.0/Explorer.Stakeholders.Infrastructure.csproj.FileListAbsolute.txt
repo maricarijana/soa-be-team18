@@ -28,12 +28,6 @@ C:\Users\Dajana\Documents\PSW\BACK\psw-be-ra-2024-group-4\src\Modules\Stakeholde
 C:\Users\Dajana\Documents\PSW\BACK\psw-be-ra-2024-group-4\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Payments.Core.dll
 C:\Users\Dajana\Documents\PSW\BACK\psw-be-ra-2024-group-4\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Payments.API.pdb
 C:\Users\Dajana\Documents\PSW\BACK\psw-be-ra-2024-group-4\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Payments.Core.pdb
-C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.csproj.AssemblyReference.cache
-C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.AssemblyInfoInputs.cache
-C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.AssemblyInfo.cs
-C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.csproj.CoreCompileInputs.cache
-C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.sourcelink.json
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Stakeholders.Infrastructure.deps.json
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Stakeholders.Infrastructure.dll
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Stakeholders.Infrastructure.pdb
@@ -45,6 +39,12 @@ C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stake
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Stakeholders.Core.pdb
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.BuildingBlocks.Core.pdb
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\bin\Debug\net7.0\Explorer.Stakeholders.API.pdb
+C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.AssemblyInfo.cs
+C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.sourcelink.json
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.3F001B35.Up2Date
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\Explorer.Stakeholders.Infrastructure.dll
 C:\Users\Dajana\Documents\SOA\soa-be\soa-be-team18\Stakeholder\src\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\obj\Debug\net7.0\refint\Explorer.Stakeholders.Infrastructure.dll

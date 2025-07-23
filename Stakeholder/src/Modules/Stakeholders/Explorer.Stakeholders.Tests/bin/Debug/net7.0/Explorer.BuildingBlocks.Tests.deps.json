@@ -2023,6 +2023,7 @@
           "Explorer.Stakeholders.Infrastructure": "1.0.0",
           "Geolocation": "1.2.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.20",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
@@ -2055,6 +2056,7 @@
         "dependencies": {
           "Castle.Core": "5.1.1",
           "Explorer.BuildingBlocks.Core": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {
@@ -2098,7 +2100,8 @@
       "Explorer.Stakeholders.Infrastructure/1.0.0": {
         "dependencies": {
           "Explorer.BuildingBlocks.Infrastructure": "1.0.0",
-          "Explorer.Stakeholders.Core": "1.0.0"
+          "Explorer.Stakeholders.Core": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.20"
         },
         "runtime": {
           "Explorer.Stakeholders.Infrastructure.dll": {
@@ -2108,102 +2111,6 @@
         },
         "compile": {
           "Explorer.Stakeholders.Infrastructure.dll": {}
-        }
-      },
-      "Explorer.Blog.Infrastructure/1.0.0.0": {
-        "runtime": {
-          "Explorer.Blog.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Encounter.Infrastructure/1.0.0.0": {
-        "runtime": {
-          "Explorer.Encounter.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Payments.Infrastructure/1.0.0.0": {
-        "runtime": {
-          "Explorer.Payments.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Tours.Infrastructure/1.0.0.0": {
-        "runtime": {
-          "Explorer.Tours.Infrastructure.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Payments.API/1.0.0.0": {
-        "runtime": {
-          "Explorer.Payments.API.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Tours.API/1.0.0.0": {
-        "runtime": {
-          "Explorer.Tours.API.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Blog.API/1.0.0.0": {
-        "runtime": {
-          "Explorer.Blog.API.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Tours.Core/1.0.0.0": {
-        "runtime": {
-          "Explorer.Tours.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Encounter.API/1.0.0.0": {
-        "runtime": {
-          "Explorer.Encounter.API.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Blog.Core/1.0.0.0": {
-        "runtime": {
-          "Explorer.Blog.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Encounter.Core/1.0.0.0": {
-        "runtime": {
-          "Explorer.Encounter.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "Explorer.Payments.Core/1.0.0.0": {
-        "runtime": {
-          "Explorer.Payments.Core.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
         }
       },
       "Microsoft.AspNetCore.Antiforgery/7.0.0.0": {
@@ -5095,66 +5002,6 @@
     },
     "Explorer.Stakeholders.Infrastructure/1.0.0": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Blog.Infrastructure/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Encounter.Infrastructure/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Payments.Infrastructure/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Tours.Infrastructure/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Payments.API/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Tours.API/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Blog.API/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Tours.Core/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Encounter.API/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Blog.Core/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Encounter.Core/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Explorer.Payments.Core/1.0.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

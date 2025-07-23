@@ -2910,6 +2910,7 @@
           "Explorer.Stakeholders.Infrastructure": "1.0.0",
           "Geolocation": "1.2.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.20",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "compile": {
@@ -2943,6 +2944,7 @@
         "dependencies": {
           "Castle.Core": "5.1.1",
           "Explorer.BuildingBlocks.Core": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "compile": {

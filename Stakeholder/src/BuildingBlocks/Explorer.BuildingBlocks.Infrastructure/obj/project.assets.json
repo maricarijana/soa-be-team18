@@ -131,11 +131,11 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Design/7.0.4": {
+      "Microsoft.EntityFrameworkCore.Design/7.0.5": {
         "type": "package",
         "dependencies": {
           "Humanizer.Core": "2.14.1",
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.4",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.5",
           "Microsoft.Extensions.DependencyModel": "7.0.0",
           "Mono.TextTemplating": "2.2.1"
         },
@@ -170,10 +170,10 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/7.0.4": {
+      "Microsoft.EntityFrameworkCore.Tools/7.0.5": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "7.0.4"
+          "Microsoft.EntityFrameworkCore.Design": "7.0.5"
         },
         "compile": {
           "lib/net6.0/_._": {}
@@ -723,10 +723,10 @@
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Design/7.0.4": {
-      "sha512": "LI/ML3w17ap5IUmEKOPVnGJYi/XSDJW3Rf42utNF0e1tidmKtSkjwoTqIKLt2hE+jQJrlzeaqu5YiqdoFWVuZw==",
+    "Microsoft.EntityFrameworkCore.Design/7.0.5": {
+      "sha512": "fzoU+Jk/chkqVOzDjuF+fwdc/6Tyqbp9L7rDORqB6IwHRG7nr+QnFOPdRi3B5kAZldvsvhUt+6Cl5qzeLT7B0Q==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.design/7.0.4",
+      "path": "microsoft.entityframeworkcore.design/7.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -734,7 +734,7 @@
         "build/net6.0/Microsoft.EntityFrameworkCore.Design.props",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.7.0.4.nupkg.sha512",
+        "microsoft.entityframeworkcore.design.7.0.5.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
@@ -752,17 +752,17 @@
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Tools/7.0.4": {
-      "sha512": "58hDB+ENGisuSjJBl1RBHL9qzFJTukFSQFl/wCU8/3ApcOH/rPrRG4PWThiJTmfHRmh8H8HExdYbtkv7wa7BLg==",
+    "Microsoft.EntityFrameworkCore.Tools/7.0.5": {
+      "sha512": "OV/PUGBVSbQVd2daTeXoMBoao2qtfBgT2TuaYo48xRYUS2gH++f8OFiZc6zwASqkMKgs1/t5uVlxgKl18m/1Fw==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.tools/7.0.4",
+      "path": "microsoft.entityframeworkcore.tools/7.0.5",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "lib/net6.0/_._",
-        "microsoft.entityframeworkcore.tools.7.0.4.nupkg.sha512",
+        "microsoft.entityframeworkcore.tools.7.0.5.nupkg.sha512",
         "microsoft.entityframeworkcore.tools.nuspec",
         "tools/EntityFrameworkCore.PS2.psd1",
         "tools/EntityFrameworkCore.PS2.psm1",
@@ -1355,8 +1355,9 @@
     "net7.0": [
       "Castle.Core >= 5.1.1",
       "Explorer.BuildingBlocks.Core >= 1.0.0",
-      "Microsoft.EntityFrameworkCore.Design >= 7.0.4",
-      "Microsoft.EntityFrameworkCore.Tools >= 7.0.4",
+      "Microsoft.EntityFrameworkCore >= 7.0.5",
+      "Microsoft.EntityFrameworkCore.Design >= 7.0.5",
+      "Microsoft.EntityFrameworkCore.Tools >= 7.0.5",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 7.0.4"
     ]
   },
@@ -1418,17 +1419,21 @@
             "target": "Package",
             "version": "[5.1.1, )"
           },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[7.0.5, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[7.0.4, )"
+            "version": "[7.0.5, )"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[7.0.4, )"
+            "version": "[7.0.5, )"
           },
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",

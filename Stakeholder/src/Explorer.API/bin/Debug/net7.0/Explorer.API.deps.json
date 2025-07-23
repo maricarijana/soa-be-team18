@@ -12,7 +12,8 @@
           "Explorer.Stakeholders.Infrastructure": "1.0.0",
           "Geolocation": "1.2.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.20",
-          "Microsoft.EntityFrameworkCore.Tools": "7.0.4",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
+          "Microsoft.EntityFrameworkCore.Design": "7.0.5",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
@@ -117,7 +118,7 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/7.0.5": {},
-      "Microsoft.EntityFrameworkCore.Design/7.0.4": {
+      "Microsoft.EntityFrameworkCore.Design/7.0.5": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.5",
@@ -126,8 +127,8 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "7.0.4.0",
-            "fileVersion": "7.0.423.11504"
+            "assemblyVersion": "7.0.5.0",
+            "fileVersion": "7.0.523.16503"
           }
         }
       },
@@ -141,11 +142,6 @@
             "assemblyVersion": "7.0.5.0",
             "fileVersion": "7.0.523.16503"
           }
-        }
-      },
-      "Microsoft.EntityFrameworkCore.Tools/7.0.4": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "7.0.4"
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {},
@@ -415,6 +411,7 @@
         "dependencies": {
           "Castle.Core": "5.1.1",
           "Explorer.BuildingBlocks.Core": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "runtime": {
@@ -544,12 +541,12 @@
       "path": "microsoft.entityframeworkcore.analyzers/7.0.5",
       "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/7.0.4": {
+    "Microsoft.EntityFrameworkCore.Design/7.0.5": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LI/ML3w17ap5IUmEKOPVnGJYi/XSDJW3Rf42utNF0e1tidmKtSkjwoTqIKLt2hE+jQJrlzeaqu5YiqdoFWVuZw==",
-      "path": "microsoft.entityframeworkcore.design/7.0.4",
-      "hashPath": "microsoft.entityframeworkcore.design.7.0.4.nupkg.sha512"
+      "sha512": "sha512-fzoU+Jk/chkqVOzDjuF+fwdc/6Tyqbp9L7rDORqB6IwHRG7nr+QnFOPdRi3B5kAZldvsvhUt+6Cl5qzeLT7B0Q==",
+      "path": "microsoft.entityframeworkcore.design/7.0.5",
+      "hashPath": "microsoft.entityframeworkcore.design.7.0.5.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/7.0.5": {
       "type": "package",
@@ -557,13 +554,6 @@
       "sha512": "sha512-u/33DC4S6g2hpMPgBc5Kdnlz//nqHR5c/ovgjtiP/wQ7sOd0EOdygVzUJAAOxCwbtAHDsJXS9Vc3jLFYq0yu8Q==",
       "path": "microsoft.entityframeworkcore.relational/7.0.5",
       "hashPath": "microsoft.entityframeworkcore.relational.7.0.5.nupkg.sha512"
-    },
-    "Microsoft.EntityFrameworkCore.Tools/7.0.4": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-58hDB+ENGisuSjJBl1RBHL9qzFJTukFSQFl/wCU8/3ApcOH/rPrRG4PWThiJTmfHRmh8H8HExdYbtkv7wa7BLg==",
-      "path": "microsoft.entityframeworkcore.tools/7.0.4",
-      "hashPath": "microsoft.entityframeworkcore.tools.7.0.4.nupkg.sha512"
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "type": "package",
