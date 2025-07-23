@@ -9,26 +9,34 @@ import (
 	"blog/service"
 	"log"
 	"net/http"
+	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
+//host=localhost ako pokrecemo kod sebe
 func initDB() *gorm.DB {
-	//host ce biti drugaciji kad bude docker
-	connectionURL := "user=postgres password=super dbname=blog-service host=localhost port=5432 sslmode=disable"
-	database, err := gorm.Open(postgres.Open(connectionURL), &gorm.Config{})
+	connectionURL := "user=postgres password=super dbname=blog-service host=database port=5432 sslmode=disable"
 
-	if err != nil {
-		println("Failed to connect to database:")
-		println(err.Error())
-		return nil
+	var db *gorm.DB
+	var err error
+
+	for attempts := 1; attempts <= 10; attempts++ {
+		db, err = gorm.Open(postgres.Open(connectionURL), &gorm.Config{})
+		if err == nil {
+			log.Println(" Connected to database")
+			db.AutoMigrate(&model.Blog{}, &model.Comment{})
+			return db
+		}
+		log.Printf("Attempt %d: Waiting for database...", attempts)
+		time.Sleep(2 * time.Second)
 	}
-	println("Successful connection")
-	database.AutoMigrate(&model.Blog{}, &model.Comment{})
 
-	return database
+	log.Println("Could not connect to database after 10 attempts.")
+	return nil
 }
+
 
 func main() {
 
