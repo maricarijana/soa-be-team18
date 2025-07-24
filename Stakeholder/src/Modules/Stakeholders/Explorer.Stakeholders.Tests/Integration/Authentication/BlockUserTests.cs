@@ -29,7 +29,7 @@ namespace Explorer.Stakeholders.Tests.Integration.Authentication
             {
                 Id = -23,
                 Username = "turista3@gmail.com",
-                Password = "turista3",
+                //Password = "turista3",
                 Email = "turista3@gmail.com",
                 Role = "Tourist",
                 IsActive = true,

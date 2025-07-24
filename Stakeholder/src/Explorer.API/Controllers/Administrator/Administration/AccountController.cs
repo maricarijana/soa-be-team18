@@ -33,10 +33,12 @@ namespace Explorer.API.Controllers.Administrator.Administration
             return CreateResponse(result);
         }
 
-        [HttpPut("block")]
-        public ActionResult<AccountDto> BlockUser([FromBody] AccountDto account)
+        // Koristi ID iz rute, što je RESTful standard za ovakve akcije
+        [HttpPut("block/{accountId:long}")]
+        public ActionResult<AccountDto> BlockUser(long accountId)
         {
-            var result = _accountService.BlockUser(account);
+            // Prosledi samo ID servisu
+            var result = _accountService.BlockUser(accountId);
             return CreateResponse(result);
         }
 

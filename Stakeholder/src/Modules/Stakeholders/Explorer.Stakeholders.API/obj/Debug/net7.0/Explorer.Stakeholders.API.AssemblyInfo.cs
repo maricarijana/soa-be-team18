@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Explorer.Stakeholders.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bcd1658a6c2e43fda89643488c4691363d0b39fc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7055d1ed2858f73ec0ea971ca81f951f11e90815")]
 [assembly: System.Reflection.AssemblyProductAttribute("Explorer.Stakeholders.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Explorer.Stakeholders.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

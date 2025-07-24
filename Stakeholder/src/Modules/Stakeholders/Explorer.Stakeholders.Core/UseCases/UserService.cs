@@ -71,5 +71,20 @@ namespace Explorer.Stakeholders.Core.UseCases
             }
         }
 
+        public Result DeactivateUser(long userId)
+        {
+            var user = _userRepository.GetById(userId);
+            if (user == null) return Result.Fail("User not found");
+
+            if (user.Role == UserRole.Administrator)
+                return Result.Fail("Cannot deactivate administrator accounts.");
+
+            user.IsActive = false;
+            _repository.Update(user); // ili posebna metoda ako ne koristiš bazni update
+
+            return Result.Ok();
+        }
+
+
     }
-    }
+}

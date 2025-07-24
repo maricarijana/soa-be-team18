@@ -52,30 +52,22 @@
         }
       }
     },
-    "/api/administration/account/block": {
+    "/api/administration/account/block/{accountId}": {
       "put": {
         "tags": [
           "Account"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AccountDto"
-              }
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Success",

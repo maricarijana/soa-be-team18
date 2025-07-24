@@ -1,8 +1,8 @@
 {
-  "Explorer.API": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Explorer.API",
-  "Explorer.BuildingBlocks.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core",
-  "Explorer.BuildingBlocks.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure",
-  "Explorer.Stakeholders.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API",
-  "Explorer.Stakeholders.Core": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core",
-  "Explorer.Stakeholders.Infrastructure": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure"
+  "Explorer.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Explorer.API",
+  "Explorer.BuildingBlocks.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core",
+  "Explorer.BuildingBlocks.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure",
+  "Explorer.Stakeholders.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API",
+  "Explorer.Stakeholders.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core",
+  "Explorer.Stakeholders.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure"
 }

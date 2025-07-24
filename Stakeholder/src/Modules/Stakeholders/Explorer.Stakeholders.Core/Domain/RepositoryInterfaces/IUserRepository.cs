@@ -9,4 +9,5 @@ public interface IUserRepository
     List<User> GetActiveUsers();      //kt1? ili all 
     User? GetById(long userId);
     bool IsAuthor(long userId);
+
 }
