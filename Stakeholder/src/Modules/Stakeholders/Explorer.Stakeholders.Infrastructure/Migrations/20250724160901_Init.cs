@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Explorer.Stakeholders.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class IntitialMigration : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,11 +44,7 @@ namespace Explorer.Stakeholders.Infrastructure.Migrations
                     Email = table.Column<string>(type: "text", nullable: false),
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
                     Biography = table.Column<string>(type: "text", nullable: true),
-                    Motto = table.Column<string>(type: "text", nullable: true),
-                    Equipment = table.Column<List<int>>(type: "integer[]", nullable: true),
-                    Wallet = table.Column<decimal>(type: "numeric", nullable: true),
-                    XP = table.Column<int>(type: "integer", nullable: false),
-                    Level = table.Column<int>(type: "integer", nullable: false)
+                    Motto = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
