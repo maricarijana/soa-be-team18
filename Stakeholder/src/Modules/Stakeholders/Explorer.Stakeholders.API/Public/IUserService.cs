@@ -17,5 +17,6 @@ namespace Explorer.Stakeholders.API.Public
         Result Delete(int id);
         Result<UserDto> GetUsername(long id);
         long GetPersonId(long userId);
+        Result<UserDto> RegisterWithoutAuth(AccountRegistrationDto account);
     }
 }

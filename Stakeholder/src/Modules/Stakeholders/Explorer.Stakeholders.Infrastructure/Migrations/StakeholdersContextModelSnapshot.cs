@@ -133,6 +133,30 @@ namespace Explorer.Stakeholders.Infrastructure.Migrations
                     b.ToTable("ClubJoinRequests", "stakeholders");
                 });
 
+            modelBuilder.Entity("Explorer.Stakeholders.Core.Domain.ClubMember", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("CurrentImage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("QuizImage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ClubMembers", "stakeholders");
+                });
+
             modelBuilder.Entity("Explorer.Stakeholders.Core.Domain.ClubTour", b =>
                 {
                     b.Property<long>("Id")
@@ -209,14 +233,8 @@ namespace Explorer.Stakeholders.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<List<int>>("Equipment")
-                        .HasColumnType("integer[]");
-
                     b.Property<string>("ImageUrl")
                         .HasColumnType("text");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Motto")
                         .HasColumnType("text");
@@ -231,12 +249,6 @@ namespace Explorer.Stakeholders.Infrastructure.Migrations
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
-
-                    b.Property<decimal?>("Wallet")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("XP")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

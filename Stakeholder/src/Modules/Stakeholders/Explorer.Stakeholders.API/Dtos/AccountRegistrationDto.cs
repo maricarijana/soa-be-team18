@@ -14,4 +14,6 @@ public class AccountRegistrationDto
     public string? Motto { get; set; }
     public decimal Wallet {  get; set; }
     public string ImageBase64 { get; set; }
+    public string Role { get; set; }
+ 
 }
