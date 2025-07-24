@@ -18,16 +18,22 @@ namespace Explorer.Stakeholders.Core.UseCases
     {
         private readonly ICrudRepository<User> _repository;
         private readonly IUserRepository _userRepository;
-        public UserService(ICrudRepository<User> repository, IUserRepository userRepository, IMapper mapper) : base(repository, mapper)
+        private readonly IPersonRepository _personRepository;
+        private readonly IMapper _mapper;
+
+        public UserService(ICrudRepository<User> repository, IUserRepository userRepository, IPersonRepository personRepository, IMapper mapper) : base(repository, mapper)
         {
             _repository = repository;
             _userRepository = userRepository;
+            _personRepository = personRepository;
+            _mapper = mapper;
+
         }
 
         public Result<UserDto> GetUsername(long id)
         {
             var user = _repository.Get(id);
-            if(user != null)
+            if (user != null)
             {
                 return Result.Ok(new UserDto(user.Username));
             }
@@ -36,8 +42,34 @@ namespace Explorer.Stakeholders.Core.UseCases
 
         public long GetPersonId(long userId)
         {
-            var personId= _userRepository.GetPersonId(userId);
+            var personId = _userRepository.GetPersonId(userId);
             return personId;
         }
+
+        //kt1-irina
+        public Result<UserDto> RegisterWithoutAuth(AccountRegistrationDto account)
+        {
+            if (_userRepository.Exists(account.Username))
+                return Result.Fail(FailureCode.NonUniqueUsername);
+            //mzoe da bita turistu ili vodica-admin je u bazi 
+            if (account.Role != "Tourist" && account.Role != "Guide")
+                return Result.Fail(FailureCode.InvalidArgument).WithError("Only Tourist and Guide roles are allowed.");
+
+            var parsedRole = account.Role == "Tourist" ? UserRole.Tourist : UserRole.Guide;
+
+            try
+            {
+                var user = _userRepository.Create(new User(account.Username, account.Password, parsedRole, true));
+                var person = _personRepository.Create(new Person(user.Id, account.Name, account.Surname, account.Email, account.ProfilePicture, account.Biography, account.Motto));
+
+                var userDto = _mapper.Map<UserDto>(user);
+                return Result.Ok(userDto);
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+        }
+
     }
-}
+    }

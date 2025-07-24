@@ -14,10 +14,10 @@ public class Person : Entity
     public string? ImageUrl {  get; private set; }
     public string? Biography { get; private set; }
     public string? Motto { get; private set; }
-    public List<int>? Equipment {  get; private set; }
-    public decimal? Wallet { get; private set; }
-    public int XP { get; private set; }
-    public int Level { get; private set; }
+    //public List<int>? Equipment {  get; private set; }
+    //public decimal? Wallet { get; private set; }
+    //public int XP { get; private set; }
+    //public int Level { get; private set; }
 
     public Person(long userId, string name, string surname, string email)
     {
@@ -25,12 +25,12 @@ public class Person : Entity
         Name = name;
         Surname = surname;
         Email = email;
-        XP = 0;
-        Level = 1;
+        //XP = 0;
+        //Level = 1;
         Validate();
         
     }
-    public Person(long userId, string name, string surname, string email, string imageUrl, string biography, string motto, decimal wallet)
+    public Person(long userId, string name, string surname, string email, string imageUrl, string biography, string motto)
     {
         UserId = userId;
         Name = name;
@@ -39,27 +39,27 @@ public class Person : Entity
         ImageUrl = imageUrl;
         Biography = biography;
         Motto = motto;
-        Wallet = wallet;
-        XP = 0;
-        Level = 1;
+        //Wallet = wallet;
+        //XP = 0;
+        //Level = 1;
         Validate();
     }
 
-    public void AddXP(int amount)
-    {
-        if (amount < 0) throw new ArgumentException("XP can not be negative!");
-        XP += amount;
-        CheckLevelUp();
-    }
+    //public void AddXP(int amount)
+    //{
+    //    if (amount < 0) throw new ArgumentException("XP can not be negative!");
+    //    XP += amount;
+    //    CheckLevelUp();
+    //}
 
-    public void CheckLevelUp()
-    {
-        const int xpPerLevel = 100;
-        while (XP >= xpPerLevel * Level)
-        {
-            Level++;
-        }
-    }
+    //public void CheckLevelUp()
+    //{
+    //    const int xpPerLevel = 100;
+    //    while (XP >= xpPerLevel * Level)
+    //    {
+    //        Level++;
+    //    }
+    //}
     
     private void Validate()
     {

@@ -20,5 +20,13 @@ namespace Explorer.Stakeholders.Infrastructure.Database.Repositories {
         {
             return _dbContext.People.FirstOrDefault(p => p.UserId == id);
         }
+        public Person Create(Person person)
+        {
+            _dbContext.People.Add(person);
+            _dbContext.SaveChanges();
+            return person;
+        }
+
+
     }
 }

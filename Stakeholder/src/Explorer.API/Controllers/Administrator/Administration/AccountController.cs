@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Explorer.API.Controllers.Administrator.Administration
 {
-    [Authorize(Policy = "administratorPolicy")]
+    //[Authorize(Policy = "administratorPolicy")]    -skloni za sad
     [Route("api/administration/account")]
     public class AccountController : BaseApiController
     {
@@ -26,7 +26,7 @@ namespace Explorer.API.Controllers.Administrator.Administration
             _imageService = imageService;
         }
 
-        [HttpGet]
+        [HttpGet]        //kt1
         public ActionResult<PagedResult<AccountDto>> GetAllAccount([FromQuery] int page, [FromQuery] int pageSize)
         {
             var result = _accountService.GetPagedAccount(page, pageSize);

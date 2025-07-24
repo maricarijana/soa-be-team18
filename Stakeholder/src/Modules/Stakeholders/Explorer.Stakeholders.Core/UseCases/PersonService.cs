@@ -18,17 +18,17 @@ namespace Explorer.Stakeholders.Core.UseCases
             _crudRepository = crudRepository;   
         }
 
-        public Result<PersonDto> AddXP(long id, int xp)
-        {
-            var person = _personRepository.GetByUserId(id);
-            if (person == null)
-            {
-                return Result.Fail("Person not found!");
-            }
-            person.AddXP(xp);
-            _crudRepository.Update(person);
-            return Result.Ok(MapToDto(person));
+        //public Result<PersonDto> AddXP(long id, int xp)
+        //{
+        //    var person = _personRepository.GetByUserId(id);
+        //    if (person == null)
+        //    {
+        //        return Result.Fail("Person not found!");
+        //    }
+        //    person.AddXP(xp);
+        //    _crudRepository.Update(person);
+        //    return Result.Ok(MapToDto(person));
             
-        }
+        //}
     }
 }

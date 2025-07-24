@@ -23,22 +23,22 @@ public static class StakeholdersStartup
         SetupInfrastructure(services);
         return services;
     }
-    
+
     private static void SetupCore(IServiceCollection services)
     {
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<ITokenGenerator, JwtGenerator>();
-      //  services.AddScoped<IAppReviewService, AppReviewService>();
+        //  services.AddScoped<IAppReviewService, AppReviewService>();
         services.AddScoped<IPersonService, PersonService>();
-       // services.AddScoped<IClubService, ClubService>();
-       // services.AddScoped<IClubInvitationService, ClubInvitationService>();
-       // services.AddScoped<IClubJoinRequestService, ClubJoinRequestService>();
-       //services.AddScoped<INotificationService, NotificationService>();
-       // services.AddScoped<IAccountService, AccountService>();
+        // services.AddScoped<IClubService, ClubService>();
+        // services.AddScoped<IClubInvitationService, ClubInvitationService>();
+        // services.AddScoped<IClubJoinRequestService, ClubJoinRequestService>();
+        //services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IUserService, UserService>();
-       // services.AddScoped<IImageService, ImageService>();
-       // services.AddScoped<IClubTourService, ClubTourService>();
-       // services.AddScoped<IClubMemberService, ClubMemberService>();
+        services.AddScoped<IImageService, ImageService>();
+        // services.AddScoped<IClubTourService, ClubTourService>();
+        // services.AddScoped<IClubMemberService, ClubMemberService>();
     }
 
 
@@ -50,7 +50,7 @@ public static class StakeholdersStartup
         //services.AddScoped(typeof(ICrudRepository<ClubTour>), typeof(CrudDatabaseRepository<ClubTour, StakeholdersContext>));
         //services.AddScoped(typeof(ICrudRepository<Notification>), typeof(CrudDatabaseRepository<Notification, StakeholdersContext>));
         services.AddScoped<IUserRepository, UserDatabaseRepository>();
-      //  services.AddScoped(typeof(ICrudRepository<Problem>), typeof(CrudDatabaseRepository<Problem, StakeholdersContext>));
+        //  services.AddScoped(typeof(ICrudRepository<Problem>), typeof(CrudDatabaseRepository<Problem, StakeholdersContext>));
         //services.AddScoped<IProblemRepository, ProblemRepository>();
         //services.AddScoped<IClubRepository, ClubDatabaseRepository>();
         //services.AddScoped<IClubMemberRepository, ClubMemberDatabaseRepository>();
@@ -58,11 +58,11 @@ public static class StakeholdersStartup
         //services.AddScoped<IClubInvitationRepository, ClubInvitationDatabaseRepository>();
         //services.AddScoped<IClubJoinRequestRepository, ClubJoinRequestRepository>();
         //services.AddScoped<INotificationRepository, NotificationDatabaseRepository>();
-       // services.AddScoped(typeof(ICrudRepository<ClubInvitation>), typeof(CrudDatabaseRepository<ClubInvitation, StakeholdersContext>));
-       // services.AddScoped(typeof(ICrudRepository<ClubJoinRequest>), typeof(CrudDatabaseRepository<ClubJoinRequest, StakeholdersContext>));
+        // services.AddScoped(typeof(ICrudRepository<ClubInvitation>), typeof(CrudDatabaseRepository<ClubInvitation, StakeholdersContext>));
+        // services.AddScoped(typeof(ICrudRepository<ClubJoinRequest>), typeof(CrudDatabaseRepository<ClubJoinRequest, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<Person>), typeof(CrudDatabaseRepository<Person, StakeholdersContext>));
         services.AddScoped(typeof(ICrudRepository<User>), typeof(CrudDatabaseRepository<User, StakeholdersContext>));
-       // services.AddScoped(typeof(ICrudRepository<ClubMember>), typeof(CrudDatabaseRepository<ClubMember, StakeholdersContext>));
+        // services.AddScoped(typeof(ICrudRepository<ClubMember>), typeof(CrudDatabaseRepository<ClubMember, StakeholdersContext>));
         services.AddScoped<IPersonRepository, PersonRepository>();
 
         services.AddDbContext<StakeholdersContext>(opt =>

@@ -22,6 +22,7 @@ public class UserDatabaseRepository : IUserRepository
         return _dbContext.Users.FirstOrDefault(user => user.Username == username && user.IsActive);
     }
 
+    //KT1
     public User Create(User user)
     {
         _dbContext.Users.Add(user);
@@ -45,10 +46,11 @@ public class UserDatabaseRepository : IUserRepository
     public bool IsAuthor(long userId)
     {
         var user= _dbContext.Users.FirstOrDefault(i => i.Id == userId);
-        if(user.Role==UserRole.Author) return true;
+        if(user.Role==UserRole.Guide) return true;
         return false; 
     }
 
+    //kt1 ?
     public List<User> GetActiveUsers()
     {
         return _dbContext.Users

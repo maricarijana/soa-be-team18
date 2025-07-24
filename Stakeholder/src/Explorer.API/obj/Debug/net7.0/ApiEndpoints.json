@@ -695,6 +695,32 @@
     ]
   },
   {
+    "ContainingType": "Explorer.API.Controllers.UserController",
+    "Method": "Register",
+    "RelativePath": "api/user/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "account",
+        "Type": "Explorer.Stakeholders.API.Dtos.AccountRegistrationDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Explorer.Stakeholders.API.Dtos.UserDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Explorer.API.Controllers.AuthenticationController",
     "Method": "RegisterTourist",
     "RelativePath": "api/users",
