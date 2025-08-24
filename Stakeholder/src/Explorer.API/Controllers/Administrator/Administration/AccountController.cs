@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace Explorer.API.Controllers.Administrator.Administration
 {
-    //[Authorize(Policy = "administratorPolicy")]    -skloni za sad
+    [Authorize(Policy = "administratorPolicy")]  
     [Route("api/administration/account")]
     public class AccountController : BaseApiController
     {

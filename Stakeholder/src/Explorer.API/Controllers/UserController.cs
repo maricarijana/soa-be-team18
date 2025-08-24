@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Explorer.API.Controllers
 {
+    [Authorize(Policy = "administratorPolicy")]
     [Route("api/user")]
     public class UserController: BaseApiController
     {
@@ -44,6 +45,7 @@ namespace Explorer.API.Controllers
                 return NotFound(new { message = ex.Message }); 
             }
         }
+
 
         [HttpPost("register")]
         [AllowAnonymous]

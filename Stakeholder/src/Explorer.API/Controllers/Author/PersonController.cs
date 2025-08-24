@@ -19,7 +19,7 @@ namespace Explorer.API.Controllers.Author
             _personService = personService;
             _webHostEnvironment = webHostEnvironment;
         }
-
+      
         [HttpPut("{id:int}")]
         public ActionResult<PersonDto> Update([FromBody] PersonDto person)
         {
@@ -56,7 +56,7 @@ namespace Explorer.API.Controllers.Author
             return CreateResponse(result);
         }
 
-        [AllowAnonymous]
+      
         [HttpGet("{id:int}")]
         public ActionResult Get(int id)
         {
