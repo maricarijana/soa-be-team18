@@ -10,5 +10,5 @@ RUN go build -o blog-app
 
 FROM alpine
 COPY --from=blogs-builder /app/blog-app /usr/bin/blog-app
-EXPOSE 8082
+EXPOSE 9090
 ENTRYPOINT ["/usr/bin/blog-app"]

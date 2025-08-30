@@ -1,7 +1,8 @@
 package repository
 
 import (
-	"blog/model"
+	"log"
+	"soa/blog/model"
 
 	"gorm.io/gorm"
 )
@@ -11,7 +12,9 @@ type BlogRepositoryImpl struct {
 }
 
 func (r *BlogRepositoryImpl) Create(blog *model.Blog) error {
-	return r.DbConnection.Create(blog).Error
+	result := r.DbConnection.Create(blog)
+    log.Printf("[DB DEBUG] RowsAffected=%d Error=%v", result.RowsAffected, result.Error)
+    return result.Error
 }
 
 func (r *BlogRepositoryImpl) GetByID(id int64) (*model.Blog, error) {

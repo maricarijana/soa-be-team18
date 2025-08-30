@@ -1,6 +1,6 @@
 package repository
 
-import "blog/model"
+import "soa/blog/model"
 
 type CommentRepository interface {
 	Create(comment *model.Comment) error

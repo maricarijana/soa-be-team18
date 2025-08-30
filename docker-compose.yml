@@ -11,7 +11,7 @@ services:
     networks:
       - app-network
     ports:
-      - "8082:8082"
+      - "9090:9090"
     depends_on:
       - database
     environment:
@@ -21,9 +21,23 @@ services:
       - DB_PASSWORD=super
       - DB_NAME=blog-service
 
+  gateway-service:
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+    image: gateway-app-image
+    container_name: gateway-app-container
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "8090:8090" # REST API exposed ovde
+    depends_on:
+      - blog-service
+
   stakeholders-service:
     build:
-      context: ./Stakeholder/src  # folder u kojem je .NET projekat
+      context: ./Stakeholder/src # folder u kojem je .NET projekat
       dockerfile: Dockerfile
     image: stakeholders-app-image
     container_name: stakeholders-app-container
@@ -45,11 +59,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: super
-      POSTGRES_DB: blog-service   # inicijalna baza, ali možeš praviti više
+      POSTGRES_DB: blog-service # inicijalna baza, ali možeš praviti više
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
     networks:
       - app-network
 

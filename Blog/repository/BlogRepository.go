@@ -1,6 +1,6 @@
 package repository
 
-import "blog/model"
+import "soa/blog/model"
 
 type BlogRepository interface {
 	Create(blog *model.Blog) error
