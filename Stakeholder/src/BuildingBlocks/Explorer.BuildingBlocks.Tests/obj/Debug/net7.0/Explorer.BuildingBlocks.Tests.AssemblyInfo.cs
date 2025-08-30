@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Explorer.BuildingBlocks.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86d3078f332e74e28ea224e5a636931076f99bdd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1640772b3f48e9d67aaab0359909a009774c6eb4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Explorer.BuildingBlocks.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Explorer.BuildingBlocks.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
