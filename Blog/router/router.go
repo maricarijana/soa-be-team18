@@ -1,7 +1,7 @@
 package router
 
 import (
-	"blog/handler"
+	"soa/blog/handler"
 
 	"github.com/gorilla/mux"
 )

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"blog/model"
-	"blog/repository"
+	"soa/blog/model"
+	"soa/blog/repository"
 )
 
 type BlogService struct {

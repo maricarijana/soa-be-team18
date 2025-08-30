@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"blog/model"
+	"soa/blog/model"
 
 	"gorm.io/gorm"
 )

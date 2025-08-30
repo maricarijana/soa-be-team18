@@ -2,15 +2,17 @@ package main
 
 import (
 	//"github.com/gorilla/mux"
-	"blog/handler"
-	"blog/model"
-	"blog/repository"
-	"blog/router"
-	"blog/service"
 	"log"
-	"net/http"
+	"net"
+
+	grpcsrv "soa/blog/grpc"
+	"soa/blog/model"
+	"soa/blog/proto/blog"
+	"soa/blog/repository"
+	"soa/blog/service"
 	"time"
 
+	"google.golang.org/grpc"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -42,16 +44,27 @@ func main() {
 
 	db := initDB()
 
-	blogRepo := &repository.BlogRepositoryImpl{DbConnection: db}
-	blogService := &service.BlogService{BlogRepository: blogRepo}
-	blogHandler := &handler.BlogHandler{BlogService: blogService}
+blogRepo := &repository.BlogRepositoryImpl{DbConnection: db}
+commentRepo := &repository.CommentRepositoryImpl{DbConnection: db}
 
-	commentRepo := &repository.CommentRepositoryImpl{DbConnection: db}
-	commentService := &service.CommentService{CommentRepository: commentRepo}
-	commentHandler := &handler.CommentHandler{CommentService: commentService}
+// Servisi
+blogService := &service.BlogService{BlogRepository: blogRepo}
+commentService := &service.CommentService{CommentRepository: commentRepo}
 
-	router := router.SetupRouter(blogHandler, commentHandler)
-	log.Println("Server running on http://localhost:8082")
+// gRPC server
+lis, err := net.Listen("tcp", ":9090")
+if err != nil {
+	log.Fatalf("failed to listen: %v", err)
+}
 
-	log.Fatal(http.ListenAndServe(":8082", router))
+grpcServer := grpc.NewServer()
+blog.RegisterBlogServiceServer(grpcServer, &grpcsrv.Server{
+	BlogSvc:    blogService,
+	CommentSvc: commentService,
+})
+
+log.Println("Blog gRPC server started on :9090")
+if err := grpcServer.Serve(lis); err != nil {
+	log.Fatalf("failed to serve: %v", err)
+}
 }

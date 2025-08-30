@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"blog/model"
-	"blog/service"
 	"encoding/json"
 	"net/http"
+	"soa/blog/model"
+	"soa/blog/service"
 	"strconv"
 
 	"github.com/gorilla/mux"
