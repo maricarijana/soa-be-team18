@@ -16,7 +16,7 @@ public static class AuthConfiguration
 
     private static void ConfigureAuthentication(IServiceCollection services)
     {
-        var key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "explorer_secret_key";
+        var key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "explorer_secret_key-give-access-long";
         var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "explorer";
         var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "explorer-front.com";
 
@@ -54,7 +54,7 @@ public static class AuthConfiguration
         services.AddAuthorization(options =>
         {
             options.AddPolicy("administratorPolicy", policy => policy.RequireRole("administrator"));
-            options.AddPolicy("authorPolicy", policy => policy.RequireRole("author"));
+            options.AddPolicy("authorPolicy", policy => policy.RequireRole("guide"));
             options.AddPolicy("touristPolicy", policy => policy.RequireRole("tourist"));
         });
     }

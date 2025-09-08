@@ -33,14 +33,14 @@
   {
     "ContainingType": "Explorer.API.Controllers.Administrator.Administration.AccountController",
     "Method": "BlockUser",
-    "RelativePath": "api/administration/account/block",
+    "RelativePath": "api/administration/account/block/{accountId}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "account",
-        "Type": "Explorer.Stakeholders.API.Dtos.AccountDto",
+        "Name": "accountId",
+        "Type": "System.Int64",
         "IsRequired": true
       }
     ],

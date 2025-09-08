@@ -12,7 +12,7 @@ namespace Explorer.Stakeholders.Infrastructure.Authentication;
 
 public class JwtGenerator : ITokenGenerator
 {
-    private readonly string _key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "explorer_secret_key";   
+    private readonly string _key = Environment.GetEnvironmentVariable("JWT_KEY") ?? "explorer_secret_key-give-access-long";   
     private readonly string _issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "explorer";
     private readonly string _audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "explorer-front.com";
 

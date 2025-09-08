@@ -618,6 +618,7 @@
         "dependencies": {
           "Castle.Core": "5.1.1",
           "Explorer.BuildingBlocks.Core": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.5",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4"
         },
         "compile": {

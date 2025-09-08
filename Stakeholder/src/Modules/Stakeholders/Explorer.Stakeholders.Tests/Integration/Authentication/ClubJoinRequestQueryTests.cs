@@ -57,6 +57,14 @@
 //        }
 
 
+        
+//        private static ClubJoinRequestController CreateController(IServiceScope scope)
+//        {
+//            return new ClubJoinRequestController(scope.ServiceProvider.GetRequiredService<IClubJoinRequestService>())
+//            {
+//                ControllerContext = BuildContext("-1")
+//            };
+
 
 //        private static ClubJoinRequestController CreateController(IServiceScope scope)
 //        {

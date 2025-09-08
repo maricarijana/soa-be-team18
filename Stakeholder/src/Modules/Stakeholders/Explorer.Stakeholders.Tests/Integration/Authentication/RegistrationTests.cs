@@ -32,9 +32,9 @@ public class RegistrationTests : BaseStakeholdersIntegrationTest
             Name = "Žika",
             Surname = "Žikić",
             ProfilePicture = "zikilepi",
-            Biography ="lepota",
-            Motto="zivot je lep"
-};
+            Biography = "lepota",
+            Motto = "zivot je lep"
+        };
 
         // Act
         var authenticationResponse = ((ObjectResult)controller.RegisterTourist(account).Result).Value as AuthenticationTokensDto;
