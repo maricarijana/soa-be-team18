@@ -8,6 +8,7 @@ public class User : Entity
     public string Password { get; private set; }
     public UserRole Role { get; private set; }
     public bool IsActive { get; set; }
+    public User() { }
 
     public User(string username, string password, UserRole role, bool isActive)
     {

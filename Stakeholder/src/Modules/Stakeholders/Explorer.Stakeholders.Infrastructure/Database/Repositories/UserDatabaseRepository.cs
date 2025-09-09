@@ -1,5 +1,6 @@
 ﻿using Explorer.Stakeholders.Core.Domain;
 using Explorer.Stakeholders.Core.Domain.RepositoryInterfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Explorer.Stakeholders.Infrastructure.Database.Repositories;
 
@@ -57,4 +58,7 @@ public class UserDatabaseRepository : IUserRepository
             .Where(user => user.IsActive && user.Role == UserRole.Tourist)
             .ToList();
     }
+
+ 
+
 }

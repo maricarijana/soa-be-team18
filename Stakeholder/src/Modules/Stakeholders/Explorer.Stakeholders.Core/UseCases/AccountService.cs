@@ -61,22 +61,32 @@ namespace Explorer.Stakeholders.Core.UseCases
         }
 
 
-        public Result<AccountDto> BlockUser(AccountDto account)
+      
+        public Result<AccountDto> BlockUser(long accountId)
         {
-            if (!account.IsActive)
+
+            var user = _userRepository.Get(accountId);
+            if (user == null)
             {
-                return account;
+                return Result.Fail(new Error("User not found.").WithMetadata("status", 404));
             }
 
-            account.IsActive = false;
-            var updateResult = Update(account);
-
-            if (updateResult.IsSuccess)
+            if (!user.IsActive)
             {
-                return Result.Ok(account);
+                return MapToDto(user); 
             }
 
-            return Result.Fail(updateResult.Errors);
+            user.IsActive = false;
+            try
+            {
+                var updatedUser = _userRepository.Update(user);
+
+                return MapToDto(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                return Result.Fail($"An error occurred while updating the user: {ex.Message}");
+            }
         }
     }
 }
