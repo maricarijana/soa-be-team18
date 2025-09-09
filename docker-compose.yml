@@ -34,6 +34,7 @@ services:
       - "8090:8090" # REST API exposed ovde
     depends_on:
       - blog-service
+      - stakeholders-service
 
   stakeholders-service:
     build:
@@ -47,10 +48,13 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - database
+      #- database
+      database:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=stakeholders;Username=postgres;Password=super
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=stakeholders-service;Username=postgres;Password=super
 
   database:
     image: postgres:17
@@ -62,10 +66,16 @@ services:
       POSTGRES_DB: blog-service # inicijalna baza, ali možeš praviti više
     volumes:
       - db-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5433:5432"
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   db-data:

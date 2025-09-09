@@ -24,6 +24,8 @@ public class StakeholdersContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("stakeholders");
+        //modelBuilder.HasDefaultSchema("public");
+
 
         modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
        // modelBuilder.Entity<Problem>().HasIndex(p => p.Id).IsUnique();
