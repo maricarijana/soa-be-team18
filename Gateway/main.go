@@ -2,10 +2,16 @@ package main
 
 import (
 	"context"
+	"time"
+
+	// "gateway/proto/stakeholders"
 	"log"
 	"net"
 	"net/http"
 	"soa/blog/proto/blog"
+
+	stakeholders "gateway/proto/stakeholders"
+	// stakeholders "soa/blog/proto/stakeholders"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
@@ -43,6 +49,16 @@ func main() {
 		log.Fatalln("Failed to dial blog-service:", err)
 	}
 
+	// connStakeholders, err := grpc.DialContext(
+    //     context.Background(),
+    //     "stakeholders-service:80",
+    //     grpc.WithTransportCredentials(insecure.NewCredentials()),
+    //     grpc.WithBlock(),
+    // )
+    // if err != nil {
+    //     log.Fatalln("Failed to dial stakeholders-service:", err)
+    // }
+
 	// --- 3. REST gateway mux ---
 	gwmux := runtime.NewServeMux()
 
@@ -51,6 +67,55 @@ func main() {
 	if err != nil {
 		log.Fatalln("Failed to register blog gateway:", err)
 	}
+
+	// if err := stakeholders.RegisterStakeholdersServiceHandler(context.Background(), gwmux, connStakeholders); err != nil {
+    //     log.Fatalln("Failed to register stakeholders gateway:", err)
+    // }
+	// log.Println("Dialing stakeholders-service...")
+	// connStakeholders, err := grpc.DialContext(
+	// 	context.Background(),
+	// 	"stakeholders-service:80",
+	// 	grpc.WithTransportCredentials(insecure.NewCredentials()),
+	// 	grpc.WithBlock(),
+	// )
+	// if err != nil {
+	// 	log.Fatalln("Failed to dial stakeholders-service:", err)
+	// }
+	// log.Println("Dial OK, registering handler...")
+
+	// if err := stakeholders.RegisterStakeholdersServiceHandler(context.Background(), gwmux, connStakeholders); err != nil {
+	// 	log.Fatalln("Failed to register stakeholders gateway:", err)
+	// }
+	// log.Println("Stakeholders handler registered successfully")
+	log.Println("Dialing stakeholders-service...")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	connStakeholders, err := grpc.DialContext(
+		ctx,
+		"stakeholders-service:80",
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithBlock(),
+	)
+	if err != nil {
+		log.Printf("Failed to dial stakeholders-service: %v", err)
+	} else {
+		log.Println("Dial OK, registering handler...")
+		if err := stakeholders.RegisterStakeholdersServiceHandler(context.Background(), gwmux, connStakeholders); err != nil {
+			log.Printf("Failed to register stakeholders gateway: %v", err)
+		} else {
+			log.Println("Stakeholders handler registered successfully")
+		}
+	}
+
+	// log.Println("Dial OK, registering handler...")
+
+	// if err := stakeholders.RegisterStakeholdersServiceHandler(context.Background(), gwmux, connStakeholders); err != nil {
+	// 	log.Fatalln("Failed to register stakeholders gateway:", err)
+	// }
+
+
 
 	// 👉 ovde kasnije možeš dodati i druge servise:
 	// stakeholders.RegisterStakeholderServiceHandler(ctx, gwmux, conn2)

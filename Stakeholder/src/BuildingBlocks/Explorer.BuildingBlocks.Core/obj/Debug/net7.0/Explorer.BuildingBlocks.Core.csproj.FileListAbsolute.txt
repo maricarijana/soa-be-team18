@@ -11,3 +11,16 @@ C:\Users\Arijana\Documents\SOA\SOA-be\soa-be-team18\Stakeholder\src\BuildingBloc
 C:\Users\Arijana\Documents\SOA\SOA-be\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\refint\Explorer.BuildingBlocks.Core.dll
 C:\Users\Arijana\Documents\SOA\SOA-be\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.pdb
 C:\Users\Arijana\Documents\SOA\SOA-be\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\ref\Explorer.BuildingBlocks.Core.dll
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\bin\Debug\net7.0\Explorer.BuildingBlocks.Core.deps.json
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\bin\Debug\net7.0\Explorer.BuildingBlocks.Core.dll
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\bin\Debug\net7.0\Explorer.BuildingBlocks.Core.pdb
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.csproj.AssemblyReference.cache
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.AssemblyInfoInputs.cache
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.AssemblyInfo.cs
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.csproj.CoreCompileInputs.cache
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.sourcelink.json
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.dll
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\refint\Explorer.BuildingBlocks.Core.dll
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\Explorer.BuildingBlocks.Core.pdb
+C:\Users\PC\Documents\SOA\soa-be-team18\Stakeholder\src\BuildingBlocks\Explorer.BuildingBlocks.Core\obj\Debug\net7.0\ref\Explorer.BuildingBlocks.Core.dll

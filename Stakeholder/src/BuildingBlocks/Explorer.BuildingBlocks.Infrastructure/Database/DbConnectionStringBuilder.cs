@@ -4,9 +4,12 @@ public static class DbConnectionStringBuilder
 {
     public static string Build(string schemaName)
     {
-        var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+        //var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+        var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "database";
+        //var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5433";
         var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
-        var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "soa-stakeholders";
+        //var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "soa-stakeholders";
+        var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "stakeholders-service";
         var schema = Environment.GetEnvironmentVariable("DATABASE_SCHEMA_NAME") ?? schemaName;
         var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "postgres";
         var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "super";

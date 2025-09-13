@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj": {}
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj",
         "projectName": "Explorer.BuildingBlocks.Core",
-        "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj",
-        "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -83,20 +83,20 @@
         }
       }
     },
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj": {
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
         "projectName": "Explorer.BuildingBlocks.Infrastructure",
-        "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -111,8 +111,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj"
               }
             }
           }
@@ -178,20 +178,20 @@
         }
       }
     },
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj": {
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj",
         "projectName": "Explorer.API",
-        "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj",
-        "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\Explorer.API.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Explorer.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -206,11 +206,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj"
               },
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj"
               }
             }
           }
@@ -235,9 +235,31 @@
               "target": "Package",
               "version": "[1.2.1, )"
             },
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.26.1, )"
+            },
+            "Grpc.AspNetCore": {
+              "target": "Package",
+              "version": "[2.49.0, )"
+            },
+            "Grpc.Net.Client": {
+              "target": "Package",
+              "version": "[2.52.0, )"
+            },
+            "Grpc.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.62.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[7.0.20, )"
+            },
+            "Microsoft.AspNetCore.Grpc.JsonTranscoding": {
+              "target": "Package",
+              "version": "[7.0.17, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -281,20 +303,20 @@
         }
       }
     },
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj": {
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj",
         "projectName": "Explorer.Stakeholders.API",
-        "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj",
-        "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -309,8 +331,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj"
               }
             }
           }
@@ -350,20 +372,20 @@
         }
       }
     },
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj": {
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj",
         "projectName": "Explorer.Stakeholders.Core",
-        "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj",
-        "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -378,8 +400,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.API\\Explorer.Stakeholders.API.csproj"
               }
             }
           }
@@ -419,20 +441,20 @@
         }
       }
     },
-    "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj": {
+    "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
         "projectName": "Explorer.Stakeholders.Infrastructure",
-        "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -447,11 +469,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj"
               },
-              "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj": {
-                "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj"
+              "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj": {
+                "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj"
               }
             }
           }

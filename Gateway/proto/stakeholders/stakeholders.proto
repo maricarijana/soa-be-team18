@@ -1,0 +1,89 @@
+﻿syntax = "proto3";
+option go_package = "proto/stakeholders";
+
+option csharp_namespace = "GrpcServiceTranscoding";
+import "google/api/annotations.proto";
+
+package stakeholders;
+
+service StakeholdersService {
+	rpc Register (AccountRegistration) returns (User) {
+    option (google.api.http) = {
+      post: "/api/user/register"
+      body: "*"
+    };
+  }
+
+  rpc GetAllAccounts (PagedRequest) returns (AccountList) {
+    option (google.api.http) = {
+      get: "/api/administration/account"
+    };
+  }
+
+  rpc Login (Credentials) returns (AuthenticationTokens) {
+    option (google.api.http) = {
+      post: "/api/users/login"
+      body: "*"
+    };
+  }
+
+  rpc BlockUser (BlockRequest) returns (Account) {
+    option (google.api.http) = {
+      put: "/api/administration/account/block/{accountId}"
+      body: "*"
+    };
+  }
+}
+
+// The request message containing the user's name.
+message PagedRequest {
+  int32 page = 1;
+  int32 pageSize = 2;
+}
+
+message AccountList {
+  repeated Account accounts = 1;
+}
+
+message Account {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string role = 4;
+  bool isActive = 5;
+}
+
+message AccountRegistration {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+  string name = 4;
+  string surname = 5;
+  string profilePicture = 6;
+  string biography = 7;
+  string motto = 8;
+  double wallet = 9;
+  string imageBase64 = 10;
+  string role = 11;
+}
+
+message User {
+  int32 id = 1;
+  string username = 2;
+  bool isActive = 3;
+}
+
+message BlockRequest {
+  int64 accountId = 1;
+}
+
+message Credentials {
+  string username = 1;
+  string password = 2;
+}
+
+message AuthenticationTokens {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+

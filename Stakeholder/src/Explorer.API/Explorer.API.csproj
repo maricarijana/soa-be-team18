@@ -6,17 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>71f3e7c5-e594-4753-99c6-ccd49846f9ea</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<IncludeHttpRuleProtos>true</IncludeHttpRuleProtos>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Controllers\Folder\**" />
-    <Compile Remove="NewFolder\**" />
     <Content Remove="Controllers\Folder\**" />
-    <Content Remove="NewFolder\**" />
     <EmbeddedResource Remove="Controllers\Folder\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
     <None Remove="Controllers\Folder\**" />
-    <None Remove="NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,8 +34,21 @@
 		<ProjectReference Include="..\Modules\Stakeholders\Explorer.Stakeholders.Infrastructure\Explorer.Stakeholders.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+		<PackageReference Include="Google.Protobuf" Version="3.26.1" />
+		<PackageReference Include="Grpc.Net.Client" Version="2.52.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.62.0">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="7.0.17" />
+
+	</ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Scripts\Encounters\" />
+	<Protobuf Include="Protos\stakeholders.proto" />
+	<Folder Include="Scripts\Encounters\" />
     <Folder Include="wwwroot\images\clubs\" />
     <Folder Include="wwwroot\images\blogs\" />
     <Folder Include="wwwroot\images\encounters\" />
