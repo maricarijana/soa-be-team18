@@ -2,8 +2,10 @@ package service
 
 import (
 	"context"
+	"fmt"
 	"log"
 	follower "soa/follower/proto/follower"
+	stakeholders "soa/follower/proto/stakeholders"
 
 	"github.com/neo4j/neo4j-go-driver/v5/neo4j"
 )
@@ -12,33 +14,57 @@ import (
 type FollowerServer struct {
     follower.UnimplementedFollowerServiceServer
 	Driver neo4j.DriverWithContext
+	StakeholdersClient stakeholders.StakeholdersServiceClient
 }
 
-// FollowUser – trenutno samo testna implementacija
 func (s *FollowerServer) FollowUser(ctx context.Context, req *follower.FollowRequest) (*follower.FollowResponse, error) {
-	log.Printf("FollowUser: %d -> %d", req.FollowerId, req.FolloweeId)
+    log.Printf("FollowUser: %d -> %d", req.FollowerId, req.FolloweeId)
 
-	// primer upisa u Neo4j
-	session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite}) //otvaranje sesije (uvijek se pravi nova sesija za svaku operaciju) i biramo AccessMode WRITE kad upisujemo u bazu
-	defer session.Close(ctx)
+    // 1. Pozovi Stakeholders servis da dohvati sve naloge
+    accountsResp, err := s.StakeholdersClient.GetAllAccounts(ctx, &stakeholders.PagedRequest{Page: 1, PageSize: 1000})
+    if err != nil {
+        return nil, fmt.Errorf("failed to contact stakeholders service: %w", err)
+    }
 
-	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) { //radim transkaciju (query se izvrsava u write transaction i automatski retry ako nesto ne uspije)
-		_, err := tx.Run(ctx, //MERGE znači "nađi ako postoji, napravi ako ne postoji"
-			`MERGE (a:User {id: $followerId}) 
-			 MERGE (b:User {id: $followeeId})
-			 MERGE (a)-[:FOLLOWS]->(b)`,
-			map[string]any{
-				"followerId": req.FollowerId,
-				"followeeId": req.FolloweeId,
-			})
-		return nil, err
-	})
-	if err != nil {
-		return nil, err
-	}
+    // 2. Proveri da li oba ID-ja postoje u listi
+    followerExists := false
+    followeeExists := false
 
-	return &follower.FollowResponse{Message: "Follow saved in Neo4j"}, nil
+    for _, acc := range accountsResp.Accounts {
+        if acc.Id == req.FollowerId {
+            followerExists = true
+        }
+        if acc.Id == req.FolloweeId {
+            followeeExists = true
+        }
+    }
+
+    if !followerExists || !followeeExists {
+        return nil, fmt.Errorf("invalid user IDs: follower=%d, followee=%d", req.FollowerId, req.FolloweeId)
+    }
+
+    // 3. Ako postoje, upiši u Neo4j
+    session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
+    defer session.Close(ctx)
+
+    _, err = session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+        _, err := tx.Run(ctx,
+            `MERGE (a:User {id: $followerId})
+             MERGE (b:User {id: $followeeId})
+             MERGE (a)-[:FOLLOWS]->(b)`,
+            map[string]any{
+                "followerId": req.FollowerId,
+                "followeeId": req.FolloweeId,
+            })
+        return nil, err
+    })
+    if err != nil {
+        return nil, err
+    }
+
+    return &follower.FollowResponse{Message: "Follow saved in Neo4j"}, nil
 }
+
 
 func (s *FollowerServer) UnfollowUser(ctx context.Context, req *follower.FollowRequest) (*follower.FollowResponse, error) {
 	log.Printf("UnfollowUser: %d unfollows %d", req.FollowerId, req.FolloweeId)

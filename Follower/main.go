@@ -1,12 +1,16 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net"
 	"os"
 
 	"soa/follower/proto/follower"
+	stakeholders "soa/follower/proto/stakeholders"
 	"soa/follower/service"
+
+	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/neo4j/neo4j-go-driver/v5/neo4j"
 	"google.golang.org/grpc"
@@ -26,7 +30,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to connect to Neo4j: %v", err)
 	}
-	defer driver.Close(nil)
+	defer driver.Close(context.Background())
+
 
 	// --- 3. Pokreni gRPC server ---
 	lis, err := net.Listen("tcp", ":9091")
@@ -36,9 +41,19 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 
+	connStakeholders, err := grpc.DialContext(
+    context.Background(),
+    "stakeholders-service:80",
+    grpc.WithTransportCredentials(insecure.NewCredentials()),
+)
+if err != nil {
+    log.Fatalf("Failed to connect to stakeholders-service: %v", err)
+}
+	stakeholdersClient := stakeholders.NewStakeholdersServiceClient(connStakeholders)
 	// Prosledi driver u servis
 	follower.RegisterFollowerServiceServer(grpcServer, &service.FollowerServer{
 		Driver: driver,
+		StakeholdersClient: stakeholdersClient,
 	})
 
 	log.Println("Follower gRPC server started on :9091")
