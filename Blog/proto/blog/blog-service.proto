@@ -65,6 +65,19 @@ message CreateCommentResponse {
   Comment comment = 1;
 }
 
+message GetBlogsRequest {}
+message GetBlogsResponse {
+  repeated Blog blogs = 1;
+}
+
+message GetBlogByIdRequest {
+  int64 blog_id = 1;
+}
+
+message GetBlogByIdResponse {
+  Blog blog = 1;
+}
+
 service BlogService {
   rpc CreateBlog (CreateBlogRequest) returns (CreateBlogResponse) {
     option (google.api.http) = {
@@ -84,4 +97,17 @@ service BlogService {
       body: "*"
     };
   }
+  
+  rpc GetBlogs (GetBlogsRequest) returns (GetBlogsResponse) {
+    option (google.api.http) = {
+      get: "/api/blogs"
+    };
+  }
+
+  rpc GetBlogById (GetBlogByIdRequest) returns (GetBlogByIdResponse) {
+  option (google.api.http) = {
+    get: "/api/blog/{blog_id}"
+  };
+}
+
 }

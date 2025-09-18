@@ -101,3 +101,27 @@ func (s *Server) CreateComment(ctx context.Context, req *blog.CreateCommentReque
 		},
 	}, nil
 }
+
+func (s *Server) GetBlogs(ctx context.Context, req *blog.GetBlogsRequest) (*blog.GetBlogsResponse, error) {
+	blogs, err := s.BlogSvc.BlogRepository.GetAll()
+	if err != nil {
+		return nil, err
+	}
+
+	var protoBlogs []*blog.Blog
+	for _, m := range blogs {
+		protoBlogs = append(protoBlogs, toProtoBlog(&m))
+	}
+
+	return &blog.GetBlogsResponse{Blogs: protoBlogs}, nil
+}
+
+func (s *Server) GetBlogById(ctx context.Context, req *blog.GetBlogByIdRequest) (*blog.GetBlogByIdResponse, error) {
+	m, err := s.BlogSvc.BlogRepository.GetByID(req.BlogId)
+	if err != nil {
+		return nil, err
+	}
+
+	return &blog.GetBlogByIdResponse{Blog: toProtoBlog(m)}, nil
+}
+

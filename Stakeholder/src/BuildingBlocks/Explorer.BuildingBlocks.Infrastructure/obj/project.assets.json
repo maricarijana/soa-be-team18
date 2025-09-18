@@ -1362,23 +1362,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PC\\.nuget\\packages\\": {},
+    "C:\\Users\\Arijana\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
       "projectName": "Explorer.BuildingBlocks.Infrastructure",
-      "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1393,8 +1393,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
-              "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj"
+            "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj": {
+              "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Core\\Explorer.BuildingBlocks.Core.csproj"
             }
           }
         }
