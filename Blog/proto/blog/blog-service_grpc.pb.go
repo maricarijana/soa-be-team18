@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.32.0
-// source: blog/blog-service.proto
+// source: proto/blog/blog-service.proto
 
 package blog
 
@@ -269,5 +269,5 @@ var BlogService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "blog/blog-service.proto",
+	Metadata: "proto/blog/blog-service.proto",
 }
