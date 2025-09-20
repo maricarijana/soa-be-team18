@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"soa/blog/model"
 	"soa/blog/service"
-	"strconv"
 
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type CommentHandler struct {
@@ -20,7 +20,7 @@ func (h *CommentHandler) Create(w http.ResponseWriter, r *http.Request) {
 	// Uzmi blogId iz URL-a
 	vars := mux.Vars(r)
 	blogIdStr := vars["blogId"]
-	blogId, err := strconv.ParseInt(blogIdStr, 10, 64)
+	blogId, err := primitive.ObjectIDFromHex(blogIdStr)
 	if err != nil {
 		http.Error(w, "Invalid blog ID", http.StatusBadRequest)
 		return

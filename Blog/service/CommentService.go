@@ -4,6 +4,8 @@ import (
 	"soa/blog/model"
 	"soa/blog/repository"
 	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type CommentService struct {
@@ -14,12 +16,12 @@ func (service *CommentService) Create(comment *model.Comment) error {
 	return service.CommentRepository.Create(comment)
 }
 
-func (service *CommentService) GetByID(id int64) (*model.Comment, error) {
+func (service *CommentService) GetByID(id primitive.ObjectID) (*model.Comment, error) {
 	return service.CommentRepository.GetByID(id)
 }
 
 
-func (service *CommentService) GetByBlogID(blogId int64) ([]model.Comment, error) {
+func (service *CommentService) GetByBlogID(blogId primitive.ObjectID) ([]model.Comment, error) {
 	return service.CommentRepository.GetByBlogID(blogId)
 }
 
@@ -33,6 +35,6 @@ func (service *CommentService) Update(comment *model.Comment) error {
 	return service.CommentRepository.Update(comment)
 }
 
-func (service *CommentService) Delete(id int64) error {
+func (service *CommentService) Delete(id primitive.ObjectID) error {
 	return service.CommentRepository.Delete(id)
 }

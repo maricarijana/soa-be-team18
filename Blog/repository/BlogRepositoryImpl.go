@@ -1,42 +1,56 @@
 package repository
 
 import (
-	"log"
+	"context"
 	"soa/blog/model"
 
-	"gorm.io/gorm"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 type BlogRepositoryImpl struct {
-	DbConnection *gorm.DB
+	Collection *mongo.Collection
 }
 
 func (r *BlogRepositoryImpl) Create(blog *model.Blog) error {
-	result := r.DbConnection.Create(blog)
-    log.Printf("[DB DEBUG] RowsAffected=%d Error=%v", result.RowsAffected, result.Error)
-    return result.Error
+	_, err := r.Collection.InsertOne(context.TODO(), blog)
+	return err
 }
 
-func (r *BlogRepositoryImpl) GetByID(id int64) (*model.Blog, error) {
+func (r *BlogRepositoryImpl) GetByID(id  primitive.ObjectID) (*model.Blog, error) {
+	filter := bson.D{{Key: "_id", Value: id}}
 	var blog model.Blog
-	if err := r.DbConnection.Preload("Comments").First(&blog, id).Error; err != nil {
+	err := r.Collection.FindOne(context.TODO(), filter).Decode(&blog)
+	if err != nil {
 		return nil, err
 	}
 	return &blog, nil
 }
 
 func (r *BlogRepositoryImpl) GetAll() ([]model.Blog, error) {
+	cur, err := r.Collection.Find(context.TODO(), bson.D{})
+	if err != nil {
+		return nil, err
+	}
+	defer cur.Close(context.TODO())
+
 	var blogs []model.Blog
-	if err := r.DbConnection.Preload("Comments").Find(&blogs).Error; err != nil {
+	if err := cur.All(context.TODO(), &blogs); err != nil {
 		return nil, err
 	}
 	return blogs, nil
 }
 
 func (r *BlogRepositoryImpl) Update(blog *model.Blog) error {
-	return r.DbConnection.Save(blog).Error
+	filter := bson.D{{Key: "_id", Value: blog.ID}}
+	update := bson.D{{Key: "$set", Value: blog}}
+	_, err := r.Collection.UpdateOne(context.TODO(), filter, update)
+	return err
 }
 
 func (r *BlogRepositoryImpl) Delete(id int64) error {
-	return r.DbConnection.Delete(&model.Blog{}, id).Error
+	filter := bson.D{{Key: "_id", Value: id}}
+	_, err := r.Collection.DeleteOne(context.TODO(), filter)
+	return err
 }

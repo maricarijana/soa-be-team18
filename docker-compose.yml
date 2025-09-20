@@ -13,13 +13,9 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - database
+      - mongo
     environment:
-      - DB_HOST=database
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=super
-      - DB_NAME=blog-service
+      - MONGODB_URI=mongo:27017
 
   gateway-service:
     build:
@@ -105,9 +101,30 @@ services:
       - "7474:7474"   # web interfejs
       - "7687:7687"   # bolt konekcija
     environment:
-      - NEO4J_AUTH=neo4j/super1234  # username=neo4j, password=super
+      - NEO4J_AUTH=neo4j/super1234  # username=neo4j, password=super1234
     volumes:
       - neo4j-data:/data
+
+  mongo:
+    image: mongo:6
+    container_name: mongo-db
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - app-network
+
 
 volumes:
   db-data:
