@@ -11,6 +11,7 @@ import (
 	"soa/blog/proto/blog"
 
 	stakeholders "gateway/proto/stakeholders"
+	//tours  "gateway//proto/tours"
 	// stakeholders "soa/blog/proto/stakeholders"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -41,7 +42,7 @@ func main() {
 	// --- 2. Kreiramo gRPC konekciju (client) ---
 	conn, err := grpc.DialContext(
 		context.Background(),
-		"blog-service:9090", 
+		"blog-service:9090",
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithBlock(),
 	)
@@ -50,14 +51,14 @@ func main() {
 	}
 
 	// connStakeholders, err := grpc.DialContext(
-    //     context.Background(),
-    //     "stakeholders-service:80",
-    //     grpc.WithTransportCredentials(insecure.NewCredentials()),
-    //     grpc.WithBlock(),
-    // )
-    // if err != nil {
-    //     log.Fatalln("Failed to dial stakeholders-service:", err)
-    // }
+	//     context.Background(),
+	//     "stakeholders-service:80",
+	//     grpc.WithTransportCredentials(insecure.NewCredentials()),
+	//     grpc.WithBlock(),
+	// )
+	// if err != nil {
+	//     log.Fatalln("Failed to dial stakeholders-service:", err)
+	// }
 
 	// --- 3. REST gateway mux ---
 	gwmux := runtime.NewServeMux()
@@ -69,8 +70,8 @@ func main() {
 	}
 
 	// if err := stakeholders.RegisterStakeholdersServiceHandler(context.Background(), gwmux, connStakeholders); err != nil {
-    //     log.Fatalln("Failed to register stakeholders gateway:", err)
-    // }
+	//     log.Fatalln("Failed to register stakeholders gateway:", err)
+	// }
 	// log.Println("Dialing stakeholders-service...")
 	// connStakeholders, err := grpc.DialContext(
 	// 	context.Background(),
@@ -114,8 +115,6 @@ func main() {
 	// if err := stakeholders.RegisterStakeholdersServiceHandler(context.Background(), gwmux, connStakeholders); err != nil {
 	// 	log.Fatalln("Failed to register stakeholders gateway:", err)
 	// }
-
-
 
 	// 👉 ovde kasnije možeš dodati i druge servise:
 	// stakeholders.RegisterStakeholderServiceHandler(ctx, gwmux, conn2)
