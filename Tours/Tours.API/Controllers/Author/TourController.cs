@@ -8,8 +8,8 @@ using FluentResults;
 
 namespace Tours.API.Controllers.Author
 {
-    [Authorize(Policy = "authorPolicy")]
-    [Route("api/author/tour")]
+    //[Authorize(Policy = "authorPolicy")]
+    [Route("api/tours")]
     public class TourController : BaseApiController
     {
         private readonly ITourService _tourService;
