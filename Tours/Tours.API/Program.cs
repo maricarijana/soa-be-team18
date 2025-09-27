@@ -15,8 +15,8 @@ builder.WebHost.ConfigureKestrel(options =>
 
 });
 // Add services to the container.
-builder.Services.AddDbContext<ToursContext>(options =>
-    options.UseNpgsql(DbConnectionStringBuilder.Build("tours")));
+//builder.Services.AddDbContext<ToursContext>(options =>
+//    options.UseNpgsql(DbConnectionStringBuilder.Build("tours")));
 
 
 builder.Services.AddControllers();

@@ -50,9 +50,9 @@ public static class ToursStartup
 
 
         services.AddScoped<ITourRepository, TourRepository>();
-        //services.AddScoped<IKeyPointRepository, KeyPointRepository>();
+        services.AddScoped<IKeyPointRepository, KeyPointRepository>();
 
-    
+
 
         services.AddDbContext<ToursContext>(opt =>
             opt.UseNpgsql(DbConnectionStringBuilder.Build("tours"),

@@ -2,7 +2,7 @@
 using Tours.Core.Domain.RepositoryInterfaces;
 using Tours.Infrastructure.Database;
 
-namespace Explorer.Tours.Infrastructure.Database.Repositories
+namespace Tours.Infrastructure.Database.Repositories
 {
     public class KeyPointRepository : IKeyPointRepository
     {
@@ -15,8 +15,8 @@ namespace Explorer.Tours.Infrastructure.Database.Repositories
 
         public List<KeyPoint> GetKeyPointsByUserId(long userId)
         {
-         
-            
+
+
             return _dbContext.KeyPoints
                          .Where(kp => kp.UserId == userId)
                          .ToList();
