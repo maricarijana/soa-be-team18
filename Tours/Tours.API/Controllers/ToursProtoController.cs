@@ -25,16 +25,33 @@ namespace Tours.API.Controllers
 
             var dto = new TourDto
             {
+                //Name = request.Name,
+                //Description = request.Description,
+                //Difficulty = request.Difficulty,
+                //Tags = null,
+                //Status = 0,
+                //Price = 0,
+                //UserId = request.UserId,
+                //LengthInKm = 0,
+                //PublishedTime = DateTime.Now,
+                //ArchiveTime = DateTime.Now,
                 Name = request.Name,
                 Description = request.Description,
                 Difficulty = request.Difficulty,
-                Tags = null,
-                Status = 0,
-                Price = 0,
+                Tags = request.Tags
+    .Select(t => Enum.TryParse<TourTags>(t, true, out var tag) ? tag : default)
+    .ToList(),
+
+                Status = (TourStatus)(int.TryParse(request.Status, out var status) ? status : 0), // ako status u requestu šalješ kao string
+                Price = request.Price,
                 UserId = request.UserId,
-                LengthInKm = 0,
-                PublishedTime = DateTime.Now,
-                ArchiveTime = DateTime.Now,
+                LengthInKm = request.LengthInKm,
+                PublishedTime = !string.IsNullOrEmpty(request.PublishedTime)
+                        ? DateTime.SpecifyKind(DateTime.Parse(request.PublishedTime), DateTimeKind.Utc)
+                        : DateTime.UtcNow,
+                ArchiveTime = !string.IsNullOrEmpty(request.ArchiveTime)
+                        ? DateTime.SpecifyKind(DateTime.Parse(request.ArchiveTime), DateTimeKind.Utc)
+                        : DateTime.UtcNow
             };
 
             var result = _tourService.Create(dto);
@@ -46,17 +63,29 @@ namespace Tours.API.Controllers
 
             return Task.FromResult(new Tour
             {
+                //Id = result.Value.Id,
+                //Name = result.Value.Name,
+                //Description = result.Value.Description,
+                //Difficulty = result.Value.Difficulty,
+                //Tags = {  },
+                //Status = " ",
+                //Price = (double)result.Value.Price,
+                //UserId = result.Value.UserId,
+                //LengthInKm = (double)result.Value.LengthInKm,
+                //PublishedTime = " ",
+                //ArchiveTime = " "
                 Id = result.Value.Id,
                 Name = result.Value.Name,
                 Description = result.Value.Description,
                 Difficulty = result.Value.Difficulty,
-                Tags = {  },
-                Status = " ",
+                Tags = { result.Value.Tags?.Select(t => t.ToString()) ?? new List<string>() },
+
+                Status = result.Value.Status.ToString(),
                 Price = (double)result.Value.Price,
                 UserId = result.Value.UserId,
                 LengthInKm = (double)result.Value.LengthInKm,
-                PublishedTime = " ",
-                ArchiveTime = " "
+                PublishedTime = result.Value.PublishedTime.ToString("o"), // ISO 8601 format
+                ArchiveTime = result.Value.ArchiveTime.ToString("o")
             });
         }
 

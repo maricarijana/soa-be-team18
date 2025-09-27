@@ -11,7 +11,8 @@ import (
 	"soa/blog/proto/blog"
 
 	stakeholders "gateway/proto/stakeholders"
-	//tours  "gateway//proto/tours"
+	tours "gateway/proto/tours"
+
 	// stakeholders "soa/blog/proto/stakeholders"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -120,6 +121,25 @@ func main() {
 	// stakeholders.RegisterStakeholderServiceHandler(ctx, gwmux, conn2)
 	// orders.RegisterOrderServiceHandler(ctx, gwmux, conn3)
 	// itd.
+
+	//TOURS SERVICE
+
+	connTours, err := grpc.DialContext(
+		ctx,
+		"tours-service:90", // ime servisa iz docker-compose i port na kojem sluša
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithBlock(),
+	)
+	if err != nil {
+		log.Printf("Failed to dial tours-service: %v", err)
+	} else {
+		log.Println("Dial OK, registering handler for tours...")
+		if err := tours.RegisterToursServiceHandler(context.Background(), gwmux, connTours); err != nil {
+			log.Printf("Failed to register tours gateway: %v", err)
+		} else {
+			log.Println("Tours handler registered successfully")
+		}
+	}
 
 	// --- 4. Start REST server ---
 	gwServer := &http.Server{

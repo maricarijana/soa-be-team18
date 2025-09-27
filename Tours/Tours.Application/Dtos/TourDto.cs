@@ -75,6 +75,8 @@ namespace Tours.Application.Dtos
 
 
         }
+
+
     }
 
     public enum TourStatus
