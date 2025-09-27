@@ -2,23 +2,23 @@
 {
     public class Tour : Entity
     {
-        public string Name { get; private set; }
-        public string? Description { get; private set; }
+        public string Name { get;  set; }
+        public string? Description { get;  set; }
 
-        public string? Difficulty { get; private set; }
+        public string? Difficulty { get;  set; }
 
-        public List<TourTags> Tags { get; private set; }
-        public TourStatus Status { get; private set; }
-        public double Price { get; private set; }
-        public long UserId { get; private set; }
+        public List<TourTags> Tags { get;  set; }
+        public TourStatus Status { get;  set; }
+        public double Price { get;  set; }
+        public long UserId { get;  set; }
 
-        public double LengthInKm { get; private set; }
+        public double LengthInKm { get;  set; }
 
-        public DateTime PublishedTime { get; private set; }
+        public DateTime PublishedTime { get; set; }
 
-        public DateTime? ArchiveTime { get; private set; }
+        public DateTime? ArchiveTime { get; set; }
 
-        public List<long> EquipmentIds { get; private set; }
+        public List<long> EquipmentIds { get; set; }
 
         public ICollection<KeyPoint> KeyPoints { get; private set; } = new List<KeyPoint>();
 
@@ -43,6 +43,10 @@
             EquipmentIds = new List<long>();
 
 
+        }
+
+        public Tour()
+        {
         }
 
         public void Archive(long authorId)
