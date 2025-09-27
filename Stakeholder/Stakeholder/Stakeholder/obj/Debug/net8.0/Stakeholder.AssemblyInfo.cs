@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Stakeholder")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bcd1658a6c2e43fda89643488c4691363d0b39fc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+061094f1905d7336e9a8c837d38b20e00afef680")]
 [assembly: System.Reflection.AssemblyProductAttribute("Stakeholder")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Stakeholder")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
