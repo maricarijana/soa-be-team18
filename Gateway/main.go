@@ -139,6 +139,12 @@ func main() {
 		} else {
 			log.Println("Tours handler registered successfully")
 		}
+		
+		if err := tours.RegisterKeyPointServiceHandler(context.Background(), gwmux, connTours); err != nil {
+        log.Printf("Failed to register keypoints gateway: %v", err)
+    	} else {
+        log.Println("KeyPoints handler registered successfully")
+    	}
 	}
 
 	// --- 4. Start REST server ---

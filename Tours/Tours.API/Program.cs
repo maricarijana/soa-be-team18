@@ -18,6 +18,7 @@ builder.WebHost.ConfigureKestrel(options =>
 //builder.Services.AddDbContext<ToursContext>(options =>
 //    options.UseNpgsql(DbConnectionStringBuilder.Build("tours")));
 
+builder.WebHost.UseWebRoot("wwwroot");
 
 builder.Services.AddControllers();
 builder.Services.ConfigureSwagger(builder.Configuration);
@@ -60,6 +61,9 @@ app.MapControllers();
 
 app.MapGrpcService<ToursProtoController>();
 Console.WriteLine("Stakeholders gRPC service mapped: StakeholdersProtoController");
+app.MapGrpcService<KeyPointProtoController>();
+Console.WriteLine("KeyPoint gRPC service mapped: KeyPointProtoController");
+
 
 
 var connStr = builder.Configuration.GetConnectionString("DefaultConnection");

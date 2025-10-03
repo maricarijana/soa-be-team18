@@ -9,7 +9,21 @@ package tours;
 service ToursService {
   // Dodavanje ture
   rpc AddTour (AddTourRequest) returns (Tour);
+  rpc GetToursByUser (GetToursByUserRequest) returns (GetToursByUserResponse);
 }
+
+service KeyPointService {
+  rpc AddKeyPoint (AddKeyPointRequest) returns (KeyPoint);
+
+  rpc UpdateKeyPoint (KeyPoint) returns (KeyPoint);
+
+  rpc DeleteKeyPoint (DeleteKeyPointRequest) returns (DeleteKeyPointResponse);
+
+  rpc GetKeyPointsByUser (GetKeyPointsByUserRequest) returns (GetKeyPointsByUserResponse);
+
+  rpc GetKeyPointById (GetKeyPointByIdRequest) returns (KeyPoint);
+}
+
 
 message Tour {
   int64 id = 1;
@@ -37,3 +51,54 @@ message AddTourRequest {
   string publishedTime = 9;
   string archiveTime = 10;
 }
+
+message GetToursByUserRequest {
+  int64 userId = 1;
+}
+
+message GetToursByUserResponse {
+  repeated Tour tours = 1;
+}
+
+message KeyPoint {
+  int64 id = 1;
+  string name = 2;
+  double longitude = 3;
+  double latitude = 4;
+  string description = 5;
+  string image = 6;
+  string imageBase64 = 7;
+  int64 tourId = 8;
+  int32 publicStatus = 9;
+}
+
+message AddKeyPointRequest {
+  string name = 1;
+  double longitude = 2;
+  double latitude = 3;
+  string description = 4;
+  string imageBase64 = 5;
+  int64 tourId = 6;
+  int32 publicStatus = 7;
+}
+
+message DeleteKeyPointRequest {
+  int64 id = 1;
+}
+message DeleteKeyPointResponse {
+  bool success = 1;
+}
+
+message GetKeyPointsByUserRequest {
+  int64 userId = 1;
+}
+message GetKeyPointsByUserResponse {
+  repeated KeyPoint keyPoints = 1;
+}
+
+message GetKeyPointByIdRequest {
+  int64 id = 1;
+}
+
+
+

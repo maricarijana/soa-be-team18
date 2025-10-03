@@ -8,6 +8,7 @@ using Tours.Core.UseCases.Author;
 using Tours.Core.Domain;
 using Tours.Core.Domain.RepositoryInterfaces;
 using AutoMapper;
+using Tours.Core.UseCases;
 
 
 namespace Tours.Infrastructure;
@@ -25,16 +26,17 @@ public static class ToursStartup
 
     private static void SetupCore(IServiceCollection services)
     {
-      
-        //services.AddScoped<IKeyPointService, KeyPointService>();
+
+        services.AddScoped<IKeyPointService, KeyPointService>();
         services.AddScoped<ITourService, TourService>();
         //services.AddScoped<IObjectService, ObjectService>();
 
         services.AddScoped<ITourOverviewService, TourOverviewService>();
+        services.AddScoped<ITourReviewService, TourReviewService>();
 
-        
 
-       // services.AddScoped<IImageService, ImageService>();
+
+        services.AddScoped<IImageService, ImageService>();
 
 
 
@@ -44,13 +46,14 @@ public static class ToursStartup
     {
        // services.AddScoped(typeof(ICrudRepository<Equipment>), typeof(CrudDatabaseRepository<Equipment, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<KeyPoint>), typeof(CrudDatabaseRepository<KeyPoint, ToursContext>));
-
+        services.AddScoped(typeof(ICrudRepository<TourReview>), typeof(CrudDatabaseRepository<TourReview, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<Tour>), typeof(CrudDatabaseRepository<Tour, ToursContext>));
         //services.AddScoped(typeof(ICrudRepository<Core.Domain.Object>), typeof(CrudDatabaseRepository<Core.Domain.Object, ToursContext>));
 
 
         services.AddScoped<ITourRepository, TourRepository>();
         services.AddScoped<IKeyPointRepository, KeyPointRepository>();
+        services.AddScoped<ITourReviewRepository, TourReviewRepository>();
 
 
 
