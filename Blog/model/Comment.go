@@ -1,13 +1,19 @@
 package model
 
-import "time"
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+
 
 type Comment struct {
-	ID        int64     `json:"id" gorm:"primaryKey"`
+	ID primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
 	Text      string    `json:"text"`
 	CreatedAt time.Time `json:"createdAt"`
 	UpdatedAt time.Time `json:"updatedAt"`
 	UserId    int64     `json:"userId"`
-	BlogId    int64     `json:"blogId"`
+	BlogId primitive.ObjectID `json:"blogId" bson:"blogId"`
 	Username  string    `json:"username"`
 }

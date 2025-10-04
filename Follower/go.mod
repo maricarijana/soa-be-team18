@@ -1,18 +1,12 @@
-module gateway
+module soa/follower
 
 go 1.24.5
 
 require (
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.2
-	google.golang.org/genproto/googleapis/api v0.0.0-20250818200422-3122310a409c
+	github.com/neo4j/neo4j-go-driver/v5 v5.28.3
 	google.golang.org/grpc v1.75.1
-	google.golang.org/protobuf v1.36.8
-	soa/blog v0.0.0
+	google.golang.org/protobuf v1.36.7
 )
-
-replace soa/blog => ../Blog
-
-replace soa/follower => ../Follower
 
 require (
 	golang.org/x/net v0.41.0 // indirect

@@ -8,6 +8,7 @@ import (
 	"soa/blog/proto/blog"
 	"soa/blog/service"
 
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -20,7 +21,7 @@ type Server struct {
 // --------- helpers: model -> proto ---------
 func toProtoBlog(m *model.Blog) *blog.Blog {
 	p := &blog.Blog{
-		Id:          m.ID,
+		Id:          m.ID.Hex(),
 		Title:       m.Title,
 		Description: m.Description,
 		ImageUrl:    m.ImageUrl,
@@ -45,8 +46,8 @@ func toProtoBlog(m *model.Blog) *blog.Blog {
 	// Comments
 	for _, c := range m.Comments {
 		pc := &blog.Comment{
-			Id:        c.ID,
-			BlogId:    c.BlogId,
+			Id:        c.ID.Hex(),
+			BlogId:    c.BlogId.Hex(),
 			Author:    c.Username,
 			Text:      c.Text,
 			CreatedAt: timestamppb.New(c.CreatedAt),
@@ -74,30 +75,76 @@ func (s *Server) CreateBlog(ctx context.Context, req *blog.CreateBlogRequest) (*
 }
 
 func (s *Server) LikeBlog(ctx context.Context, req *blog.LikeBlogRequest) (*blog.Blog, error) {
-	if err := s.BlogSvc.LikeBlog(req.BlogId, req.UserId); err != nil {
-		return nil, err
-	}
-	// po želji: dohvat iz repo-a da vratiš sve podatke
-	updated := &model.Blog{ID: req.BlogId}
-	return toProtoBlog(updated), nil
+    objID, err := primitive.ObjectIDFromHex(req.BlogId) // konverzija string → ObjectID
+    if err != nil {
+        return nil, err
+    }
+
+    if err := s.BlogSvc.LikeBlog(objID, req.UserId); err != nil {
+        return nil, err
+    }
+
+    updated, err := s.BlogSvc.BlogRepository.GetByID(objID)
+    if err != nil {
+        return nil, err
+    }
+    return toProtoBlog(updated), nil
 }
 
 func (s *Server) CreateComment(ctx context.Context, req *blog.CreateCommentRequest) (*blog.CreateCommentResponse, error) {
-	c := &model.Comment{
-		BlogId: req.BlogId,
-		Username: req.Author,
-		Text:   req.Text,
-	}
-	if err := s.CommentSvc.Create(c); err != nil {
+    objID, err := primitive.ObjectIDFromHex(req.BlogId)
+    if err != nil {
+        return nil, err
+    }
+
+    c := &model.Comment{
+        BlogId:   objID,
+        Username: req.Author,
+        Text:     req.Text,
+		CreatedAt: time.Now(),
+    }
+
+    if err := s.CommentSvc.Create(c); err != nil {
+        return nil, err
+    }
+
+    return &blog.CreateCommentResponse{
+        Comment: &blog.Comment{
+            Id:        c.ID.Hex(),
+            BlogId:    c.BlogId.Hex(),
+            Author:    c.Username,
+            Text:      c.Text,
+            CreatedAt: timestamppb.New(c.CreatedAt),
+        },
+    }, nil
+}
+
+
+func (s *Server) GetBlogs(ctx context.Context, req *blog.GetBlogsRequest) (*blog.GetBlogsResponse, error) {
+	blogs, err := s.BlogSvc.BlogRepository.GetAll()
+	if err != nil {
 		return nil, err
 	}
-	return &blog.CreateCommentResponse{
-		Comment: &blog.Comment{
-			Id:        c.ID,
-			BlogId:    c.BlogId,
-			Author:    c.Username,
-			Text:      c.Text,
-			CreatedAt: timestamppb.New(c.CreatedAt),
-		},
-	}, nil
+
+	var protoBlogs []*blog.Blog
+	for _, m := range blogs {
+		protoBlogs = append(protoBlogs, toProtoBlog(&m))
+	}
+
+	return &blog.GetBlogsResponse{Blogs: protoBlogs}, nil
+}
+
+func (s *Server) GetBlogById(ctx context.Context, req *blog.GetBlogByIdRequest) (*blog.GetBlogByIdResponse, error) {
+    objID, err := primitive.ObjectIDFromHex(req.BlogId)
+    if err != nil {
+        return nil, err
+    }
+
+    // Pozivamo servisnu metodu koja dohvaća i blog i njegove komentare
+    m, err := s.BlogSvc.GetByIDWithComments(objID)
+    if err != nil {
+        return nil, err
+    }
+
+    return &blog.GetBlogByIdResponse{Blog: toProtoBlog(m)}, nil
 }

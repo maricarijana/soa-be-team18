@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	follower "gateway/proto/follower"
 	"time"
 
 	// "gateway/proto/stakeholders"
+	//stakeholders "gateway/proto/stakeholders"
 	"log"
 	"net"
 	"net/http"
@@ -20,6 +22,21 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
+// CORS middleware
+func withCORS(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:4200") // Angular app
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+
+		h.ServeHTTP(w, r)
+	})
+}
 func main() {
 	// --- 1. Startujemo gRPC server ---
 	grpcLis, err := net.Listen("tcp", ":8080")
@@ -91,7 +108,7 @@ func main() {
 	// log.Println("Stakeholders handler registered successfully")
 	log.Println("Dialing stakeholders-service...")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
 
 	connStakeholders, err := grpc.DialContext(
@@ -109,6 +126,22 @@ func main() {
 		} else {
 			log.Println("Stakeholders handler registered successfully")
 		}
+	}
+
+	connFollower, err := grpc.DialContext(
+		context.Background(),
+		"follower-service:9091", // ime servisa iz docker-compose + port
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithBlock(),
+	)
+	if err != nil {
+		log.Fatalln("Failed to dial follower-service:", err)
+	}
+
+	// Registruj Follower REST handler
+	err = follower.RegisterFollowerServiceHandler(context.Background(), gwmux, connFollower)
+	if err != nil {
+		log.Fatalln("Failed to register follower gateway:", err)
 	}
 
 	// log.Println("Dial OK, registering handler...")
@@ -143,8 +176,8 @@ func main() {
 
 	// --- 4. Start REST server ---
 	gwServer := &http.Server{
-		Addr:    ":8090", // REST ulazni port
-		Handler: gwmux,
+		Addr:    ":8090",
+		Handler: withCORS(gwmux),
 	}
 
 	log.Println("Serving gRPC-Gateway on http://0.0.0.0:8090")

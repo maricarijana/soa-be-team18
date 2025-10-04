@@ -13,7 +13,7 @@ enum BlogStatus {
 }
 
 message Blog {
-  int64 id = 1;
+  string id = 1;
   string title = 2;
   string description = 3;
   google.protobuf.Timestamp created_at = 4;
@@ -32,8 +32,8 @@ message Rating {
 }
 
 message Comment {
-  int64 id = 1;
-  int64 blog_id = 2;
+  string id = 1;
+  string blog_id = 2;
   string author = 3;
   string text = 4;
   google.protobuf.Timestamp created_at = 5;
@@ -51,18 +51,31 @@ message CreateBlogResponse {
 }
 
 message LikeBlogRequest {
-  int64 blog_id = 1;
+  string blog_id = 1;
   int64 user_id = 2;
 }
 message LikeBlogResponse { string message = 1; } 
 
 message CreateCommentRequest {
-  int64 blog_id = 1;
+  string blog_id = 1;
   string author = 2;
   string text = 3;
 }
 message CreateCommentResponse {
   Comment comment = 1;
+}
+
+message GetBlogsRequest {}
+message GetBlogsResponse {
+  repeated Blog blogs = 1;
+}
+
+message GetBlogByIdRequest {
+  string blog_id = 1;
+}
+
+message GetBlogByIdResponse {
+  Blog blog = 1;
 }
 
 service BlogService {
@@ -84,4 +97,17 @@ service BlogService {
       body: "*"
     };
   }
+  
+  rpc GetBlogs (GetBlogsRequest) returns (GetBlogsResponse) {
+    option (google.api.http) = {
+      get: "/api/blogs"
+    };
+  }
+
+  rpc GetBlogById (GetBlogByIdRequest) returns (GetBlogByIdResponse) {
+  option (google.api.http) = {
+    get: "/api/blog/{blog_id}"
+  };
+}
+
 }
