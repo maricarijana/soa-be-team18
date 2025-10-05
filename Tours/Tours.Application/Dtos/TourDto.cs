@@ -20,7 +20,7 @@ namespace Tours.Application.Dtos
         public long UserId { get; set; }
         public double LengthInKm { get; set; }
         public DateTime PublishedTime { get; set; }
-        public DateTime ArchiveTime { get; set; }
+        public DateTime? ArchiveTime { get; set; }
         public List<long> EquipmentIds { get; set; }
         public ICollection<KeyPointDto> KeyPoints { get; set; } = new List<KeyPointDto>();
 

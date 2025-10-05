@@ -27,10 +27,10 @@ public class ToursContext : DbContext
         //  .HasIndex(ps => ps.TouristId)
         //  .IsUnique();
 
-        modelBuilder.Entity<Tour>()
-          .HasMany(t => t.KeyPoints)
-          .WithOne()
-          .HasForeignKey(kp => kp.TourId);
+        //modelBuilder.Entity<Tour>()
+        //  .HasMany(t => t.KeyPoints)
+        //  .WithOne()
+        //  .HasForeignKey(kp => kp.TourId);
 
         ConfigureTour(modelBuilder);
     }
@@ -41,6 +41,18 @@ public class ToursContext : DbContext
            .HasMany(t => t.KeyPoints)
            .WithOne()
            .HasForeignKey(kp => kp.TourId);
+
+        // modelBuilder.Entity<TourReview>()
+        //.ToTable("TourReview") 
+        //.HasKey(tr => tr.Id);
+        modelBuilder.Entity<TourReview>()
+         .HasOne<Tour>()              
+         .WithMany()                   
+         .HasForeignKey(tr => tr.IdTour);
+
+        //modelBuilder.Entity<TourReview>()
+        //.Property(tr => tr.Images)
+        //.HasColumnType("text[]");
 
 
 

@@ -13,6 +13,8 @@ service StakeholdersService {
 	rpc GetAllAccounts(PagedRequest) returns (AccountList);
 	rpc Login (Credentials) returns (AuthenticationTokens);
 	rpc BlockUser (BlockRequest) returns (Account);
+	rpc GetPerson (PersonRequest) returns (Person);
+	rpc UpdatePerson (PersonUpdateRequest) returns (Person);
 
 }
 
@@ -66,6 +68,32 @@ message Credentials {
 message AuthenticationTokens {
   string accessToken = 1;
   string refreshToken = 2;
+}
+message PersonRequest {
+  int64 id = 1;
+}
+
+message PersonUpdateRequest {
+  int32 id = 1;
+  int64 userId = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string biography = 6;
+  string motto = 7;
+  string imageBase64 = 8;
+  string imageUrl = 9;
+}
+
+message Person {
+  int32 id = 1;
+  int64 userId = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string biography = 6;
+  string motto = 7;
+  string imageUrl = 8;
 }
 
 

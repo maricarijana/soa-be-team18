@@ -22,6 +22,11 @@ service KeyPointService {
   rpc GetKeyPointsByUser (GetKeyPointsByUserRequest) returns (GetKeyPointsByUserResponse);
 
   rpc GetKeyPointById (GetKeyPointByIdRequest) returns (KeyPoint);
+  rpc GetKeyPointsByTour (GetKeyPointsByTourRequest) returns (GetKeyPointsByTourResponse);
+
+}
+service TourReviewService {
+  rpc AddTourReview (AddTourReviewRequest) returns (TourReview);
 }
 
 
@@ -100,5 +105,31 @@ message GetKeyPointByIdRequest {
   int64 id = 1;
 }
 
+  message AddTourReviewRequest {
+  int64 idTour = 1;
+  int64 idTourist = 2;
+  int32 rating = 3;
+  string comment = 4;
+  string dateTour = 5;
+  string dateComment = 6;
+  repeated string imagesBase64 = 7;
+}
 
+message TourReview {
+  int64 id = 1;
+  int64 idTour = 2;
+  int64 idTourist = 3;
+  int32 rating = 4;
+  string comment = 5;
+  string dateTour = 6;
+  string dateComment = 7;
+  repeated string images = 8;
+}
+message GetKeyPointsByTourRequest {
+  int64 tourId = 1;
+}
+
+message GetKeyPointsByTourResponse {
+  repeated KeyPoint keyPoints = 1;
+}
 

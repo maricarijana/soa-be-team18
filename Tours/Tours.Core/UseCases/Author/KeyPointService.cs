@@ -73,4 +73,29 @@ public class KeyPointService : CrudService<KeyPointDto, KeyPoint>, IKeyPointServ
 
         return Result.Ok(keyPointDtos);
     }
+    public Result<List<KeyPointDto>> GetByTourId(long tourId)
+    {
+        var keyPoints = _keyPointRepository.GetKeyPointsByTourId(tourId);
+
+        if (keyPoints == null || keyPoints.Count == 0)
+        {
+            return Result.Fail<List<KeyPointDto>>("No keypoints found for the specified tour.");
+        }
+
+        var keyPointDtos = keyPoints.Select(kp => new KeyPointDto
+        {
+            Id = kp.Id,
+            Name = kp.Name,
+            Longitude = kp.Longitude,
+            Latitude = kp.Latitude,
+            Description = kp.Description,
+            Image = kp.Image,
+            UserId = kp.UserId,
+            TourId = kp.TourId,
+            PublicStatus = (Application.Dtos.PublicStatus)kp.PublicStatus
+        }).ToList();
+
+        return Result.Ok(keyPointDtos);
+    }
+
 }

@@ -170,5 +170,30 @@ namespace Tours.API.Controllers
                 PublicStatus = (int)kp.PublicStatus
             });
         }
+        public override Task<GetKeyPointsByTourResponse> GetKeyPointsByTour(GetKeyPointsByTourRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetKeyPointsByTour called for tour {TourId}", request.TourId);
+
+            var result = _keyPointService.GetByTourId(request.TourId);
+
+            if (!result.IsSuccess || result.Value == null)
+                throw new RpcException(new Status(StatusCode.NotFound, result.Errors.FirstOrDefault()?.Message ?? "No keypoints found"));
+
+            var resp = new GetKeyPointsByTourResponse();
+            resp.KeyPoints.AddRange(result.Value.Select(kp => new KeyPoint
+            {
+                Id = kp.Id,
+                Name = kp.Name,
+                Longitude = kp.Longitude,
+                Latitude = kp.Latitude,
+                Description = kp.Description,
+                Image = kp.Image,
+                TourId = kp.TourId,
+                PublicStatus = (int)kp.PublicStatus
+            }));
+
+            return Task.FromResult(resp);
+        }
+
     }
 }

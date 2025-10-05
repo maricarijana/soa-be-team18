@@ -39,6 +39,9 @@ namespace Tours.Core.UseCases.Author
                 DateTour = tourReview.DateTour,
                 DateComment = tourReview.DateComment,
                 Images = tourReview.Images,
+                //Images = string.IsNullOrEmpty(tourReview.Images)
+                //? new List<string>()
+                //: tourReview.Images.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
 
 
             };

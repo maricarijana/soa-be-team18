@@ -33,6 +33,18 @@ service StakeholdersService {
       body: "*"
     };
   }
+  rpc GetPerson (PersonRequest) returns (Person) {
+    option (google.api.http) = {
+      get: "/api/person/{id}"
+    };
+  }
+
+  rpc UpdatePerson (PersonUpdateRequest) returns (Person) {
+    option (google.api.http) = {
+      put: "/api/person/{id}"
+      body: "*"
+    };
+  }
 }
 
 // The request message containing the user's name.
@@ -85,5 +97,33 @@ message Credentials {
 message AuthenticationTokens {
   string accessToken = 1;
   string refreshToken = 2;
+}
+message PersonRequest {
+  int64 id = 1;
+  string role = 2;
+}
+
+message PersonUpdateRequest {
+  int32 id = 1;
+  int64 userId = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string biography = 6;
+  string motto = 7;
+  string imageBase64 = 8;
+  string imageUrl = 9;
+}
+
+
+message Person {
+  int32 id = 1;
+  int64 userId = 2;
+  string name = 3;
+  string surname = 4;
+  string email = 5;
+  string biography = 6;
+  string motto = 7;
+  string imageUrl = 8;
 }
 

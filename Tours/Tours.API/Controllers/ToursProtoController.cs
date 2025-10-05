@@ -85,7 +85,7 @@ namespace Tours.API.Controllers
                 UserId = result.Value.UserId,
                 LengthInKm = (double)result.Value.LengthInKm,
                 PublishedTime = result.Value.PublishedTime.ToString("o"), // ISO 8601 format
-                ArchiveTime = result.Value.ArchiveTime.ToString("o")
+                ArchiveTime = result.Value.ArchiveTime?.ToString("o")
             });
         }
 
@@ -113,7 +113,7 @@ namespace Tours.API.Controllers
                 UserId = t.UserId,
                 LengthInKm = t.LengthInKm,
                 PublishedTime = t.PublishedTime.ToString("o"),
-                ArchiveTime = t.ArchiveTime.ToString("o") ?? ""
+                ArchiveTime = t.ArchiveTime?.ToString("o") ?? ""
             }));
 
             return Task.FromResult(response);

@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\keypoints\" />
+    <Folder Include="wwwroot\images\reviews\" />
   </ItemGroup>
 
 </Project>

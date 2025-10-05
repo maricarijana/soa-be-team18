@@ -26,6 +26,8 @@ const (
 // ToursServiceClient is the client API for ToursService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// =================== Tours Service ===================
 type ToursServiceClient interface {
 	// Dodavanje ture
 	AddTour(ctx context.Context, in *AddTourRequest, opts ...grpc.CallOption) (*Tour, error)
@@ -63,6 +65,8 @@ func (c *toursServiceClient) GetToursByUser(ctx context.Context, in *GetToursByU
 // ToursServiceServer is the server API for ToursService service.
 // All implementations must embed UnimplementedToursServiceServer
 // for forward compatibility.
+//
+// =================== Tours Service ===================
 type ToursServiceServer interface {
 	// Dodavanje ture
 	AddTour(context.Context, *AddTourRequest) (*Tour, error)
@@ -166,17 +170,21 @@ const (
 	KeyPointService_DeleteKeyPoint_FullMethodName     = "/tours.KeyPointService/DeleteKeyPoint"
 	KeyPointService_GetKeyPointsByUser_FullMethodName = "/tours.KeyPointService/GetKeyPointsByUser"
 	KeyPointService_GetKeyPointById_FullMethodName    = "/tours.KeyPointService/GetKeyPointById"
+	KeyPointService_GetKeyPointsByTour_FullMethodName = "/tours.KeyPointService/GetKeyPointsByTour"
 )
 
 // KeyPointServiceClient is the client API for KeyPointService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// =================== KeyPoint Service ===================
 type KeyPointServiceClient interface {
 	AddKeyPoint(ctx context.Context, in *AddKeyPointRequest, opts ...grpc.CallOption) (*KeyPoint, error)
 	UpdateKeyPoint(ctx context.Context, in *KeyPoint, opts ...grpc.CallOption) (*KeyPoint, error)
 	DeleteKeyPoint(ctx context.Context, in *DeleteKeyPointRequest, opts ...grpc.CallOption) (*DeleteKeyPointResponse, error)
 	GetKeyPointsByUser(ctx context.Context, in *GetKeyPointsByUserRequest, opts ...grpc.CallOption) (*GetKeyPointsByUserResponse, error)
 	GetKeyPointById(ctx context.Context, in *GetKeyPointByIdRequest, opts ...grpc.CallOption) (*KeyPoint, error)
+	GetKeyPointsByTour(ctx context.Context, in *GetKeyPointsByTourRequest, opts ...grpc.CallOption) (*GetKeyPointsByTourResponse, error)
 }
 
 type keyPointServiceClient struct {
@@ -237,15 +245,28 @@ func (c *keyPointServiceClient) GetKeyPointById(ctx context.Context, in *GetKeyP
 	return out, nil
 }
 
+func (c *keyPointServiceClient) GetKeyPointsByTour(ctx context.Context, in *GetKeyPointsByTourRequest, opts ...grpc.CallOption) (*GetKeyPointsByTourResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetKeyPointsByTourResponse)
+	err := c.cc.Invoke(ctx, KeyPointService_GetKeyPointsByTour_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // KeyPointServiceServer is the server API for KeyPointService service.
 // All implementations must embed UnimplementedKeyPointServiceServer
 // for forward compatibility.
+//
+// =================== KeyPoint Service ===================
 type KeyPointServiceServer interface {
 	AddKeyPoint(context.Context, *AddKeyPointRequest) (*KeyPoint, error)
 	UpdateKeyPoint(context.Context, *KeyPoint) (*KeyPoint, error)
 	DeleteKeyPoint(context.Context, *DeleteKeyPointRequest) (*DeleteKeyPointResponse, error)
 	GetKeyPointsByUser(context.Context, *GetKeyPointsByUserRequest) (*GetKeyPointsByUserResponse, error)
 	GetKeyPointById(context.Context, *GetKeyPointByIdRequest) (*KeyPoint, error)
+	GetKeyPointsByTour(context.Context, *GetKeyPointsByTourRequest) (*GetKeyPointsByTourResponse, error)
 	mustEmbedUnimplementedKeyPointServiceServer()
 }
 
@@ -270,6 +291,9 @@ func (UnimplementedKeyPointServiceServer) GetKeyPointsByUser(context.Context, *G
 }
 func (UnimplementedKeyPointServiceServer) GetKeyPointById(context.Context, *GetKeyPointByIdRequest) (*KeyPoint, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetKeyPointById not implemented")
+}
+func (UnimplementedKeyPointServiceServer) GetKeyPointsByTour(context.Context, *GetKeyPointsByTourRequest) (*GetKeyPointsByTourResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetKeyPointsByTour not implemented")
 }
 func (UnimplementedKeyPointServiceServer) mustEmbedUnimplementedKeyPointServiceServer() {}
 func (UnimplementedKeyPointServiceServer) testEmbeddedByValue()                         {}
@@ -382,6 +406,24 @@ func _KeyPointService_GetKeyPointById_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _KeyPointService_GetKeyPointsByTour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetKeyPointsByTourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(KeyPointServiceServer).GetKeyPointsByTour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: KeyPointService_GetKeyPointsByTour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(KeyPointServiceServer).GetKeyPointsByTour(ctx, req.(*GetKeyPointsByTourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // KeyPointService_ServiceDesc is the grpc.ServiceDesc for KeyPointService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -408,6 +450,112 @@ var KeyPointService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetKeyPointById",
 			Handler:    _KeyPointService_GetKeyPointById_Handler,
+		},
+		{
+			MethodName: "GetKeyPointsByTour",
+			Handler:    _KeyPointService_GetKeyPointsByTour_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "tours/tours.proto",
+}
+
+const (
+	TourReviewService_AddTourReview_FullMethodName = "/tours.TourReviewService/AddTourReview"
+)
+
+// TourReviewServiceClient is the client API for TourReviewService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type TourReviewServiceClient interface {
+	AddTourReview(ctx context.Context, in *AddTourReviewRequest, opts ...grpc.CallOption) (*TourReview, error)
+}
+
+type tourReviewServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewTourReviewServiceClient(cc grpc.ClientConnInterface) TourReviewServiceClient {
+	return &tourReviewServiceClient{cc}
+}
+
+func (c *tourReviewServiceClient) AddTourReview(ctx context.Context, in *AddTourReviewRequest, opts ...grpc.CallOption) (*TourReview, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TourReview)
+	err := c.cc.Invoke(ctx, TourReviewService_AddTourReview_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// TourReviewServiceServer is the server API for TourReviewService service.
+// All implementations must embed UnimplementedTourReviewServiceServer
+// for forward compatibility.
+type TourReviewServiceServer interface {
+	AddTourReview(context.Context, *AddTourReviewRequest) (*TourReview, error)
+	mustEmbedUnimplementedTourReviewServiceServer()
+}
+
+// UnimplementedTourReviewServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedTourReviewServiceServer struct{}
+
+func (UnimplementedTourReviewServiceServer) AddTourReview(context.Context, *AddTourReviewRequest) (*TourReview, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTourReview not implemented")
+}
+func (UnimplementedTourReviewServiceServer) mustEmbedUnimplementedTourReviewServiceServer() {}
+func (UnimplementedTourReviewServiceServer) testEmbeddedByValue()                           {}
+
+// UnsafeTourReviewServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TourReviewServiceServer will
+// result in compilation errors.
+type UnsafeTourReviewServiceServer interface {
+	mustEmbedUnimplementedTourReviewServiceServer()
+}
+
+func RegisterTourReviewServiceServer(s grpc.ServiceRegistrar, srv TourReviewServiceServer) {
+	// If the following call pancis, it indicates UnimplementedTourReviewServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&TourReviewService_ServiceDesc, srv)
+}
+
+func _TourReviewService_AddTourReview_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTourReviewRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TourReviewServiceServer).AddTourReview(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TourReviewService_AddTourReview_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TourReviewServiceServer).AddTourReview(ctx, req.(*AddTourReviewRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// TourReviewService_ServiceDesc is the grpc.ServiceDesc for TourReviewService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var TourReviewService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "tours.TourReviewService",
+	HandlerType: (*TourReviewServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AddTourReview",
+			Handler:    _TourReviewService_AddTourReview_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

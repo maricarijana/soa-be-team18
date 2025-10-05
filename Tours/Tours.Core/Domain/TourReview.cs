@@ -15,8 +15,7 @@ namespace Tours.Core.Domain
         public string? Comment { get; private set; }
         public DateTime? DateTour { get; private set; }
         public DateTime? DateComment { get; private set; }
-        //public string Image { get; private set; }
-        public List<string> Images { get; private set; } = new List<string>();
+        public List<string> Images { get; private set; } = new();
 
 
         public TourReview(long idTour, long idTourist, int rating, string comment, DateTime? dateTour, DateTime? dateComment, List<string> images)
