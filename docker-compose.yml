@@ -13,13 +13,9 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - database
+      - mongo
     environment:
-      - DB_HOST=database
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=super
-      - DB_NAME=blog-service
+      - MONGODB_URI=mongo:27017
 
   gateway-service:
     build:
@@ -35,6 +31,7 @@ services:
     depends_on:
       - blog-service
       - stakeholders-service
+      - follower-service
 
   stakeholders-service:
     build:
@@ -84,6 +81,23 @@ services:
       - ./Tours/Tours.API/wwwroot:/app/wwwroot
 
 
+      
+  follower-service:
+    build:
+      context: ./Follower
+      dockerfile: Dockerfile
+    image: follower-app-image
+    container_name: follower-app-container
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "9091:9091"
+    environment:
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=super1234
+
 
   database:
     image: postgres:17
@@ -106,8 +120,44 @@ services:
       timeout: 5s
       retries: 5
 
+  neo4j:
+    image: neo4j:5.15
+    container_name: neo4j
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "7474:7474"   # web interfejs
+      - "7687:7687"   # bolt konekcija
+    environment:
+      - NEO4J_AUTH=neo4j/super1234  # username=neo4j, password=super1234
+    volumes:
+      - neo4j-data:/data
+
+  mongo:
+    image: mongo:6
+    container_name: mongo-db
+    restart: always
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - app-network
+
+
 volumes:
   db-data:
+  neo4j-data:
 
 networks:
   app-network:

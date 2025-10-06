@@ -2,13 +2,13 @@ package handler
 
 import (
 	"encoding/json"
-	"fmt"
+
 	"net/http"
 	"soa/blog/model"
 	"soa/blog/service"
-	"strconv"
 
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type BlogHandler struct {
@@ -34,13 +34,14 @@ func (handler *BlogHandler) Create(w http.ResponseWriter, r *http.Request) {
 func (handler *BlogHandler) LikeBlog(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	blogIDStr := vars["blogId"]
-	blogID, err := strconv.ParseInt(blogIDStr, 10, 64)
-	fmt.Print(blogID)
 
+	// Konverzija u ObjectID
+	objID, err := primitive.ObjectIDFromHex(blogIDStr)
 	if err != nil {
 		http.Error(w, "Invalid blog ID", http.StatusBadRequest)
 		return
 	}
+
 	var request struct {
 		UserID int64 `json:"userId"`
 	}
@@ -50,7 +51,7 @@ func (handler *BlogHandler) LikeBlog(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := handler.BlogService.LikeBlog(blogID, request.UserID); err != nil {
+	if err := handler.BlogService.LikeBlog(objID, request.UserID); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -58,3 +59,4 @@ func (handler *BlogHandler) LikeBlog(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{"message":"Blog liked successfully"}`))
 }
+

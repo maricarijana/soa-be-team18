@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package follower;
+option go_package = "soa/follower/proto/follower;follower";
+
+import "google/api/annotations.proto";
+
+service FollowerService {
+  rpc FollowUser (FollowRequest) returns (FollowResponse) {
+    option (google.api.http) = {
+      post: "/api/follow"
+      body: "*"
+    };
+  }
+  rpc UnfollowUser (FollowRequest) returns (FollowResponse) {
+    option (google.api.http) = {
+      post: "/api/unfollow"
+      body: "*"
+    };
+  }
+  rpc GetFollowing (UserRequest) returns (UserListResponse) {
+    option (google.api.http) = {
+      get: "/api/following/{user_id}"
+    };
+  }
+  rpc GetFollowers (UserRequest) returns (UserListResponse) {
+    option (google.api.http) = {
+      get: "/api/followers/{user_id}"
+    };
+  }
+  rpc GetRecommendations (UserRequest) returns (UserListResponse) {
+    option (google.api.http) = {
+      get: "/api/recommendations/{user_id}"
+    };
+  }
+}
+
+message FollowRequest {
+  int64 follower_id = 1;
+  int64 followee_id = 2;
+}
+
+message FollowResponse {
+  string message = 1;
+}
+
+message UserRequest {
+  int64 user_id = 1;
+}
+
+message UserListResponse {
+  repeated int64 user_ids = 1;
+}
