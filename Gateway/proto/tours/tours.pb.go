@@ -1052,6 +1052,50 @@ func (x *GetKeyPointsByTourResponse) GetKeyPoints() []*KeyPoint {
 	return nil
 }
 
+type GetTourByIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetTourByIdRequest) Reset() {
+	*x = GetTourByIdRequest{}
+	mi := &file_tours_tours_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetTourByIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetTourByIdRequest) ProtoMessage() {}
+
+func (x *GetTourByIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_tours_tours_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetTourByIdRequest.ProtoReflect.Descriptor instead.
+func (*GetTourByIdRequest) Descriptor() ([]byte, []int) {
+	return file_tours_tours_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *GetTourByIdRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
 var File_tours_tours_proto protoreflect.FileDescriptor
 
 const file_tours_tours_proto_rawDesc = "" +
@@ -1143,11 +1187,14 @@ const file_tours_tours_proto_rawDesc = "" +
 	"\x19GetKeyPointsByTourRequest\x12\x16\n" +
 	"\x06tourId\x18\x01 \x01(\x03R\x06tourId\"K\n" +
 	"\x1aGetKeyPointsByTourResponse\x12-\n" +
-	"\tkeyPoints\x18\x01 \x03(\v2\x0f.tours.KeyPointR\tkeyPoints2\xc5\x01\n" +
+	"\tkeyPoints\x18\x01 \x03(\v2\x0f.tours.KeyPointR\tkeyPoints\"$\n" +
+	"\x12GetTourByIdRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id2\x94\x02\n" +
 	"\fToursService\x12D\n" +
 	"\aAddTour\x12\x15.tours.AddTourRequest\x1a\v.tours.Tour\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
 	"/api/tours\x12o\n" +
-	"\x0eGetToursByUser\x12\x1c.tours.GetToursByUserRequest\x1a\x1d.tours.GetToursByUserResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/tours/user/{userId}2\x89\x05\n" +
+	"\x0eGetToursByUser\x12\x1c.tours.GetToursByUserRequest\x1a\x1d.tours.GetToursByUserResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/tours/user/{userId}\x12M\n" +
+	"\vGetTourById\x12\x19.tours.GetTourByIdRequest\x1a\v.tours.Tour\"\x16\x82\xd3\xe4\x93\x02\x10\x12\x0e/api/tour/{id}2\x89\x05\n" +
 	"\x0fKeyPointService\x12T\n" +
 	"\vAddKeyPoint\x12\x19.tours.AddKeyPointRequest\x1a\x0f.tours.KeyPoint\"\x19\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/api/keypoints\x12R\n" +
 	"\x0eUpdateKeyPoint\x12\x0f.tours.KeyPoint\x1a\x0f.tours.KeyPoint\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\x1a\x13/api/keypoints/{id}\x12j\n" +
@@ -1170,7 +1217,7 @@ func file_tours_tours_proto_rawDescGZIP() []byte {
 	return file_tours_tours_proto_rawDescData
 }
 
-var file_tours_tours_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_tours_tours_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
 var file_tours_tours_proto_goTypes = []any{
 	(*Tour)(nil),                       // 0: tours.Tour
 	(*AddTourRequest)(nil),             // 1: tours.AddTourRequest
@@ -1187,6 +1234,7 @@ var file_tours_tours_proto_goTypes = []any{
 	(*TourReview)(nil),                 // 12: tours.TourReview
 	(*GetKeyPointsByTourRequest)(nil),  // 13: tours.GetKeyPointsByTourRequest
 	(*GetKeyPointsByTourResponse)(nil), // 14: tours.GetKeyPointsByTourResponse
+	(*GetTourByIdRequest)(nil),         // 15: tours.GetTourByIdRequest
 }
 var file_tours_tours_proto_depIdxs = []int32{
 	0,  // 0: tours.GetToursByUserResponse.tours:type_name -> tours.Tour
@@ -1194,24 +1242,26 @@ var file_tours_tours_proto_depIdxs = []int32{
 	4,  // 2: tours.GetKeyPointsByTourResponse.keyPoints:type_name -> tours.KeyPoint
 	1,  // 3: tours.ToursService.AddTour:input_type -> tours.AddTourRequest
 	2,  // 4: tours.ToursService.GetToursByUser:input_type -> tours.GetToursByUserRequest
-	5,  // 5: tours.KeyPointService.AddKeyPoint:input_type -> tours.AddKeyPointRequest
-	4,  // 6: tours.KeyPointService.UpdateKeyPoint:input_type -> tours.KeyPoint
-	6,  // 7: tours.KeyPointService.DeleteKeyPoint:input_type -> tours.DeleteKeyPointRequest
-	8,  // 8: tours.KeyPointService.GetKeyPointsByUser:input_type -> tours.GetKeyPointsByUserRequest
-	10, // 9: tours.KeyPointService.GetKeyPointById:input_type -> tours.GetKeyPointByIdRequest
-	13, // 10: tours.KeyPointService.GetKeyPointsByTour:input_type -> tours.GetKeyPointsByTourRequest
-	11, // 11: tours.TourReviewService.AddTourReview:input_type -> tours.AddTourReviewRequest
-	0,  // 12: tours.ToursService.AddTour:output_type -> tours.Tour
-	3,  // 13: tours.ToursService.GetToursByUser:output_type -> tours.GetToursByUserResponse
-	4,  // 14: tours.KeyPointService.AddKeyPoint:output_type -> tours.KeyPoint
-	4,  // 15: tours.KeyPointService.UpdateKeyPoint:output_type -> tours.KeyPoint
-	7,  // 16: tours.KeyPointService.DeleteKeyPoint:output_type -> tours.DeleteKeyPointResponse
-	9,  // 17: tours.KeyPointService.GetKeyPointsByUser:output_type -> tours.GetKeyPointsByUserResponse
-	4,  // 18: tours.KeyPointService.GetKeyPointById:output_type -> tours.KeyPoint
-	14, // 19: tours.KeyPointService.GetKeyPointsByTour:output_type -> tours.GetKeyPointsByTourResponse
-	12, // 20: tours.TourReviewService.AddTourReview:output_type -> tours.TourReview
-	12, // [12:21] is the sub-list for method output_type
-	3,  // [3:12] is the sub-list for method input_type
+	15, // 5: tours.ToursService.GetTourById:input_type -> tours.GetTourByIdRequest
+	5,  // 6: tours.KeyPointService.AddKeyPoint:input_type -> tours.AddKeyPointRequest
+	4,  // 7: tours.KeyPointService.UpdateKeyPoint:input_type -> tours.KeyPoint
+	6,  // 8: tours.KeyPointService.DeleteKeyPoint:input_type -> tours.DeleteKeyPointRequest
+	8,  // 9: tours.KeyPointService.GetKeyPointsByUser:input_type -> tours.GetKeyPointsByUserRequest
+	10, // 10: tours.KeyPointService.GetKeyPointById:input_type -> tours.GetKeyPointByIdRequest
+	13, // 11: tours.KeyPointService.GetKeyPointsByTour:input_type -> tours.GetKeyPointsByTourRequest
+	11, // 12: tours.TourReviewService.AddTourReview:input_type -> tours.AddTourReviewRequest
+	0,  // 13: tours.ToursService.AddTour:output_type -> tours.Tour
+	3,  // 14: tours.ToursService.GetToursByUser:output_type -> tours.GetToursByUserResponse
+	0,  // 15: tours.ToursService.GetTourById:output_type -> tours.Tour
+	4,  // 16: tours.KeyPointService.AddKeyPoint:output_type -> tours.KeyPoint
+	4,  // 17: tours.KeyPointService.UpdateKeyPoint:output_type -> tours.KeyPoint
+	7,  // 18: tours.KeyPointService.DeleteKeyPoint:output_type -> tours.DeleteKeyPointResponse
+	9,  // 19: tours.KeyPointService.GetKeyPointsByUser:output_type -> tours.GetKeyPointsByUserResponse
+	4,  // 20: tours.KeyPointService.GetKeyPointById:output_type -> tours.KeyPoint
+	14, // 21: tours.KeyPointService.GetKeyPointsByTour:output_type -> tours.GetKeyPointsByTourResponse
+	12, // 22: tours.TourReviewService.AddTourReview:output_type -> tours.TourReview
+	13, // [13:23] is the sub-list for method output_type
+	3,  // [3:13] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
 	3,  // [3:3] is the sub-list for extension extendee
 	0,  // [0:3] is the sub-list for field type_name
@@ -1228,7 +1278,7 @@ func file_tours_tours_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_tours_tours_proto_rawDesc), len(file_tours_tours_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   15,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   3,
 		},

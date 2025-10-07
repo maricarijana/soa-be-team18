@@ -67,7 +67,7 @@ services:
     networks:
       - app-network
     ports:
-      - "8081:90"
+      - "8085:90"
       - "5001:5000"
     depends_on:
       #- database

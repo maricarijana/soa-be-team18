@@ -28,7 +28,20 @@ namespace Explorer.Stakeholders.Core.UseCases
         //    person.AddXP(xp);
         //    _crudRepository.Update(person);
         //    return Result.Ok(MapToDto(person));
-            
+
         //}
+
+        public Result<PersonDto> GetByUserId(long userId)
+        {
+            var person = _personRepository.GetByUserId(userId);
+            if (person == null)
+            {
+                return Result.Fail<PersonDto>("Person not found for this UserId.");
+            }
+
+            var dto = MapToDto(person);
+            return Result.Ok(dto);
+        }
+
     }
 }

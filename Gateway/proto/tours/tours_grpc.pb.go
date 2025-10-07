@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	ToursService_AddTour_FullMethodName        = "/tours.ToursService/AddTour"
 	ToursService_GetToursByUser_FullMethodName = "/tours.ToursService/GetToursByUser"
+	ToursService_GetTourById_FullMethodName    = "/tours.ToursService/GetTourById"
 )
 
 // ToursServiceClient is the client API for ToursService service.
@@ -32,6 +33,7 @@ type ToursServiceClient interface {
 	// Dodavanje ture
 	AddTour(ctx context.Context, in *AddTourRequest, opts ...grpc.CallOption) (*Tour, error)
 	GetToursByUser(ctx context.Context, in *GetToursByUserRequest, opts ...grpc.CallOption) (*GetToursByUserResponse, error)
+	GetTourById(ctx context.Context, in *GetTourByIdRequest, opts ...grpc.CallOption) (*Tour, error)
 }
 
 type toursServiceClient struct {
@@ -62,6 +64,16 @@ func (c *toursServiceClient) GetToursByUser(ctx context.Context, in *GetToursByU
 	return out, nil
 }
 
+func (c *toursServiceClient) GetTourById(ctx context.Context, in *GetTourByIdRequest, opts ...grpc.CallOption) (*Tour, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Tour)
+	err := c.cc.Invoke(ctx, ToursService_GetTourById_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ToursServiceServer is the server API for ToursService service.
 // All implementations must embed UnimplementedToursServiceServer
 // for forward compatibility.
@@ -71,6 +83,7 @@ type ToursServiceServer interface {
 	// Dodavanje ture
 	AddTour(context.Context, *AddTourRequest) (*Tour, error)
 	GetToursByUser(context.Context, *GetToursByUserRequest) (*GetToursByUserResponse, error)
+	GetTourById(context.Context, *GetTourByIdRequest) (*Tour, error)
 	mustEmbedUnimplementedToursServiceServer()
 }
 
@@ -86,6 +99,9 @@ func (UnimplementedToursServiceServer) AddTour(context.Context, *AddTourRequest)
 }
 func (UnimplementedToursServiceServer) GetToursByUser(context.Context, *GetToursByUserRequest) (*GetToursByUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetToursByUser not implemented")
+}
+func (UnimplementedToursServiceServer) GetTourById(context.Context, *GetTourByIdRequest) (*Tour, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTourById not implemented")
 }
 func (UnimplementedToursServiceServer) mustEmbedUnimplementedToursServiceServer() {}
 func (UnimplementedToursServiceServer) testEmbeddedByValue()                      {}
@@ -144,6 +160,24 @@ func _ToursService_GetToursByUser_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ToursService_GetTourById_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTourByIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToursServiceServer).GetTourById(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ToursService_GetTourById_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToursServiceServer).GetTourById(ctx, req.(*GetTourByIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ToursService_ServiceDesc is the grpc.ServiceDesc for ToursService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -158,6 +192,10 @@ var ToursService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetToursByUser",
 			Handler:    _ToursService_GetToursByUser_Handler,
+		},
+		{
+			MethodName: "GetTourById",
+			Handler:    _ToursService_GetTourById_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -120,6 +120,36 @@ namespace Tours.API.Controllers
         }
 
 
+        public override Task<Tour> GetTourById(GetTourByIdRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetTourById called for ID {Id}", request.Id);
+
+            var result = _tourService.GetTourById(request.Id);
+
+            if (!result.IsSuccess || result.Value == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, "Tour not found"));
+            }
+
+            var t = result.Value;
+
+            var response = new Tour
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Description = t.Description,
+                Difficulty = t.Difficulty,
+                Tags = { t.Tags.Select(tag => tag.ToString()) },
+                Status = t.Status.ToString(),
+                Price = (double)t.Price,
+                UserId = t.UserId,
+                LengthInKm = (double)t.LengthInKm,
+                PublishedTime = t.PublishedTime.ToString("o"),
+                ArchiveTime = t.ArchiveTime?.ToString("o") ?? ""
+            };
+
+            return Task.FromResult(response);
+        }
+    }
 
     }
-}

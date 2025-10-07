@@ -10,6 +10,8 @@ service ToursService {
   // Dodavanje ture
   rpc AddTour (AddTourRequest) returns (Tour);
   rpc GetToursByUser (GetToursByUserRequest) returns (GetToursByUserResponse);
+  rpc GetTourById (GetTourByIdRequest) returns (Tour);
+
 }
 
 service KeyPointService {
@@ -133,3 +135,6 @@ message GetKeyPointsByTourResponse {
   repeated KeyPoint keyPoints = 1;
 }
 
+message GetTourByIdRequest {
+  int64 id = 1;
+}

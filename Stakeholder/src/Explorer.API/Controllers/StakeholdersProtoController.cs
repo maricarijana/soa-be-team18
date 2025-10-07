@@ -159,7 +159,8 @@ namespace Explorer.API.Controllers
                 throw new RpcException(new Status(StatusCode.PermissionDenied, "Access denied (no role found)."));
             }
 
-            if (role.ToLower() != "tourist" && role.ToLower() != "author")
+            //if (role.ToLower() != "tourist" && role.ToLower() != "author")
+            if (role.ToLower() != "tourist" && role.ToLower() != "guide")
             {
                 throw new RpcException(new Status(StatusCode.PermissionDenied, $"Access denied. Role = {role}"));
             }
@@ -210,7 +211,7 @@ namespace Explorer.API.Controllers
                 throw new RpcException(new Status(StatusCode.PermissionDenied, "Access denied (no role found)."));
             }
 
-            if (role.ToLower() != "tourist" && role.ToLower() != "author")
+            if (role.ToLower() != "tourist" && role.ToLower() != "guide")
             {
                 throw new RpcException(new Status(StatusCode.PermissionDenied, $"Access denied. Role = {role}"));
             }
@@ -287,6 +288,31 @@ namespace Explorer.API.Controllers
                 ImageUrl = updated.ImageUrl ?? string.Empty
             });
         }
+
+        public override Task<Person> GetPersonByUserId(PersonByUserIdRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetPersonByUserId called for UserId {UserId}", request.UserId);
+
+            var result = _personService.GetByUserId(request.UserId);
+            if (!result.IsSuccess || result.Value == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, "Person not found for this UserId"));
+            }
+
+            var p = result.Value;
+            return Task.FromResult(new Person
+            {
+                Id = p.Id,
+                UserId = p.UserId,
+                Name = p.Name ?? string.Empty,
+                Surname = p.Surname ?? string.Empty,
+                Email = p.Email ?? string.Empty,
+                Biography = p.Biography ?? string.Empty,
+                Motto = p.Motto ?? string.Empty,
+                ImageUrl = p.ImageUrl ?? string.Empty
+            });
+        }
+
 
 
 
