@@ -13,10 +13,16 @@ builder.WebHost.ConfigureKestrel(options =>
     {
         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
     });
+    options.ListenAnyIP(5000, listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1;
+    });
+
 });
 
 
 
+builder.WebHost.UseWebRoot("wwwroot");
 
 builder.Services.AddControllers();
 builder.Services.ConfigureSwagger(builder.Configuration);
@@ -44,7 +50,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<StakeholdersContext>();
-    db.Database.Migrate();
+  //  db.Database.Migrate();
 }
 
 
@@ -64,6 +70,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseCors(corsPolicy);
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

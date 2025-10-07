@@ -41,4 +41,9 @@
     <ProjectReference Include="..\Tours.Infrastructure\Tours.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\keypoints\" />
+    <Folder Include="wwwroot\images\reviews\" />
+  </ItemGroup>
+
 </Project>

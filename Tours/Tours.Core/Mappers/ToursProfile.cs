@@ -10,6 +10,16 @@ public class ToursProfile : Profile
     {
         CreateMap<KeyPointDto, KeyPoint>().ReverseMap();
         CreateMap<TourDto, Tour>().ReverseMap();
+        //CreateMap<TourReviewDto, TourReview>().ReverseMap();
+        CreateMap<TourReviewDto, TourReview>().ReverseMap();
+        //.ForMember(dest => dest.Images,
+        //    opt => opt.MapFrom(src => string.Join(";", src.Images ?? new List<string>())))
+        //.ReverseMap()
+        //.ForMember(dest => dest.Images,
+        //    opt => opt.MapFrom(src => string.IsNullOrEmpty(src.Images)
+        //        ? new List<string>()
+        //        : src.Images.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()));
+
         //CreateMap<ObjectDTO, Explorer.Tours.Core.Domain.Object>().ReverseMap();
 
         //CreateMap<CompletedKeyPointDto, CompletedKeyPoint>().ReverseMap();

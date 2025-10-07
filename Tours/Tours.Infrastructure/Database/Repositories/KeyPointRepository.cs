@@ -31,5 +31,11 @@ namespace Tours.Infrastructure.Database.Repositories
         {
             return _dbContext.KeyPoints.ToList();
         }
+        public List<KeyPoint> GetKeyPointsByTourId(long tourId)
+        {
+            return _dbContext.KeyPoints
+                             .Where(kp => kp.TourId == tourId)
+                             .ToList();
+        }
     }
 }

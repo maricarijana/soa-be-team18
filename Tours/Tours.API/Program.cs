@@ -3,6 +3,7 @@ using Tours.API.Startup;
 using Tours.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +13,17 @@ builder.WebHost.ConfigureKestrel(options =>
     {
         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http2;
     });
+    options.ListenAnyIP(5000, listenOptions =>
+    {
+        listenOptions.Protocols = HttpProtocols.Http1;
+    });
 
 });
 // Add services to the container.
 //builder.Services.AddDbContext<ToursContext>(options =>
 //    options.UseNpgsql(DbConnectionStringBuilder.Build("tours")));
 
+builder.WebHost.UseWebRoot("wwwroot");
 
 builder.Services.AddControllers();
 builder.Services.ConfigureSwagger(builder.Configuration);
@@ -60,6 +66,11 @@ app.MapControllers();
 
 app.MapGrpcService<ToursProtoController>();
 Console.WriteLine("Stakeholders gRPC service mapped: StakeholdersProtoController");
+app.MapGrpcService<KeyPointProtoController>();
+Console.WriteLine("KeyPoint gRPC service mapped: KeyPointProtoController");
+app.MapGrpcService<TourReviewProtoController>();
+Console.WriteLine("TourReview gRPC service mapped: TourReviewProtoController");
+
 
 
 var connStr = builder.Configuration.GetConnectionString("DefaultConnection");

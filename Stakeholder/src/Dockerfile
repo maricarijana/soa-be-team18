@@ -4,7 +4,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
-
+EXPOSE 5000
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
@@ -30,4 +30,5 @@ RUN dotnet publish "./Explorer.API.csproj" -c $BUILD_CONFIGURATION -o /app/publi
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY Explorer.API/wwwroot ./wwwroot
 ENTRYPOINT ["dotnet", "Explorer.API.dll"]

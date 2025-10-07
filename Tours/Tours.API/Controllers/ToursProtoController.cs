@@ -85,9 +85,40 @@ namespace Tours.API.Controllers
                 UserId = result.Value.UserId,
                 LengthInKm = (double)result.Value.LengthInKm,
                 PublishedTime = result.Value.PublishedTime.ToString("o"), // ISO 8601 format
-                ArchiveTime = result.Value.ArchiveTime.ToString("o")
+                ArchiveTime = result.Value.ArchiveTime?.ToString("o")
             });
         }
+
+        public override Task<GetToursByUserResponse> GetToursByUser(GetToursByUserRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetToursByUser called for user {UserId}", request.UserId);
+
+            var result = _tourService.GetByUserId(request.UserId);
+
+            if (!result.IsSuccess || result.Value == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, result.Errors.FirstOrDefault()?.Message ?? "No tours found for this user"));
+            }
+
+            var response = new GetToursByUserResponse();
+            response.Tours.AddRange(result.Value.Select(t => new GrpcServiceTranscoding.Tour
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Description = t.Description,
+                Difficulty = t.Difficulty,
+                Tags = { t.Tags.Select(tag => tag.ToString()) },
+                Status = t.Status.ToString(),
+                Price = t.Price,
+                UserId = t.UserId,
+                LengthInKm = t.LengthInKm,
+                PublishedTime = t.PublishedTime.ToString("o"),
+                ArchiveTime = t.ArchiveTime?.ToString("o") ?? ""
+            }));
+
+            return Task.FromResult(response);
+        }
+
 
 
     }

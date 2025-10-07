@@ -527,6 +527,266 @@ func (x *AuthenticationTokens) GetRefreshToken() string {
 	return ""
 }
 
+type PersonRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Role          string                 `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PersonRequest) Reset() {
+	*x = PersonRequest{}
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PersonRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PersonRequest) ProtoMessage() {}
+
+func (x *PersonRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PersonRequest.ProtoReflect.Descriptor instead.
+func (*PersonRequest) Descriptor() ([]byte, []int) {
+	return file_stakeholders_stakeholders_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *PersonRequest) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *PersonRequest) GetRole() string {
+	if x != nil {
+		return x.Role
+	}
+	return ""
+}
+
+type PersonUpdateRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserId        int64                  `protobuf:"varint,2,opt,name=userId,proto3" json:"userId,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Surname       string                 `protobuf:"bytes,4,opt,name=surname,proto3" json:"surname,omitempty"`
+	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
+	Biography     string                 `protobuf:"bytes,6,opt,name=biography,proto3" json:"biography,omitempty"`
+	Motto         string                 `protobuf:"bytes,7,opt,name=motto,proto3" json:"motto,omitempty"`
+	ImageBase64   string                 `protobuf:"bytes,8,opt,name=imageBase64,proto3" json:"imageBase64,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,9,opt,name=imageUrl,proto3" json:"imageUrl,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PersonUpdateRequest) Reset() {
+	*x = PersonUpdateRequest{}
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PersonUpdateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PersonUpdateRequest) ProtoMessage() {}
+
+func (x *PersonUpdateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PersonUpdateRequest.ProtoReflect.Descriptor instead.
+func (*PersonUpdateRequest) Descriptor() ([]byte, []int) {
+	return file_stakeholders_stakeholders_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *PersonUpdateRequest) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *PersonUpdateRequest) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *PersonUpdateRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PersonUpdateRequest) GetSurname() string {
+	if x != nil {
+		return x.Surname
+	}
+	return ""
+}
+
+func (x *PersonUpdateRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *PersonUpdateRequest) GetBiography() string {
+	if x != nil {
+		return x.Biography
+	}
+	return ""
+}
+
+func (x *PersonUpdateRequest) GetMotto() string {
+	if x != nil {
+		return x.Motto
+	}
+	return ""
+}
+
+func (x *PersonUpdateRequest) GetImageBase64() string {
+	if x != nil {
+		return x.ImageBase64
+	}
+	return ""
+}
+
+func (x *PersonUpdateRequest) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
+type Person struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            int32                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserId        int64                  `protobuf:"varint,2,opt,name=userId,proto3" json:"userId,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Surname       string                 `protobuf:"bytes,4,opt,name=surname,proto3" json:"surname,omitempty"`
+	Email         string                 `protobuf:"bytes,5,opt,name=email,proto3" json:"email,omitempty"`
+	Biography     string                 `protobuf:"bytes,6,opt,name=biography,proto3" json:"biography,omitempty"`
+	Motto         string                 `protobuf:"bytes,7,opt,name=motto,proto3" json:"motto,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,8,opt,name=imageUrl,proto3" json:"imageUrl,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Person) Reset() {
+	*x = Person{}
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Person) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Person) ProtoMessage() {}
+
+func (x *Person) ProtoReflect() protoreflect.Message {
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Person.ProtoReflect.Descriptor instead.
+func (*Person) Descriptor() ([]byte, []int) {
+	return file_stakeholders_stakeholders_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *Person) GetId() int32 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *Person) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *Person) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Person) GetSurname() string {
+	if x != nil {
+		return x.Surname
+	}
+	return ""
+}
+
+func (x *Person) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *Person) GetBiography() string {
+	if x != nil {
+		return x.Biography
+	}
+	return ""
+}
+
+func (x *Person) GetMotto() string {
+	if x != nil {
+		return x.Motto
+	}
+	return ""
+}
+
+func (x *Person) GetImageUrl() string {
+	if x != nil {
+		return x.ImageUrl
+	}
+	return ""
+}
+
 var File_stakeholders_stakeholders_proto protoreflect.FileDescriptor
 
 const file_stakeholders_stakeholders_proto_rawDesc = "" +
@@ -567,12 +827,36 @@ const file_stakeholders_stakeholders_proto_rawDesc = "" +
 	"\bpassword\x18\x02 \x01(\tR\bpassword\"\\\n" +
 	"\x14AuthenticationTokens\x12 \n" +
 	"\vaccessToken\x18\x01 \x01(\tR\vaccessToken\x12\"\n" +
-	"\frefreshToken\x18\x02 \x01(\tR\frefreshToken2\xc4\x03\n" +
+	"\frefreshToken\x18\x02 \x01(\tR\frefreshToken\"3\n" +
+	"\rPersonRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
+	"\x04role\x18\x02 \x01(\tR\x04role\"\xf3\x01\n" +
+	"\x13PersonUpdateRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
+	"\x06userId\x18\x02 \x01(\x03R\x06userId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x18\n" +
+	"\asurname\x18\x04 \x01(\tR\asurname\x12\x14\n" +
+	"\x05email\x18\x05 \x01(\tR\x05email\x12\x1c\n" +
+	"\tbiography\x18\x06 \x01(\tR\tbiography\x12\x14\n" +
+	"\x05motto\x18\a \x01(\tR\x05motto\x12 \n" +
+	"\vimageBase64\x18\b \x01(\tR\vimageBase64\x12\x1a\n" +
+	"\bimageUrl\x18\t \x01(\tR\bimageUrl\"\xc4\x01\n" +
+	"\x06Person\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x05R\x02id\x12\x16\n" +
+	"\x06userId\x18\x02 \x01(\x03R\x06userId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x18\n" +
+	"\asurname\x18\x04 \x01(\tR\asurname\x12\x14\n" +
+	"\x05email\x18\x05 \x01(\tR\x05email\x12\x1c\n" +
+	"\tbiography\x18\x06 \x01(\tR\tbiography\x12\x14\n" +
+	"\x05motto\x18\a \x01(\tR\x05motto\x12\x1a\n" +
+	"\bimageUrl\x18\b \x01(\tR\bimageUrl2\x84\x05\n" +
 	"\x13StakeholdersService\x12`\n" +
 	"\bRegister\x12!.stakeholders.AccountRegistration\x1a\x12.stakeholders.User\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/user/register\x12l\n" +
 	"\x0eGetAllAccounts\x12\x1a.stakeholders.PagedRequest\x1a\x19.stakeholders.AccountList\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/api/administration/account\x12c\n" +
 	"\x05Login\x12\x19.stakeholders.Credentials\x1a\".stakeholders.AuthenticationTokens\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/api/users/login\x12x\n" +
-	"\tBlockUser\x12\x1a.stakeholders.BlockRequest\x1a\x15.stakeholders.Account\"8\x82\xd3\xe4\x93\x022:\x01*\x1a-/api/administration/account/block/{accountId}B-Z\x12proto/stakeholders\xaa\x02\x16GrpcServiceTranscodingb\x06proto3"
+	"\tBlockUser\x12\x1a.stakeholders.BlockRequest\x1a\x15.stakeholders.Account\"8\x82\xd3\xe4\x93\x022:\x01*\x1a-/api/administration/account/block/{accountId}\x12X\n" +
+	"\tGetPerson\x12\x1b.stakeholders.PersonRequest\x1a\x14.stakeholders.Person\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/api/person/{id}\x12d\n" +
+	"\fUpdatePerson\x12!.stakeholders.PersonUpdateRequest\x1a\x14.stakeholders.Person\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\x1a\x10/api/person/{id}B-Z\x12proto/stakeholders\xaa\x02\x16GrpcServiceTranscodingb\x06proto3"
 
 var (
 	file_stakeholders_stakeholders_proto_rawDescOnce sync.Once
@@ -586,7 +870,7 @@ func file_stakeholders_stakeholders_proto_rawDescGZIP() []byte {
 	return file_stakeholders_stakeholders_proto_rawDescData
 }
 
-var file_stakeholders_stakeholders_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_stakeholders_stakeholders_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
 var file_stakeholders_stakeholders_proto_goTypes = []any{
 	(*PagedRequest)(nil),         // 0: stakeholders.PagedRequest
 	(*AccountList)(nil),          // 1: stakeholders.AccountList
@@ -596,22 +880,29 @@ var file_stakeholders_stakeholders_proto_goTypes = []any{
 	(*BlockRequest)(nil),         // 5: stakeholders.BlockRequest
 	(*Credentials)(nil),          // 6: stakeholders.Credentials
 	(*AuthenticationTokens)(nil), // 7: stakeholders.AuthenticationTokens
+	(*PersonRequest)(nil),        // 8: stakeholders.PersonRequest
+	(*PersonUpdateRequest)(nil),  // 9: stakeholders.PersonUpdateRequest
+	(*Person)(nil),               // 10: stakeholders.Person
 }
 var file_stakeholders_stakeholders_proto_depIdxs = []int32{
-	2, // 0: stakeholders.AccountList.accounts:type_name -> stakeholders.Account
-	3, // 1: stakeholders.StakeholdersService.Register:input_type -> stakeholders.AccountRegistration
-	0, // 2: stakeholders.StakeholdersService.GetAllAccounts:input_type -> stakeholders.PagedRequest
-	6, // 3: stakeholders.StakeholdersService.Login:input_type -> stakeholders.Credentials
-	5, // 4: stakeholders.StakeholdersService.BlockUser:input_type -> stakeholders.BlockRequest
-	4, // 5: stakeholders.StakeholdersService.Register:output_type -> stakeholders.User
-	1, // 6: stakeholders.StakeholdersService.GetAllAccounts:output_type -> stakeholders.AccountList
-	7, // 7: stakeholders.StakeholdersService.Login:output_type -> stakeholders.AuthenticationTokens
-	2, // 8: stakeholders.StakeholdersService.BlockUser:output_type -> stakeholders.Account
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	2,  // 0: stakeholders.AccountList.accounts:type_name -> stakeholders.Account
+	3,  // 1: stakeholders.StakeholdersService.Register:input_type -> stakeholders.AccountRegistration
+	0,  // 2: stakeholders.StakeholdersService.GetAllAccounts:input_type -> stakeholders.PagedRequest
+	6,  // 3: stakeholders.StakeholdersService.Login:input_type -> stakeholders.Credentials
+	5,  // 4: stakeholders.StakeholdersService.BlockUser:input_type -> stakeholders.BlockRequest
+	8,  // 5: stakeholders.StakeholdersService.GetPerson:input_type -> stakeholders.PersonRequest
+	9,  // 6: stakeholders.StakeholdersService.UpdatePerson:input_type -> stakeholders.PersonUpdateRequest
+	4,  // 7: stakeholders.StakeholdersService.Register:output_type -> stakeholders.User
+	1,  // 8: stakeholders.StakeholdersService.GetAllAccounts:output_type -> stakeholders.AccountList
+	7,  // 9: stakeholders.StakeholdersService.Login:output_type -> stakeholders.AuthenticationTokens
+	2,  // 10: stakeholders.StakeholdersService.BlockUser:output_type -> stakeholders.Account
+	10, // 11: stakeholders.StakeholdersService.GetPerson:output_type -> stakeholders.Person
+	10, // 12: stakeholders.StakeholdersService.UpdatePerson:output_type -> stakeholders.Person
+	7,  // [7:13] is the sub-list for method output_type
+	1,  // [1:7] is the sub-list for method input_type
+	1,  // [1:1] is the sub-list for extension type_name
+	1,  // [1:1] is the sub-list for extension extendee
+	0,  // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_stakeholders_stakeholders_proto_init() }
@@ -625,7 +916,7 @@ func file_stakeholders_stakeholders_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_stakeholders_stakeholders_proto_rawDesc), len(file_stakeholders_stakeholders_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

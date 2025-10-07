@@ -13,4 +13,6 @@ public interface IKeyPointService
     int GetMaxId(long userId);
     Result<List<KeyPointDto>> GetRequestedPublic();
     //Result<List<KeyPointDto>> GetByCoordinated(long v1, long v2, int v3);
+    Result<List<KeyPointDto>> GetByTourId(long tourId);
+
 }

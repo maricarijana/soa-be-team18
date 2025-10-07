@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 
 package tours;
 
+// =================== Tours Service ===================
 service ToursService {
   // Dodavanje ture
   rpc AddTour (AddTourRequest) returns (Tour) {
@@ -15,8 +16,64 @@ service ToursService {
       body: "*"
     };
   }
+
+  rpc GetToursByUser (GetToursByUserRequest) returns (GetToursByUserResponse) {
+    option (google.api.http) = {
+      get: "/api/tours/user/{userId}"
+    };
+  }
 }
 
+// =================== KeyPoint Service ===================
+service KeyPointService {
+  rpc AddKeyPoint (AddKeyPointRequest) returns (KeyPoint) {
+    option (google.api.http) = {
+      post: "/api/keypoints"
+      body: "*"
+    };
+  }
+
+  rpc UpdateKeyPoint (KeyPoint) returns (KeyPoint) {
+    option (google.api.http) = {
+      put: "/api/keypoints/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteKeyPoint (DeleteKeyPointRequest) returns (DeleteKeyPointResponse) {
+    option (google.api.http) = {
+      delete: "/api/keypoints/{id}"
+    };
+  }
+
+  rpc GetKeyPointsByUser (GetKeyPointsByUserRequest) returns (GetKeyPointsByUserResponse) {
+    option (google.api.http) = {
+      get: "/api/keypoints/user/{userId}"
+    };
+  }
+
+  rpc GetKeyPointById (GetKeyPointByIdRequest) returns (KeyPoint) {
+    option (google.api.http) = {
+      get: "/api/keypoints/{id}"
+    };
+  }
+  rpc GetKeyPointsByTour (GetKeyPointsByTourRequest) returns (GetKeyPointsByTourResponse) {
+  option (google.api.http) = {
+    get: "/api/keypoints/tour/{tourId}"
+  };
+}
+}
+
+service TourReviewService {
+  rpc AddTourReview (AddTourReviewRequest) returns (TourReview) {
+    option (google.api.http) = {
+      post: "/api/tour-reviews"
+      body: "*"
+    };
+  }
+}
+
+// Tour
 message Tour {
   int64 id = 1;
   string name = 2;
@@ -44,3 +101,80 @@ message AddTourRequest {
   string archiveTime = 10;
 }
 
+message GetToursByUserRequest {
+  int64 userId = 1;
+}
+
+message GetToursByUserResponse {
+  repeated Tour tours = 1;
+}
+
+// KeyPoint
+message KeyPoint {
+  int64 id = 1;
+  string name = 2;
+  double longitude = 3;
+  double latitude = 4;
+  string description = 5;
+  string image = 6;
+  string imageBase64 = 7;
+  int64 tourId = 8;
+  int32 publicStatus = 9;
+}
+
+message AddKeyPointRequest {
+  string name = 1;
+  double longitude = 2;
+  double latitude = 3;
+  string description = 4;
+  string imageBase64 = 5;
+  int64 tourId = 6;
+  int32 publicStatus = 7;
+}
+
+message DeleteKeyPointRequest {
+  int64 id = 1;
+}
+
+message DeleteKeyPointResponse {
+  bool success = 1;
+}
+
+message GetKeyPointsByUserRequest {
+  int64 userId = 1;
+}
+
+message GetKeyPointsByUserResponse {
+  repeated KeyPoint keyPoints = 1;
+}
+
+message GetKeyPointByIdRequest {
+  int64 id = 1;
+}
+message AddTourReviewRequest {
+  int64 idTour = 1;
+  int64 idTourist = 2;
+  int32 rating = 3;
+  string comment = 4;
+  string dateTour = 5;
+  string dateComment = 6;
+  repeated string imagesBase64 = 7;
+}
+
+message TourReview {
+  int64 id = 1;
+  int64 idTour = 2;
+  int64 idTourist = 3;
+  int32 rating = 4;
+  string comment = 5;
+  string dateTour = 6;
+  string dateComment = 7;
+  repeated string images = 8;
+}
+message GetKeyPointsByTourRequest {
+  int64 tourId = 1;
+}
+
+message GetKeyPointsByTourResponse {
+  repeated KeyPoint keyPoints = 1;
+}
