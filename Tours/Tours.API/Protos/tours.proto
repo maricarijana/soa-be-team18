@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+//option go_package = "proto/tours";
+
+option csharp_namespace = "GrpcServiceTranscoding";
+
+
+//package GrpcServiceTranscoding;
+package tours;
+
+service ToursService {
+  // Dodavanje ture
+  rpc AddTour (AddTourRequest) returns (Tour);
+  rpc GetToursByUser (GetToursByUserRequest) returns (GetToursByUserResponse);
+  rpc GetTourById (GetTourByIdRequest) returns (Tour);
+
+}
+
+service KeyPointService {
+  rpc AddKeyPoint (AddKeyPointRequest) returns (KeyPoint);
+
+  rpc UpdateKeyPoint (KeyPoint) returns (KeyPoint);
+
+  rpc DeleteKeyPoint (DeleteKeyPointRequest) returns (DeleteKeyPointResponse);
+
+  rpc GetKeyPointsByUser (GetKeyPointsByUserRequest) returns (GetKeyPointsByUserResponse);
+
+  rpc GetKeyPointById (GetKeyPointByIdRequest) returns (KeyPoint);
+  rpc GetKeyPointsByTour (GetKeyPointsByTourRequest) returns (GetKeyPointsByTourResponse);
+
+}
+service TourReviewService {
+  rpc AddTourReview (AddTourReviewRequest) returns (TourReview);
+}
+
+service PositionSimulatorService {
+  rpc GetPosition (PositionSimulatorRequest) returns (PositionSimulatorResponse);
+  rpc UpdatePosition (UpdatePositionRequest) returns (PositionSimulatorResponse);
+}
+
+
+message Tour {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  string difficulty = 4;
+  repeated string tags = 5;
+  string status = 6;
+  double price = 7;
+  int64 userId = 8;
+  double lengthInKm = 9;
+  string publishedTime = 10;
+  string archiveTime = 11;
+}
+
+message AddTourRequest {
+  string name = 1;
+  string description = 2;
+  string difficulty = 3;
+  repeated string tags = 4;
+  string status = 5;
+  double price = 6;
+  int64 userId = 7;
+  double lengthInKm = 8;
+  string publishedTime = 9;
+  string archiveTime = 10;
+}
+
+message GetToursByUserRequest {
+  int64 userId = 1;
+}
+
+message GetToursByUserResponse {
+  repeated Tour tours = 1;
+}
+
+message KeyPoint {
+  int64 id = 1;
+  string name = 2;
+  double longitude = 3;
+  double latitude = 4;
+  string description = 5;
+  string image = 6;
+  string imageBase64 = 7;
+  int64 tourId = 8;
+  int32 publicStatus = 9;
+}
+
+message AddKeyPointRequest {
+  string name = 1;
+  double longitude = 2;
+  double latitude = 3;
+  string description = 4;
+  string imageBase64 = 5;
+  int64 tourId = 6;
+  int32 publicStatus = 7;
+}
+
+message DeleteKeyPointRequest {
+  int64 id = 1;
+}
+message DeleteKeyPointResponse {
+  bool success = 1;
+}
+
+message GetKeyPointsByUserRequest {
+  int64 userId = 1;
+}
+message GetKeyPointsByUserResponse {
+  repeated KeyPoint keyPoints = 1;
+}
+
+message GetKeyPointByIdRequest {
+  int64 id = 1;
+}
+
+  message AddTourReviewRequest {
+  int64 idTour = 1;
+  int64 idTourist = 2;
+  int32 rating = 3;
+  string comment = 4;
+  string dateTour = 5;
+  string dateComment = 6;
+  repeated string imagesBase64 = 7;
+}
+
+message TourReview {
+  int64 id = 1;
+  int64 idTour = 2;
+  int64 idTourist = 3;
+  int32 rating = 4;
+  string comment = 5;
+  string dateTour = 6;
+  string dateComment = 7;
+  repeated string images = 8;
+}
+message GetKeyPointsByTourRequest {
+  int64 tourId = 1;
+}
+
+message GetKeyPointsByTourResponse {
+  repeated KeyPoint keyPoints = 1;
+}
+
+message GetTourByIdRequest {
+  int64 id = 1;
+}
+
+//position simulator
+message PositionSimulatorRequest {
+  int64 touristId = 1;
+}
+
+message UpdatePositionRequest {
+  int64 touristId = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message PositionSimulatorResponse {
+  int64 touristId = 1;
+  double latitude = 2;
+  double longitude = 3;
+  string  updatedAt = 4;
+}

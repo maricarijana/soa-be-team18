@@ -44,6 +44,7 @@ services:
       - app-network
     ports:
       - "8080:80"
+      - "5000:5000"
     depends_on:
       #- database
       database:
@@ -52,6 +53,34 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=stakeholders-service;Username=postgres;Password=super
+    volumes:
+      - ./Stakeholder/src/Explorer.API/wwwroot:/app/wwwroot
+
+
+  tours-service:
+    build:
+      context: ./Tours
+      dockerfile: Dockerfile
+    image: tours-app-image
+    container_name: tours-app-container
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "8085:90"
+      - "5001:5000"
+    depends_on:
+      #- database
+      database:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:90;http://+:5000
+      - ConnectionStrings__DefaultConnection=Host=database;Port=5432;Database=tours-service;Username=postgres;Password=super
+    volumes:
+      - ./Tours/Tours.API/wwwroot:/app/wwwroot
+
+
       
   follower-service:
     build:
