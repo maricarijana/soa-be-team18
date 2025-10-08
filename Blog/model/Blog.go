@@ -18,17 +18,17 @@ const (
 )
 
 type Blog struct {
-	ID primitive.ObjectID `json:"id" bson:"_id,omitempty"`
+	ID          primitive.ObjectID `json:"id"          bson:"_id,omitempty"`
+	Title       string             `json:"title"       bson:"title"`
+	Description string             `json:"description" bson:"description"`
+	CreatedAt   time.Time          `json:"createdAt"   bson:"createdAt"`
+	ImageUrl    string             `json:"imageUrl"    bson:"imageUrl"`
+	Status      BlogStatus         `json:"status"      bson:"status"`
+	UserId      int64              `json:"userId"      bson:"userId"`
 
-	Title       string     `json:"title"`
-	Description string     `json:"description"`
-	CreatedAt   time.Time  `json:"createdAt"`
-	ImageUrl    string     `json:"imageUrl"`
-	Status      BlogStatus `json:"status"`
-	UserId      int64      `json:"userId"`
-	RatingSum   int        `json:"ratingSum"`
-	Ratings     Ratings    `json:"ratings" gorm:"type:jsonb"`
-	Comments    []Comment  `json:"comments" bson:"comments"`
+	RatingSum int       `json:"ratingSum"   bson:"ratingSum"`
+	Ratings   []Rating  `json:"ratings"     bson:"ratings,omitempty"`
+	Comments  []Comment `json:"comments,omitempty" bson:"comments,omitempty"`
 }
 
 func (blog *Blog) AddRating(value int, userId int64) error {

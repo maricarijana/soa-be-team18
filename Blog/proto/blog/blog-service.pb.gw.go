@@ -224,7 +224,7 @@ func RegisterBlogServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/CreateBlog", runtime.WithHTTPPathPattern("/api/blog"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/CreateBlog", runtime.WithHTTPPathPattern("/api/blogs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -244,7 +244,7 @@ func RegisterBlogServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/LikeBlog", runtime.WithHTTPPathPattern("/api/blog/{blog_id}/like"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/LikeBlog", runtime.WithHTTPPathPattern("/api/blogs/{blog_id}/like"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -264,7 +264,7 @@ func RegisterBlogServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/CreateComment", runtime.WithHTTPPathPattern("/api/blog/{blog_id}/comments"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/CreateComment", runtime.WithHTTPPathPattern("/api/blogs/{blog_id}/comments"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -304,7 +304,7 @@ func RegisterBlogServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/GetBlogById", runtime.WithHTTPPathPattern("/api/blog/{blog_id}"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/.BlogService/GetBlogById", runtime.WithHTTPPathPattern("/api/blogs/{blog_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -362,7 +362,7 @@ func RegisterBlogServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/CreateBlog", runtime.WithHTTPPathPattern("/api/blog"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/CreateBlog", runtime.WithHTTPPathPattern("/api/blogs"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -379,7 +379,7 @@ func RegisterBlogServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/LikeBlog", runtime.WithHTTPPathPattern("/api/blog/{blog_id}/like"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/LikeBlog", runtime.WithHTTPPathPattern("/api/blogs/{blog_id}/like"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -396,7 +396,7 @@ func RegisterBlogServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/CreateComment", runtime.WithHTTPPathPattern("/api/blog/{blog_id}/comments"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/CreateComment", runtime.WithHTTPPathPattern("/api/blogs/{blog_id}/comments"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -430,7 +430,7 @@ func RegisterBlogServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/GetBlogById", runtime.WithHTTPPathPattern("/api/blog/{blog_id}"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/.BlogService/GetBlogById", runtime.WithHTTPPathPattern("/api/blogs/{blog_id}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -447,11 +447,11 @@ func RegisterBlogServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_BlogService_CreateBlog_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "blog"}, ""))
-	pattern_BlogService_LikeBlog_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "blog", "blog_id", "like"}, ""))
-	pattern_BlogService_CreateComment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "blog", "blog_id", "comments"}, ""))
+	pattern_BlogService_CreateBlog_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "blogs"}, ""))
+	pattern_BlogService_LikeBlog_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "blogs", "blog_id", "like"}, ""))
+	pattern_BlogService_CreateComment_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2, 2, 3}, []string{"api", "blogs", "blog_id", "comments"}, ""))
 	pattern_BlogService_GetBlogs_0      = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "blogs"}, ""))
-	pattern_BlogService_GetBlogById_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "blog", "blog_id"}, ""))
+	pattern_BlogService_GetBlogById_0   = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "blogs", "blog_id"}, ""))
 )
 
 var (
