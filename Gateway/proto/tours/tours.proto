@@ -79,6 +79,23 @@ service TourReviewService {
   }
 }
 
+service PositionSimulatorService {
+  // GET metoda za preuzimanje trenutne pozicije turiste
+  rpc GetPosition (PositionSimulatorRequest) returns (PositionSimulatorResponse) {
+    option (google.api.http) = {
+      get: "/api/position-simulator/{touristId}"   
+    };
+  }
+
+  // POST metoda za ažuriranje pozicije turiste
+  rpc UpdatePosition (UpdatePositionRequest) returns (PositionSimulatorResponse) {
+    option (google.api.http) = {
+      post: "/api/position-simulator/update"       
+      body: "*"                                    
+    };
+  }
+}
+
 // Tour
 message Tour {
   int64 id = 1;
@@ -187,4 +204,21 @@ message GetKeyPointsByTourResponse {
 
 message GetTourByIdRequest {
   int64 id = 1;
+}
+
+message PositionSimulatorRequest {
+  int64 touristId = 1;
+}
+
+message UpdatePositionRequest {
+  int64 touristId = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message PositionSimulatorResponse {
+  int64 touristId = 1;
+  double latitude = 2;
+  double longitude = 3;
+  string  updatedAt = 4;
 }

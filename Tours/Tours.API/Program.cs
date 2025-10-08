@@ -70,7 +70,8 @@ app.MapGrpcService<KeyPointProtoController>();
 Console.WriteLine("KeyPoint gRPC service mapped: KeyPointProtoController");
 app.MapGrpcService<TourReviewProtoController>();
 Console.WriteLine("TourReview gRPC service mapped: TourReviewProtoController");
-
+app.MapGrpcService<PositionSimulatorProtoController>();
+Console.WriteLine("TourReview gRPC service mapped: PositionSimulatorProtoController");
 
 
 var connStr = builder.Configuration.GetConnectionString("DefaultConnection");

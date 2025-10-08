@@ -17,6 +17,23 @@ namespace Tours.Infrastructure.Migrations
                 name: "tours");
 
             migrationBuilder.CreateTable(
+                name: "Positions",
+                schema: "tours",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    TouristId = table.Column<long>(type: "bigint", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Positions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tour",
                 schema: "tours",
                 columns: table => new
@@ -102,6 +119,13 @@ namespace Tours.Infrastructure.Migrations
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Positions_TouristId",
+                schema: "tours",
+                table: "Positions",
+                column: "TouristId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TourReview_IdTour",
                 schema: "tours",
                 table: "TourReview",
@@ -113,6 +137,10 @@ namespace Tours.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "KeyPoints",
+                schema: "tours");
+
+            migrationBuilder.DropTable(
+                name: "Positions",
                 schema: "tours");
 
             migrationBuilder.DropTable(

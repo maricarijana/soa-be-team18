@@ -13,7 +13,7 @@ using Tours.Infrastructure.Database;
 namespace Tours.Infrastructure.Migrations
 {
     [DbContext(typeof(ToursContext))]
-    [Migration("20251004124207_Init")]
+    [Migration("20251007221910_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -67,6 +67,34 @@ namespace Tours.Infrastructure.Migrations
                     b.HasIndex("TourId");
 
                     b.ToTable("KeyPoints", "tours");
+                });
+
+            modelBuilder.Entity("Tours.Core.Domain.PositionSimulator", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<long>("TouristId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TouristId")
+                        .IsUnique();
+
+                    b.ToTable("Positions", "tours");
                 });
 
             modelBuilder.Entity("Tours.Core.Domain.Tour", b =>

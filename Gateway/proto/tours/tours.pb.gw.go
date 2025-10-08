@@ -395,6 +395,72 @@ func local_request_TourReviewService_AddTourReview_0(ctx context.Context, marsha
 	return msg, metadata, err
 }
 
+func request_PositionSimulatorService_GetPosition_0(ctx context.Context, marshaler runtime.Marshaler, client PositionSimulatorServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq PositionSimulatorRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	val, ok := pathParams["touristId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "touristId")
+	}
+	protoReq.TouristId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "touristId", err)
+	}
+	msg, err := client.GetPosition(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_PositionSimulatorService_GetPosition_0(ctx context.Context, marshaler runtime.Marshaler, server PositionSimulatorServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq PositionSimulatorRequest
+		metadata runtime.ServerMetadata
+		err      error
+	)
+	val, ok := pathParams["touristId"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "touristId")
+	}
+	protoReq.TouristId, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "touristId", err)
+	}
+	msg, err := server.GetPosition(ctx, &protoReq)
+	return msg, metadata, err
+}
+
+func request_PositionSimulatorService_UpdatePosition_0(ctx context.Context, marshaler runtime.Marshaler, client PositionSimulatorServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq UpdatePositionRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if req.Body != nil {
+		_, _ = io.Copy(io.Discard, req.Body)
+	}
+	msg, err := client.UpdatePosition(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+}
+
+func local_request_PositionSimulatorService_UpdatePosition_0(ctx context.Context, marshaler runtime.Marshaler, server PositionSimulatorServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var (
+		protoReq UpdatePositionRequest
+		metadata runtime.ServerMetadata
+	)
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil && !errors.Is(err, io.EOF) {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	msg, err := server.UpdatePosition(ctx, &protoReq)
+	return msg, metadata, err
+}
+
 // RegisterToursServiceHandlerServer registers the http handlers for service ToursService to "mux".
 // UnaryRPC     :call ToursServiceServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
@@ -620,6 +686,56 @@ func RegisterTourReviewServiceHandlerServer(ctx context.Context, mux *runtime.Se
 			return
 		}
 		forward_TourReviewService_AddTourReview_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+
+	return nil
+}
+
+// RegisterPositionSimulatorServiceHandlerServer registers the http handlers for service PositionSimulatorService to "mux".
+// UnaryRPC     :call PositionSimulatorServiceServer directly.
+// StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterPositionSimulatorServiceHandlerFromEndpoint instead.
+// GRPC interceptors will not work for this type of registration. To use interceptors, you must use the "runtime.WithMiddlewares" option in the "runtime.NewServeMux" call.
+func RegisterPositionSimulatorServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux, server PositionSimulatorServiceServer) error {
+	mux.Handle(http.MethodGet, pattern_PositionSimulatorService_GetPosition_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/tours.PositionSimulatorService/GetPosition", runtime.WithHTTPPathPattern("/api/position-simulator/{touristId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_PositionSimulatorService_GetPosition_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_PositionSimulatorService_GetPosition_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_PositionSimulatorService_UpdatePosition_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/tours.PositionSimulatorService/UpdatePosition", runtime.WithHTTPPathPattern("/api/position-simulator/update"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_PositionSimulatorService_UpdatePosition_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_PositionSimulatorService_UpdatePosition_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 	})
 
 	return nil
@@ -948,4 +1064,87 @@ var (
 
 var (
 	forward_TourReviewService_AddTourReview_0 = runtime.ForwardResponseMessage
+)
+
+// RegisterPositionSimulatorServiceHandlerFromEndpoint is same as RegisterPositionSimulatorServiceHandler but
+// automatically dials to "endpoint" and closes the connection when "ctx" gets done.
+func RegisterPositionSimulatorServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
+	conn, err := grpc.NewClient(endpoint, opts...)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err != nil {
+			if cerr := conn.Close(); cerr != nil {
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
+			}
+			return
+		}
+		go func() {
+			<-ctx.Done()
+			if cerr := conn.Close(); cerr != nil {
+				grpclog.Errorf("Failed to close conn to %s: %v", endpoint, cerr)
+			}
+		}()
+	}()
+	return RegisterPositionSimulatorServiceHandler(ctx, mux, conn)
+}
+
+// RegisterPositionSimulatorServiceHandler registers the http handlers for service PositionSimulatorService to "mux".
+// The handlers forward requests to the grpc endpoint over "conn".
+func RegisterPositionSimulatorServiceHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
+	return RegisterPositionSimulatorServiceHandlerClient(ctx, mux, NewPositionSimulatorServiceClient(conn))
+}
+
+// RegisterPositionSimulatorServiceHandlerClient registers the http handlers for service PositionSimulatorService
+// to "mux". The handlers forward requests to the grpc endpoint over the given implementation of "PositionSimulatorServiceClient".
+// Note: the gRPC framework executes interceptors within the gRPC handler. If the passed in "PositionSimulatorServiceClient"
+// doesn't go through the normal gRPC flow (creating a gRPC client etc.) then it will be up to the passed in
+// "PositionSimulatorServiceClient" to call the correct interceptors. This client ignores the HTTP middlewares.
+func RegisterPositionSimulatorServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux, client PositionSimulatorServiceClient) error {
+	mux.Handle(http.MethodGet, pattern_PositionSimulatorService_GetPosition_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/tours.PositionSimulatorService/GetPosition", runtime.WithHTTPPathPattern("/api/position-simulator/{touristId}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_PositionSimulatorService_GetPosition_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_PositionSimulatorService_GetPosition_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	mux.Handle(http.MethodPost, pattern_PositionSimulatorService_UpdatePosition_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/tours.PositionSimulatorService/UpdatePosition", runtime.WithHTTPPathPattern("/api/position-simulator/update"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_PositionSimulatorService_UpdatePosition_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		forward_PositionSimulatorService_UpdatePosition_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+	})
+	return nil
+}
+
+var (
+	pattern_PositionSimulatorService_GetPosition_0    = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "position-simulator", "touristId"}, ""))
+	pattern_PositionSimulatorService_UpdatePosition_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "position-simulator", "update"}, ""))
+)
+
+var (
+	forward_PositionSimulatorService_GetPosition_0    = runtime.ForwardResponseMessage
+	forward_PositionSimulatorService_UpdatePosition_0 = runtime.ForwardResponseMessage
 )

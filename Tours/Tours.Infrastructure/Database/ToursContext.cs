@@ -10,6 +10,8 @@ public class ToursContext : DbContext
     public DbSet<KeyPoint> KeyPoints { get; set; }
     public DbSet<Tour> Tour { get; set; }
     public DbSet<TourReview> TourReview { get; set; }
+    public DbSet<PositionSimulator> Positions { get; set; }
+
 
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) { }
@@ -49,6 +51,12 @@ public class ToursContext : DbContext
          .HasOne<Tour>()              
          .WithMany()                   
          .HasForeignKey(tr => tr.IdTour);
+
+        //ili prebaci u on model creating
+
+        modelBuilder.Entity<PositionSimulator>()
+         .HasIndex(ps => ps.TouristId)
+         .IsUnique();
 
         //modelBuilder.Entity<TourReview>()
         //.Property(tr => tr.Images)

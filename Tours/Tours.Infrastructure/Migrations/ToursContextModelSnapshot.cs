@@ -66,6 +66,34 @@ namespace Tours.Infrastructure.Migrations
                     b.ToTable("KeyPoints", "tours");
                 });
 
+            modelBuilder.Entity("Tours.Core.Domain.PositionSimulator", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<long>("TouristId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TouristId")
+                        .IsUnique();
+
+                    b.ToTable("Positions", "tours");
+                });
+
             modelBuilder.Entity("Tours.Core.Domain.Tour", b =>
                 {
                     b.Property<long>("Id")

@@ -9,6 +9,7 @@ using Tours.Core.Domain;
 using Tours.Core.Domain.RepositoryInterfaces;
 using AutoMapper;
 using Tours.Core.UseCases;
+using Tours.Core.Domain.Execution;
 
 
 namespace Tours.Infrastructure;
@@ -33,7 +34,7 @@ public static class ToursStartup
 
         services.AddScoped<ITourOverviewService, TourOverviewService>();
         services.AddScoped<ITourReviewService, TourReviewService>();
-
+        services.AddScoped<IPositionSimulatorService, PositionSimulationService>();
 
 
         services.AddScoped<IImageService, ImageService>();
@@ -49,12 +50,13 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<TourReview>), typeof(CrudDatabaseRepository<TourReview, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<Tour>), typeof(CrudDatabaseRepository<Tour, ToursContext>));
         //services.AddScoped(typeof(ICrudRepository<Core.Domain.Object>), typeof(CrudDatabaseRepository<Core.Domain.Object, ToursContext>));
+        services.AddScoped(typeof(ICrudRepository<PositionSimulator>), typeof(CrudDatabaseRepository<PositionSimulator, ToursContext>));
 
 
         services.AddScoped<ITourRepository, TourRepository>();
         services.AddScoped<IKeyPointRepository, KeyPointRepository>();
         services.AddScoped<ITourReviewRepository, TourReviewRepository>();
-
+        services.AddScoped<IPositionSimulatorRepository, PositionSimulatorRepository>();
 
 
         services.AddDbContext<ToursContext>(opt =>
