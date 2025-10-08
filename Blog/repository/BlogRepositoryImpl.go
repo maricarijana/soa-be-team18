@@ -18,7 +18,7 @@ func (r *BlogRepositoryImpl) Create(blog *model.Blog) error {
 	return err
 }
 
-func (r *BlogRepositoryImpl) GetByID(id  primitive.ObjectID) (*model.Blog, error) {
+func (r *BlogRepositoryImpl) GetByID(id primitive.ObjectID) (*model.Blog, error) {
 	filter := bson.D{{Key: "_id", Value: id}}
 	var blog model.Blog
 	err := r.Collection.FindOne(context.TODO(), filter).Decode(&blog)
@@ -49,8 +49,7 @@ func (r *BlogRepositoryImpl) Update(blog *model.Blog) error {
 	return err
 }
 
-func (r *BlogRepositoryImpl) Delete(id int64) error {
-	filter := bson.D{{Key: "_id", Value: id}}
-	_, err := r.Collection.DeleteOne(context.TODO(), filter)
+func (r *BlogRepositoryImpl) Delete(id primitive.ObjectID) error {
+	_, err := r.Collection.DeleteOne(context.TODO(), bson.M{"_id": id})
 	return err
 }

@@ -81,19 +81,19 @@ message GetBlogByIdResponse {
 service BlogService {
   rpc CreateBlog (CreateBlogRequest) returns (CreateBlogResponse) {
     option (google.api.http) = {
-      post: "/api/blog"
+      post: "/api/blogs"
       body: "*"
     };
   }
   rpc LikeBlog (LikeBlogRequest) returns (Blog) {
     option (google.api.http) = {
-      post: "/api/blog/{blog_id}/like"
+      post: "/api/blogs/{blog_id}/like"
       body: "*"
     };
   }
   rpc CreateComment (CreateCommentRequest) returns (CreateCommentResponse) {
     option (google.api.http) = {
-      post: "/api/blog/{blog_id}/comments"
+      post: "/api/blogs/{blog_id}/comments"
       body: "*"
     };
   }
@@ -106,7 +106,7 @@ service BlogService {
 
   rpc GetBlogById (GetBlogByIdRequest) returns (GetBlogByIdResponse) {
   option (google.api.http) = {
-    get: "/api/blog/{blog_id}"
+    get: "/api/blogs/{blog_id}"
   };
 }
 
