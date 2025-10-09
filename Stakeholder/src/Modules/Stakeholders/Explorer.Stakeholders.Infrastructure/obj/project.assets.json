@@ -1760,23 +1760,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\PC\\.nuget\\packages\\": {},
+    "C:\\Users\\Arijana\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
       "projectName": "Explorer.Stakeholders.Infrastructure",
-      "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\obj\\",
+      "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\Explorer.Stakeholders.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\Arijana\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Arijana\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -1791,11 +1791,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj"
+            "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\BuildingBlocks\\Explorer.BuildingBlocks.Infrastructure\\Explorer.BuildingBlocks.Infrastructure.csproj"
             },
-            "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj": {
-              "projectPath": "C:\\Users\\PC\\Documents\\SOA\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj"
+            "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj": {
+              "projectPath": "C:\\Users\\Arijana\\Documents\\SOA\\SOA-be\\soa-be-team18\\Stakeholder\\src\\Modules\\Stakeholders\\Explorer.Stakeholders.Core\\Explorer.Stakeholders.Core.csproj"
             }
           }
         }
