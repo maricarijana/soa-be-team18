@@ -163,4 +163,38 @@ func (s *FollowerServer) GetFollowers(ctx context.Context, req *follower.UserReq
 	return &follower.UserListResponse{UserIds: userIds}, nil
 }
 
+func (s *FollowerServer) GetRecommendations(ctx context.Context, req *follower.UserRequest) (*follower.UserListResponse, error) {
+	log.Printf("GetRecommendations for user: %d", req.UserId)
+
+	session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+	defer session.Close(ctx)
+
+	userIds := []int64{}
+
+	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+		result, err := tx.Run(ctx,
+			`MATCH (me:User {id: $userId})-[:FOLLOWS]->(friend:User)-[:FOLLOWS]->(rec:User)
+			 WHERE NOT (me)-[:FOLLOWS]->(rec) AND rec.id <> $userId
+			 RETURN DISTINCT rec.id AS id
+			 LIMIT 10`,
+			map[string]any{"userId": req.UserId},
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		for result.Next(ctx) {
+			if id, ok := result.Record().Values[0].(int64); ok {
+				userIds = append(userIds, id)
+			}
+		}
+		return nil, result.Err()
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &follower.UserListResponse{UserIds: userIds}, nil
+}
 
