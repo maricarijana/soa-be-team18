@@ -95,15 +95,72 @@ func (s *FollowerServer) UnfollowUser(ctx context.Context, req *follower.FollowR
 
 func (s *FollowerServer) GetFollowing(ctx context.Context, req *follower.UserRequest) (*follower.UserListResponse, error) {
 	log.Printf("GetFollowing for user: %d", req.UserId)
-	return &follower.UserListResponse{UserIds: []int64{101, 102}}, nil
+
+	session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+	defer session.Close(ctx)
+
+	userIds := []int64{}
+
+	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+		result, err := tx.Run(ctx,
+			`MATCH (a:User {id: $userId})-[:FOLLOWS]->(b:User)
+             RETURN b.id AS id`,
+			map[string]any{
+				"userId": req.UserId,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		for result.Next(ctx) {
+			if id, ok := result.Record().Values[0].(int64); ok {
+				userIds = append(userIds, id)
+			}
+		}
+
+		return nil, result.Err()
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &follower.UserListResponse{UserIds: userIds}, nil
 }
 
 func (s *FollowerServer) GetFollowers(ctx context.Context, req *follower.UserRequest) (*follower.UserListResponse, error) {
 	log.Printf("GetFollowers for user: %d", req.UserId)
-	return &follower.UserListResponse{UserIds: []int64{201, 202}}, nil
+
+	session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+	defer session.Close(ctx)
+
+	userIds := []int64{}
+
+	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+		result, err := tx.Run(ctx,
+			`MATCH (a:User)-[:FOLLOWS]->(b:User {id: $userId})
+             RETURN a.id AS id`,
+			map[string]any{
+				"userId": req.UserId,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		for result.Next(ctx) {
+			if id, ok := result.Record().Values[0].(int64); ok {
+				userIds = append(userIds, id)
+			}
+		}
+
+		return nil, result.Err()
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &follower.UserListResponse{UserIds: userIds}, nil
 }
 
-func (s *FollowerServer) GetRecommendations(ctx context.Context, req *follower.UserRequest) (*follower.UserListResponse, error) {
-	log.Printf("GetRecommendations for user: %d", req.UserId)
-	return &follower.UserListResponse{UserIds: []int64{301, 302}}, nil
-}
+
