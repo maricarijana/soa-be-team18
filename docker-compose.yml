@@ -1,4 +1,8 @@
 version: "3.7"
+x-logging: &fluent-bit
+  driver: fluentd
+  options:
+    fluentd-address: 172.18.0.3:24224
 
 services:
   blog-service:
@@ -8,8 +12,10 @@ services:
     image: blog-app-image
     container_name: blog-app-container
     restart: always
+    logging: *fluent-bit
     networks:
       - app-network
+      - monitoring
     ports:
       - "9090:9090"
     depends_on:
@@ -89,8 +95,10 @@ services:
     image: follower-app-image
     container_name: follower-app-container
     restart: always
+    logging: *fluent-bit
     networks:
       - app-network
+      - monitoring
     ports:
       - "9091:9091"
     environment:
@@ -143,6 +151,8 @@ services:
       - "27017:27017"
     networks:
       - app-network
+    volumes:
+      - mongo-data:/data/db
 
   mongo-express:
     image: mongo-express
@@ -159,6 +169,9 @@ services:
 volumes:
   db-data:
   neo4j-data:
+  mongo-data:
 
 networks:
   app-network:
+  monitoring:
+    external: true
