@@ -23,6 +23,7 @@ type Blog struct {
 	Description string             `json:"description" bson:"description"`
 	CreatedAt   time.Time          `json:"createdAt"   bson:"createdAt"`
 	ImageUrl    string             `json:"imageUrl"    bson:"imageUrl"`
+	ImageBase64 string             `json:"imageBase64" bson:"-"`
 	Status      BlogStatus         `json:"status"      bson:"status"`
 	UserId      int64              `json:"userId"      bson:"userId"`
 

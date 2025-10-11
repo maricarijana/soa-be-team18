@@ -16,6 +16,8 @@ services:
       - mongo
     environment:
       - MONGODB_URI=mongo:27017
+    volumes:
+      - ./Blog/wwwroot:/app/wwwroot
 
   gateway-service:
     build:
