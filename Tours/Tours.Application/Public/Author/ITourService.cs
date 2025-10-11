@@ -2,6 +2,7 @@
 using Tours.Application.Dtos;
 
 
+
 namespace Tours.Application.Public.Author
 {
     public interface ITourService
@@ -13,11 +14,15 @@ namespace Tours.Application.Public.Author
         public Result GetById(long id);
         Result UpdateDistance(long id, double distance);
         Result Archive(long id);
+        //Result Archive(long id, long userId);
+
         Result Publish(long id);
         Result Reactivate(long id);
         Result DeleteTour(int id);
         Result<TourDto> GetWithKeyPoints(int tourId);
         Result<TourDto> GetTourById(long id);
         //Result<PagedResult<TourDto>> GetPublised();
+        Result AddDuration(long tourId, Application.Dtos.TransportType transport, int durationInMinutes);
+
     }
 }

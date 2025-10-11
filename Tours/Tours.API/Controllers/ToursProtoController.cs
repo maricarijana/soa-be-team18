@@ -3,6 +3,7 @@ using Tours.Application.Dtos;
 using Tours.Application.Public.Author;
 using System.Net;
 using GrpcServiceTranscoding;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Tours.API.Controllers
 {
@@ -39,7 +40,7 @@ namespace Tours.API.Controllers
                 Description = request.Description,
                 Difficulty = request.Difficulty,
                 Tags = request.Tags
-    .Select(t => Enum.TryParse<TourTags>(t, true, out var tag) ? tag : default)
+    .Select(t => System.Enum.TryParse<TourTags>(t, true, out var tag) ? tag : default)
     .ToList(),
 
                 Status = (TourStatus)(int.TryParse(request.Status, out var status) ? status : 0), // ako status u requestu šalješ kao string
@@ -150,6 +151,67 @@ namespace Tours.API.Controllers
 
             return Task.FromResult(response);
         }
-    }
+
+        public override Task<Google.Protobuf.WellKnownTypes.Empty> AddTourDuration(
+        AddTourDurationRequest request,
+        ServerCallContext context)
+        {
+            _logger.LogInformation("AddTourDuration called for TourId {TourId}", request.TourId);
+
+            // mapiranje TransportType iz requesta (string -> enum)
+            if (!System.Enum.TryParse<TransportType>(request.Transport, true, out var transport))
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, $"Invalid transport type: {request.Transport}"));
+            }
+
+           
+            var result = _tourService.AddDuration(request.TourId, transport, request.DurationInMinutes);
+
+            if (!result.IsSuccess)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, result.Errors.FirstOrDefault()?.Message ?? "Failed to add tour duration"));
+            }
+
+            _logger.LogInformation("Tour duration successfully added for TourId {TourId}", request.TourId);
+
+            return Task.FromResult(new Google.Protobuf.WellKnownTypes.Empty());
+        }
+
+        public override Task<Google.Protobuf.WellKnownTypes.Empty> PublishTour(PublishTourRequest request,ServerCallContext context)
+        {
+            _logger.LogInformation("PublishTour called for TourId {TourId}", request.TourId);
+
+            var result = _tourService.Publish(request.TourId);
+
+            if (!result.IsSuccess)
+            {
+                var errorMessage = result.Errors.FirstOrDefault()?.Message ?? "Failed to publish tour";
+                throw new RpcException(new Status(StatusCode.InvalidArgument, errorMessage));
+            }
+
+            _logger.LogInformation("Tour {TourId} successfully published.", request.TourId);
+
+            return Task.FromResult(new Google.Protobuf.WellKnownTypes.Empty());
+        }
+        //public override Task<Empty> ArchiveTour(ArchiveTourRequest request, ServerCallContext context)
+        //{
+        //    _logger.LogInformation("ArchiveTour called for TourId {TourId} by User {UserId}", request.TourId, request.UserId);
+
+        //    var result = _tourService.Archive(request.TourId, request.UserId); // prosleđuje oba
+
+        //    if (!result.IsSuccess)
+        //    {
+        //        var errorMessage = result.Errors.FirstOrDefault()?.Message ?? "Failed to archive tour.";
+        //        throw new RpcException(new Status(StatusCode.PermissionDenied, errorMessage));
+        //    }
+
+        //    _logger.LogInformation("Tour {TourId} successfully archived by User {UserId}.", request.TourId, request.UserId);
+
+        //    return Task.FromResult(new Empty());
+        //}
+
+
 
     }
+
+}

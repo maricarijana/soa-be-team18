@@ -3,6 +3,7 @@ syntax = "proto3";
 //option go_package = "proto/tours";
 
 option csharp_namespace = "GrpcServiceTranscoding";
+import "google/protobuf/empty.proto";
 
 
 //package GrpcServiceTranscoding;
@@ -13,6 +14,8 @@ service ToursService {
   rpc AddTour (AddTourRequest) returns (Tour);
   rpc GetToursByUser (GetToursByUserRequest) returns (GetToursByUserResponse);
   rpc GetTourById (GetTourByIdRequest) returns (Tour);
+  rpc AddTourDuration (AddTourDurationRequest) returns (google.protobuf.Empty);
+  rpc PublishTour (PublishTourRequest) returns (google.protobuf.Empty);
 
 }
 
@@ -163,3 +166,13 @@ message PositionSimulatorResponse {
   double longitude = 3;
   string  updatedAt = 4;
 }
+
+message AddTourDurationRequest {
+  int64 tourId = 1;
+  string transport = 2; 
+  int32 durationInMinutes = 3;
+}
+message PublishTourRequest {
+  int64 tourId = 1;
+}
+
