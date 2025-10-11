@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,9 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ToursService_AddTour_FullMethodName        = "/tours.ToursService/AddTour"
-	ToursService_GetToursByUser_FullMethodName = "/tours.ToursService/GetToursByUser"
-	ToursService_GetTourById_FullMethodName    = "/tours.ToursService/GetTourById"
+	ToursService_AddTour_FullMethodName         = "/tours.ToursService/AddTour"
+	ToursService_GetToursByUser_FullMethodName  = "/tours.ToursService/GetToursByUser"
+	ToursService_GetTourById_FullMethodName     = "/tours.ToursService/GetTourById"
+	ToursService_AddTourDuration_FullMethodName = "/tours.ToursService/AddTourDuration"
+	ToursService_PublishTour_FullMethodName     = "/tours.ToursService/PublishTour"
 )
 
 // ToursServiceClient is the client API for ToursService service.
@@ -34,6 +37,8 @@ type ToursServiceClient interface {
 	AddTour(ctx context.Context, in *AddTourRequest, opts ...grpc.CallOption) (*Tour, error)
 	GetToursByUser(ctx context.Context, in *GetToursByUserRequest, opts ...grpc.CallOption) (*GetToursByUserResponse, error)
 	GetTourById(ctx context.Context, in *GetTourByIdRequest, opts ...grpc.CallOption) (*Tour, error)
+	AddTourDuration(ctx context.Context, in *AddTourDurationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	PublishTour(ctx context.Context, in *PublishTourRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type toursServiceClient struct {
@@ -74,6 +79,26 @@ func (c *toursServiceClient) GetTourById(ctx context.Context, in *GetTourByIdReq
 	return out, nil
 }
 
+func (c *toursServiceClient) AddTourDuration(ctx context.Context, in *AddTourDurationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ToursService_AddTourDuration_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *toursServiceClient) PublishTour(ctx context.Context, in *PublishTourRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ToursService_PublishTour_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ToursServiceServer is the server API for ToursService service.
 // All implementations must embed UnimplementedToursServiceServer
 // for forward compatibility.
@@ -84,6 +109,8 @@ type ToursServiceServer interface {
 	AddTour(context.Context, *AddTourRequest) (*Tour, error)
 	GetToursByUser(context.Context, *GetToursByUserRequest) (*GetToursByUserResponse, error)
 	GetTourById(context.Context, *GetTourByIdRequest) (*Tour, error)
+	AddTourDuration(context.Context, *AddTourDurationRequest) (*emptypb.Empty, error)
+	PublishTour(context.Context, *PublishTourRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedToursServiceServer()
 }
 
@@ -102,6 +129,12 @@ func (UnimplementedToursServiceServer) GetToursByUser(context.Context, *GetTours
 }
 func (UnimplementedToursServiceServer) GetTourById(context.Context, *GetTourByIdRequest) (*Tour, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTourById not implemented")
+}
+func (UnimplementedToursServiceServer) AddTourDuration(context.Context, *AddTourDurationRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTourDuration not implemented")
+}
+func (UnimplementedToursServiceServer) PublishTour(context.Context, *PublishTourRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PublishTour not implemented")
 }
 func (UnimplementedToursServiceServer) mustEmbedUnimplementedToursServiceServer() {}
 func (UnimplementedToursServiceServer) testEmbeddedByValue()                      {}
@@ -178,6 +211,42 @@ func _ToursService_GetTourById_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ToursService_AddTourDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTourDurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToursServiceServer).AddTourDuration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ToursService_AddTourDuration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToursServiceServer).AddTourDuration(ctx, req.(*AddTourDurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ToursService_PublishTour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishTourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToursServiceServer).PublishTour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ToursService_PublishTour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToursServiceServer).PublishTour(ctx, req.(*PublishTourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ToursService_ServiceDesc is the grpc.ServiceDesc for ToursService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +265,14 @@ var ToursService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTourById",
 			Handler:    _ToursService_GetTourById_Handler,
+		},
+		{
+			MethodName: "AddTourDuration",
+			Handler:    _ToursService_AddTourDuration_Handler,
+		},
+		{
+			MethodName: "PublishTour",
+			Handler:    _ToursService_PublishTour_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

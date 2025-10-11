@@ -23,6 +23,7 @@ namespace Tours.Application.Dtos
         public DateTime? ArchiveTime { get; set; }
         public List<long> EquipmentIds { get; set; }
         public ICollection<KeyPointDto> KeyPoints { get; set; } = new List<KeyPointDto>();
+        public List<TourDurationDto> Durations { get; set; } = new List<TourDurationDto>();
 
         public TourDto() { }
         public TourDto(long id, string name, string? description, string? difficulty, List<TourTags> tags, long userId, TourStatus status, double price, double lengthInKm, DateTime publishedTime, DateTime archivedTime, List<long> equipmentIds, List<long> keyPointIds)

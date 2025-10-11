@@ -13,7 +13,7 @@ using Tours.Infrastructure.Database;
 namespace Tours.Infrastructure.Migrations
 {
     [DbContext(typeof(ToursContext))]
-    [Migration("20251007221910_Init")]
+    [Migration("20251011105449_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -146,6 +146,30 @@ namespace Tours.Infrastructure.Migrations
                     b.ToTable("Tour", "tours");
                 });
 
+            modelBuilder.Entity("Tours.Core.Domain.TourDuration", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("DurationInMinutes")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("TourId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Transport")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourDurations", "tours");
+                });
+
             modelBuilder.Entity("Tours.Core.Domain.TourReview", b =>
                 {
                     b.Property<long>("Id")
@@ -192,6 +216,14 @@ namespace Tours.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Tours.Core.Domain.TourDuration", b =>
+                {
+                    b.HasOne("Tours.Core.Domain.Tour", null)
+                        .WithMany("Durations")
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Tours.Core.Domain.TourReview", b =>
                 {
                     b.HasOne("Tours.Core.Domain.Tour", null)
@@ -203,6 +235,8 @@ namespace Tours.Infrastructure.Migrations
 
             modelBuilder.Entity("Tours.Core.Domain.Tour", b =>
                 {
+                    b.Navigation("Durations");
+
                     b.Navigation("KeyPoints");
                 });
 #pragma warning restore 612, 618
