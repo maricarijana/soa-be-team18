@@ -2,7 +2,7 @@ package handler
 
 import (
 	"encoding/json"
-
+	"fmt"
 	"net/http"
 	"soa/blog/model"
 	"soa/blog/service"
@@ -22,6 +22,22 @@ func (handler *BlogHandler) Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("🟢 Blog received:", blog.Title)
+	fmt.Println("🟢 ImageBase64 length:", len(blog.ImageBase64))
+	if blog.ImageBase64 != "" {
+		imageService := service.NewImageService("./wwwroot")
+		imagePath, err := imageService.SaveBase64Image(blog.ImageBase64, "blogs")
+		if err != nil {
+			fmt.Println("❌ Error saving image:", err)
+			http.Error(w, "Failed to save image: "+err.Error(), http.StatusInternalServerError)
+			return
+		}
+		fmt.Println("✅ Image saved at:", imagePath)
+		blog.ImageUrl = imagePath
+	} else {
+		fmt.Println("⚠️ blog.ImageBase64 je PRAZAN")
+	}
+	
 	if err := handler.BlogService.Create(&blog); err != nil {
 		http.Error(w, "Error while creating new blog", http.StatusInternalServerError)
 		return
