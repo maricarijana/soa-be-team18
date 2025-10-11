@@ -19,12 +19,13 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	StakeholdersService_Register_FullMethodName       = "/stakeholders.StakeholdersService/Register"
-	StakeholdersService_GetAllAccounts_FullMethodName = "/stakeholders.StakeholdersService/GetAllAccounts"
-	StakeholdersService_Login_FullMethodName          = "/stakeholders.StakeholdersService/Login"
-	StakeholdersService_BlockUser_FullMethodName      = "/stakeholders.StakeholdersService/BlockUser"
-	StakeholdersService_GetPerson_FullMethodName      = "/stakeholders.StakeholdersService/GetPerson"
-	StakeholdersService_UpdatePerson_FullMethodName   = "/stakeholders.StakeholdersService/UpdatePerson"
+	StakeholdersService_Register_FullMethodName          = "/stakeholders.StakeholdersService/Register"
+	StakeholdersService_GetAllAccounts_FullMethodName    = "/stakeholders.StakeholdersService/GetAllAccounts"
+	StakeholdersService_Login_FullMethodName             = "/stakeholders.StakeholdersService/Login"
+	StakeholdersService_BlockUser_FullMethodName         = "/stakeholders.StakeholdersService/BlockUser"
+	StakeholdersService_GetPerson_FullMethodName         = "/stakeholders.StakeholdersService/GetPerson"
+	StakeholdersService_UpdatePerson_FullMethodName      = "/stakeholders.StakeholdersService/UpdatePerson"
+	StakeholdersService_GetPersonByUserId_FullMethodName = "/stakeholders.StakeholdersService/GetPersonByUserId"
 )
 
 // StakeholdersServiceClient is the client API for StakeholdersService service.
@@ -37,6 +38,7 @@ type StakeholdersServiceClient interface {
 	BlockUser(ctx context.Context, in *BlockRequest, opts ...grpc.CallOption) (*Account, error)
 	GetPerson(ctx context.Context, in *PersonRequest, opts ...grpc.CallOption) (*Person, error)
 	UpdatePerson(ctx context.Context, in *PersonUpdateRequest, opts ...grpc.CallOption) (*Person, error)
+	GetPersonByUserId(ctx context.Context, in *PersonByUserIdRequest, opts ...grpc.CallOption) (*Person, error)
 }
 
 type stakeholdersServiceClient struct {
@@ -107,6 +109,16 @@ func (c *stakeholdersServiceClient) UpdatePerson(ctx context.Context, in *Person
 	return out, nil
 }
 
+func (c *stakeholdersServiceClient) GetPersonByUserId(ctx context.Context, in *PersonByUserIdRequest, opts ...grpc.CallOption) (*Person, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Person)
+	err := c.cc.Invoke(ctx, StakeholdersService_GetPersonByUserId_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // StakeholdersServiceServer is the server API for StakeholdersService service.
 // All implementations must embed UnimplementedStakeholdersServiceServer
 // for forward compatibility.
@@ -117,6 +129,7 @@ type StakeholdersServiceServer interface {
 	BlockUser(context.Context, *BlockRequest) (*Account, error)
 	GetPerson(context.Context, *PersonRequest) (*Person, error)
 	UpdatePerson(context.Context, *PersonUpdateRequest) (*Person, error)
+	GetPersonByUserId(context.Context, *PersonByUserIdRequest) (*Person, error)
 	mustEmbedUnimplementedStakeholdersServiceServer()
 }
 
@@ -144,6 +157,9 @@ func (UnimplementedStakeholdersServiceServer) GetPerson(context.Context, *Person
 }
 func (UnimplementedStakeholdersServiceServer) UpdatePerson(context.Context, *PersonUpdateRequest) (*Person, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdatePerson not implemented")
+}
+func (UnimplementedStakeholdersServiceServer) GetPersonByUserId(context.Context, *PersonByUserIdRequest) (*Person, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPersonByUserId not implemented")
 }
 func (UnimplementedStakeholdersServiceServer) mustEmbedUnimplementedStakeholdersServiceServer() {}
 func (UnimplementedStakeholdersServiceServer) testEmbeddedByValue()                             {}
@@ -274,6 +290,24 @@ func _StakeholdersService_UpdatePerson_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _StakeholdersService_GetPersonByUserId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PersonByUserIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(StakeholdersServiceServer).GetPersonByUserId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: StakeholdersService_GetPersonByUserId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(StakeholdersServiceServer).GetPersonByUserId(ctx, req.(*PersonByUserIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // StakeholdersService_ServiceDesc is the grpc.ServiceDesc for StakeholdersService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -304,6 +338,10 @@ var StakeholdersService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdatePerson",
 			Handler:    _StakeholdersService_UpdatePerson_Handler,
+		},
+		{
+			MethodName: "GetPersonByUserId",
+			Handler:    _StakeholdersService_GetPersonByUserId_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

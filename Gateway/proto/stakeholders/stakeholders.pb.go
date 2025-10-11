@@ -787,6 +787,50 @@ func (x *Person) GetImageUrl() string {
 	return ""
 }
 
+type PersonByUserIdRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=userId,proto3" json:"userId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *PersonByUserIdRequest) Reset() {
+	*x = PersonByUserIdRequest{}
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *PersonByUserIdRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PersonByUserIdRequest) ProtoMessage() {}
+
+func (x *PersonByUserIdRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_stakeholders_stakeholders_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PersonByUserIdRequest.ProtoReflect.Descriptor instead.
+func (*PersonByUserIdRequest) Descriptor() ([]byte, []int) {
+	return file_stakeholders_stakeholders_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *PersonByUserIdRequest) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
 var File_stakeholders_stakeholders_proto protoreflect.FileDescriptor
 
 const file_stakeholders_stakeholders_proto_rawDesc = "" +
@@ -849,14 +893,17 @@ const file_stakeholders_stakeholders_proto_rawDesc = "" +
 	"\x05email\x18\x05 \x01(\tR\x05email\x12\x1c\n" +
 	"\tbiography\x18\x06 \x01(\tR\tbiography\x12\x14\n" +
 	"\x05motto\x18\a \x01(\tR\x05motto\x12\x1a\n" +
-	"\bimageUrl\x18\b \x01(\tR\bimageUrl2\x84\x05\n" +
+	"\bimageUrl\x18\b \x01(\tR\bimageUrl\"/\n" +
+	"\x15PersonByUserIdRequest\x12\x16\n" +
+	"\x06userId\x18\x01 \x01(\x03R\x06userId2\xf7\x05\n" +
 	"\x13StakeholdersService\x12`\n" +
 	"\bRegister\x12!.stakeholders.AccountRegistration\x1a\x12.stakeholders.User\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/user/register\x12l\n" +
 	"\x0eGetAllAccounts\x12\x1a.stakeholders.PagedRequest\x1a\x19.stakeholders.AccountList\"#\x82\xd3\xe4\x93\x02\x1d\x12\x1b/api/administration/account\x12c\n" +
 	"\x05Login\x12\x19.stakeholders.Credentials\x1a\".stakeholders.AuthenticationTokens\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/api/users/login\x12x\n" +
 	"\tBlockUser\x12\x1a.stakeholders.BlockRequest\x1a\x15.stakeholders.Account\"8\x82\xd3\xe4\x93\x022:\x01*\x1a-/api/administration/account/block/{accountId}\x12X\n" +
 	"\tGetPerson\x12\x1b.stakeholders.PersonRequest\x1a\x14.stakeholders.Person\"\x18\x82\xd3\xe4\x93\x02\x12\x12\x10/api/person/{id}\x12d\n" +
-	"\fUpdatePerson\x12!.stakeholders.PersonUpdateRequest\x1a\x14.stakeholders.Person\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\x1a\x10/api/person/{id}B-Z\x12proto/stakeholders\xaa\x02\x16GrpcServiceTranscodingb\x06proto3"
+	"\fUpdatePerson\x12!.stakeholders.PersonUpdateRequest\x1a\x14.stakeholders.Person\"\x1b\x82\xd3\xe4\x93\x02\x15:\x01*\x1a\x10/api/person/{id}\x12q\n" +
+	"\x11GetPersonByUserId\x12#.stakeholders.PersonByUserIdRequest\x1a\x14.stakeholders.Person\"!\x82\xd3\xe4\x93\x02\x1b\x12\x19/api/person/user/{userId}B-Z\x12proto/stakeholders\xaa\x02\x16GrpcServiceTranscodingb\x06proto3"
 
 var (
 	file_stakeholders_stakeholders_proto_rawDescOnce sync.Once
@@ -870,19 +917,20 @@ func file_stakeholders_stakeholders_proto_rawDescGZIP() []byte {
 	return file_stakeholders_stakeholders_proto_rawDescData
 }
 
-var file_stakeholders_stakeholders_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_stakeholders_stakeholders_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_stakeholders_stakeholders_proto_goTypes = []any{
-	(*PagedRequest)(nil),         // 0: stakeholders.PagedRequest
-	(*AccountList)(nil),          // 1: stakeholders.AccountList
-	(*Account)(nil),              // 2: stakeholders.Account
-	(*AccountRegistration)(nil),  // 3: stakeholders.AccountRegistration
-	(*User)(nil),                 // 4: stakeholders.User
-	(*BlockRequest)(nil),         // 5: stakeholders.BlockRequest
-	(*Credentials)(nil),          // 6: stakeholders.Credentials
-	(*AuthenticationTokens)(nil), // 7: stakeholders.AuthenticationTokens
-	(*PersonRequest)(nil),        // 8: stakeholders.PersonRequest
-	(*PersonUpdateRequest)(nil),  // 9: stakeholders.PersonUpdateRequest
-	(*Person)(nil),               // 10: stakeholders.Person
+	(*PagedRequest)(nil),          // 0: stakeholders.PagedRequest
+	(*AccountList)(nil),           // 1: stakeholders.AccountList
+	(*Account)(nil),               // 2: stakeholders.Account
+	(*AccountRegistration)(nil),   // 3: stakeholders.AccountRegistration
+	(*User)(nil),                  // 4: stakeholders.User
+	(*BlockRequest)(nil),          // 5: stakeholders.BlockRequest
+	(*Credentials)(nil),           // 6: stakeholders.Credentials
+	(*AuthenticationTokens)(nil),  // 7: stakeholders.AuthenticationTokens
+	(*PersonRequest)(nil),         // 8: stakeholders.PersonRequest
+	(*PersonUpdateRequest)(nil),   // 9: stakeholders.PersonUpdateRequest
+	(*Person)(nil),                // 10: stakeholders.Person
+	(*PersonByUserIdRequest)(nil), // 11: stakeholders.PersonByUserIdRequest
 }
 var file_stakeholders_stakeholders_proto_depIdxs = []int32{
 	2,  // 0: stakeholders.AccountList.accounts:type_name -> stakeholders.Account
@@ -892,14 +940,16 @@ var file_stakeholders_stakeholders_proto_depIdxs = []int32{
 	5,  // 4: stakeholders.StakeholdersService.BlockUser:input_type -> stakeholders.BlockRequest
 	8,  // 5: stakeholders.StakeholdersService.GetPerson:input_type -> stakeholders.PersonRequest
 	9,  // 6: stakeholders.StakeholdersService.UpdatePerson:input_type -> stakeholders.PersonUpdateRequest
-	4,  // 7: stakeholders.StakeholdersService.Register:output_type -> stakeholders.User
-	1,  // 8: stakeholders.StakeholdersService.GetAllAccounts:output_type -> stakeholders.AccountList
-	7,  // 9: stakeholders.StakeholdersService.Login:output_type -> stakeholders.AuthenticationTokens
-	2,  // 10: stakeholders.StakeholdersService.BlockUser:output_type -> stakeholders.Account
-	10, // 11: stakeholders.StakeholdersService.GetPerson:output_type -> stakeholders.Person
-	10, // 12: stakeholders.StakeholdersService.UpdatePerson:output_type -> stakeholders.Person
-	7,  // [7:13] is the sub-list for method output_type
-	1,  // [1:7] is the sub-list for method input_type
+	11, // 7: stakeholders.StakeholdersService.GetPersonByUserId:input_type -> stakeholders.PersonByUserIdRequest
+	4,  // 8: stakeholders.StakeholdersService.Register:output_type -> stakeholders.User
+	1,  // 9: stakeholders.StakeholdersService.GetAllAccounts:output_type -> stakeholders.AccountList
+	7,  // 10: stakeholders.StakeholdersService.Login:output_type -> stakeholders.AuthenticationTokens
+	2,  // 11: stakeholders.StakeholdersService.BlockUser:output_type -> stakeholders.Account
+	10, // 12: stakeholders.StakeholdersService.GetPerson:output_type -> stakeholders.Person
+	10, // 13: stakeholders.StakeholdersService.UpdatePerson:output_type -> stakeholders.Person
+	10, // 14: stakeholders.StakeholdersService.GetPersonByUserId:output_type -> stakeholders.Person
+	8,  // [8:15] is the sub-list for method output_type
+	1,  // [1:8] is the sub-list for method input_type
 	1,  // [1:1] is the sub-list for extension type_name
 	1,  // [1:1] is the sub-list for extension extendee
 	0,  // [0:1] is the sub-list for field type_name
@@ -916,7 +966,7 @@ func file_stakeholders_stakeholders_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_stakeholders_stakeholders_proto_rawDesc), len(file_stakeholders_stakeholders_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

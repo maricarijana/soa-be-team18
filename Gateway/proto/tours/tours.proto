@@ -22,6 +22,12 @@ service ToursService {
       get: "/api/tours/user/{userId}"
     };
   }
+
+  rpc GetTourById (GetTourByIdRequest) returns (Tour) {
+  option (google.api.http) = {
+    get: "/api/tour/{id}"
+  };
+}
 }
 
 // =================== KeyPoint Service ===================
@@ -177,4 +183,8 @@ message GetKeyPointsByTourRequest {
 
 message GetKeyPointsByTourResponse {
   repeated KeyPoint keyPoints = 1;
+}
+
+message GetTourByIdRequest {
+  int64 id = 1;
 }

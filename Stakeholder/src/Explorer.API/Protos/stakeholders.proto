@@ -15,8 +15,9 @@ service StakeholdersService {
 	rpc BlockUser (BlockRequest) returns (Account);
 	rpc GetPerson (PersonRequest) returns (Person);
 	rpc UpdatePerson (PersonUpdateRequest) returns (Person);
-
+	rpc GetPersonByUserId (PersonByUserIdRequest) returns (Person);
 }
+
 
 // The request message containing the user's name.
 message PagedRequest {
@@ -94,6 +95,10 @@ message Person {
   string biography = 6;
   string motto = 7;
   string imageUrl = 8;
+}
+
+message PersonByUserIdRequest {
+  int64 userId = 1;
 }
 
 
