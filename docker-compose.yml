@@ -145,6 +145,8 @@ services:
       - "27017:27017"
     networks:
       - app-network
+    volumes:
+    - mongo-data:/data/db
 
   mongo-express:
     image: mongo-express
@@ -161,6 +163,7 @@ services:
 volumes:
   db-data:
   neo4j-data:
+  mongo-data:
 
 networks:
   app-network:
