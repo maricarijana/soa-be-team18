@@ -27,6 +27,28 @@ namespace Tours.Infrastructure.Database.Repositories
             }
             return tour;
         }
+        //public List<Tour> GetPublishedWithFirstKeyPoint()
+        //{
+        //    return _dbContext.Tour
+        //        .Include(t => t.KeyPoints.OrderBy(kp => kp.Id).Take(1)) // samo prva kljucna
+        //        .Where(t => t.Status == TourStatus.Published)
+        //        .ToList();
+        //}
+
+        public List<Tour> GetPublishedWithKeyPoints()
+        {
+            return _dbContext.Tour
+                .Include(t => t.KeyPoints) 
+                .Where(t => t.Status == TourStatus.Published)
+                .ToList();
+        }
+
+        public List<Tour> GetAll()
+        {
+            return _dbContext.Tour.Include(t => t.KeyPoints).ToList();
+        }
+
+
 
         public PagedResult<Tour> GetByKeyPoints(List<KeyPoint> keyPoints, int page, int pageSize)
         {

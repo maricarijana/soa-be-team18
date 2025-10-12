@@ -18,6 +18,17 @@ import (
 
 func main() {
 	// --- 1. Procitaj env varijable ---
+
+		tp, err := initTracer()
+if err != nil {
+    log.Fatalf("Failed to initialize tracer: %v", err)
+}
+defer func() {
+    if err := tp.Shutdown(context.Background()); err != nil {
+        log.Fatalf("Failed to shutdown tracer: %v", err)
+    }
+}()
+
 	neo4jUri := os.Getenv("NEO4J_URI")
 	neo4jUser := os.Getenv("NEO4J_USER")
 	neo4jPassword := os.Getenv("NEO4J_PASSWORD")
@@ -61,4 +72,5 @@ if err != nil {
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}
+
 }

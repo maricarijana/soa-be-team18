@@ -8,7 +8,11 @@ import (
 	stakeholders "soa/follower/proto/stakeholders"
 
 	"github.com/neo4j/neo4j-go-driver/v5/neo4j"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 )
+var tracer = otel.Tracer("follower-service")
 
 // FollowerServer implementira interfejs generisan iz follower_grpc.pb.go
 type FollowerServer struct {
@@ -18,11 +22,22 @@ type FollowerServer struct {
 }
 
 func (s *FollowerServer) FollowUser(ctx context.Context, req *follower.FollowRequest) (*follower.FollowResponse, error) {
-    log.Printf("FollowUser: %d -> %d", req.FollowerId, req.FolloweeId)
+     ctx, span := tracer.Start(ctx, "FollowUser")
+    defer span.End()
+
+    span.SetAttributes(
+        attribute.Int64("follower.id", req.FollowerId),
+        attribute.Int64("followee.id", req.FolloweeId),
+    )
+	
+	log.Printf("FollowUser: %d -> %d", req.FollowerId, req.FolloweeId)
 
     // 1. Pozovi Stakeholders servis da dohvati sve naloge
-    accountsResp, err := s.StakeholdersClient.GetAllAccounts(ctx, &stakeholders.PagedRequest{Page: 1, PageSize: 1000})
+     accountsResp, err := s.StakeholdersClient.GetAllAccounts(ctx, &stakeholders.PagedRequest{Page: 1, PageSize: 1000})
     if err != nil {
+        span.RecordError(err)
+    span.SetStatus(codes.Error, "Stakeholders service failed")
+
         return nil, fmt.Errorf("failed to contact stakeholders service: %w", err)
     }
 
@@ -39,15 +54,19 @@ func (s *FollowerServer) FollowUser(ctx context.Context, req *follower.FollowReq
         }
     }
 
-    if !followerExists || !followeeExists {
+   if !followerExists || !followeeExists {
+        span.SetAttributes(attribute.String("validation", "invalid user IDs"))
         return nil, fmt.Errorf("invalid user IDs: follower=%d, followee=%d", req.FollowerId, req.FolloweeId)
     }
 
     // 3. Ako postoje, upiši u Neo4j
-    session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
+      session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
     defer session.Close(ctx)
 
     _, err = session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+        ctx, dbSpan := tracer.Start(ctx, "Neo4j MERGE FOLLOWS")
+        defer dbSpan.End()
+
         _, err := tx.Run(ctx,
             `MERGE (a:User {id: $followerId})
              MERGE (b:User {id: $followeeId})
@@ -56,12 +75,17 @@ func (s *FollowerServer) FollowUser(ctx context.Context, req *follower.FollowReq
                 "followerId": req.FollowerId,
                 "followeeId": req.FolloweeId,
             })
+        if err != nil {
+            dbSpan.RecordError(err)
+        }
         return nil, err
     })
     if err != nil {
+        span.RecordError(err)
         return nil, err
     }
 
+    span.SetAttributes(attribute.String("status", "success"))
     return &follower.FollowResponse{Message: "Follow saved in Neo4j"}, nil
 }
 
@@ -163,4 +187,38 @@ func (s *FollowerServer) GetFollowers(ctx context.Context, req *follower.UserReq
 	return &follower.UserListResponse{UserIds: userIds}, nil
 }
 
+func (s *FollowerServer) GetRecommendations(ctx context.Context, req *follower.UserRequest) (*follower.UserListResponse, error) {
+	log.Printf("GetRecommendations for user: %d", req.UserId)
+
+	session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+	defer session.Close(ctx)
+
+	userIds := []int64{}
+
+	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+		result, err := tx.Run(ctx,
+			`MATCH (me:User {id: $userId})-[:FOLLOWS]->(friend:User)-[:FOLLOWS]->(rec:User)
+			 WHERE NOT (me)-[:FOLLOWS]->(rec) AND rec.id <> $userId
+			 RETURN DISTINCT rec.id AS id
+			 LIMIT 10`,
+			map[string]any{"userId": req.UserId},
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		for result.Next(ctx) {
+			if id, ok := result.Record().Values[0].(int64); ok {
+				userIds = append(userIds, id)
+			}
+		}
+		return nil, result.Err()
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &follower.UserListResponse{UserIds: userIds}, nil
+}
 

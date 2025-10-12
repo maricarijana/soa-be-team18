@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	follower "gateway/proto/follower"
+	"io"
 	"time"
 
 	// "gateway/proto/stakeholders"
@@ -81,6 +82,20 @@ func main() {
 
 	// --- 3. REST gateway mux ---
 	gwmux := runtime.NewServeMux()
+
+	gwmux.HandlePath("GET", "/images/{path=**}", func(w http.ResponseWriter, r *http.Request, _ map[string]string) {
+		target := "http://blog-service:8080" + r.URL.Path
+		resp, err := http.Get(target)
+		if err != nil {
+			http.Error(w, "Error fetching image from blog-service", http.StatusBadGateway)
+			return
+		}
+		defer resp.Body.Close()
+
+		w.Header().Set("Content-Type", resp.Header.Get("Content-Type"))
+		w.WriteHeader(resp.StatusCode)
+		_, _ = io.Copy(w, resp.Body)
+	})
 
 	// Registruj Blog servis REST handler
 	err = blog.RegisterBlogServiceHandler(context.Background(), gwmux, conn)
