@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Tours.Application.Dtos;
+using Tours.Application.Dtos.Shopping;
 using Tours.Core.Domain;
+using Tours.Core.Domain.Shopping;
 
 namespace Tours.Core.Mappers;
 
@@ -29,6 +31,9 @@ public class ToursProfile : Profile
         //    .ForMember(dest => dest.CompletedKeys, opt =>
         //    opt.MapFrom(src => src.CompletedKeys.Select((completedKey) =>
         //    new CompletedKeyPoint(completedKey.KeyPointId, completedKey.CompletedTime))));
-
+        CreateMap<ShoppingCartItemCreationDto, ShoppingCartItem>().ReverseMap();
+        CreateMap<ShoppingCartItemDto, ShoppingCartItem>().ReverseMap();
+        CreateMap<ShoppingCartDto,ShoppingCart>().ReverseMap();
+        CreateMap<TourPurchaseTokenDto, TourPurchaseToken>().ReverseMap();
     }
 }

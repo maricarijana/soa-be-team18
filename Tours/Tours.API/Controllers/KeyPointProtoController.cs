@@ -4,6 +4,7 @@ using Tours.Application.Public.Author;
 using Tours.Core.UseCases;
 //using Tours.Core.UseCases.Author;
 using GrpcServiceTranscoding;
+using Tours.Application.Public;
 
 namespace Tours.API.Controllers
 {

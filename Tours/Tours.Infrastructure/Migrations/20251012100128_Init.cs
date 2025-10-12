@@ -34,6 +34,20 @@ namespace Tours.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                schema: "tours",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tour",
                 schema: "tours",
                 columns: table => new
@@ -86,6 +100,37 @@ namespace Tours.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShoppingCartItems",
+                schema: "tours",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ShoppingCartId = table.Column<long>(type: "bigint", nullable: false),
+                    TourId = table.Column<long>(type: "bigint", nullable: false),
+                    TourName = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItems_ShoppingCarts_ShoppingCartId",
+                        column: x => x.ShoppingCartId,
+                        principalSchema: "tours",
+                        principalTable: "ShoppingCarts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartItems_Tour_TourId",
+                        column: x => x.TourId,
+                        principalSchema: "tours",
+                        principalTable: "Tour",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TourDurations",
                 schema: "tours",
                 columns: table => new
@@ -101,6 +146,28 @@ namespace Tours.Infrastructure.Migrations
                     table.PrimaryKey("PK_TourDurations", x => x.Id);
                     table.ForeignKey(
                         name: "FK_TourDurations_Tour_TourId",
+                        column: x => x.TourId,
+                        principalSchema: "tours",
+                        principalTable: "Tour",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TourPurchaseTokens",
+                schema: "tours",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TourId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TourPurchaseTokens", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TourPurchaseTokens_Tour_TourId",
                         column: x => x.TourId,
                         principalSchema: "tours",
                         principalTable: "Tour",
@@ -149,9 +216,27 @@ namespace Tours.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItems_ShoppingCartId",
+                schema: "tours",
+                table: "ShoppingCartItems",
+                column: "ShoppingCartId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartItems_TourId",
+                schema: "tours",
+                table: "ShoppingCartItems",
+                column: "TourId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TourDurations_TourId",
                 schema: "tours",
                 table: "TourDurations",
+                column: "TourId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TourPurchaseTokens_TourId",
+                schema: "tours",
+                table: "TourPurchaseTokens",
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
@@ -173,11 +258,23 @@ namespace Tours.Infrastructure.Migrations
                 schema: "tours");
 
             migrationBuilder.DropTable(
+                name: "ShoppingCartItems",
+                schema: "tours");
+
+            migrationBuilder.DropTable(
                 name: "TourDurations",
                 schema: "tours");
 
             migrationBuilder.DropTable(
+                name: "TourPurchaseTokens",
+                schema: "tours");
+
+            migrationBuilder.DropTable(
                 name: "TourReview",
+                schema: "tours");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCarts",
                 schema: "tours");
 
             migrationBuilder.DropTable(
