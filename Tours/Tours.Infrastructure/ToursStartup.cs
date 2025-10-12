@@ -36,6 +36,8 @@ public static class ToursStartup
         services.AddScoped<ITourReviewService, TourReviewService>();
         services.AddScoped<IPositionSimulatorService, PositionSimulationService>();
 
+        services.AddScoped<ITourExecutionService, TourExecutionService>();
+
 
         services.AddScoped<IImageService, ImageService>();
 
@@ -57,6 +59,7 @@ public static class ToursStartup
         services.AddScoped<IKeyPointRepository, KeyPointRepository>();
         services.AddScoped<ITourReviewRepository, TourReviewRepository>();
         services.AddScoped<IPositionSimulatorRepository, PositionSimulatorRepository>();
+        services.AddScoped<ITourExecutionRepository, TourExecutionRepository>();
 
 
         services.AddDbContext<ToursContext>(opt =>

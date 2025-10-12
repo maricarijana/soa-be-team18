@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Tours.Core.Domain;
 using Tours.Infrastructure.Database;
 
 #nullable disable
@@ -13,8 +14,8 @@ using Tours.Infrastructure.Database;
 namespace Tours.Infrastructure.Migrations
 {
     [DbContext(typeof(ToursContext))]
-    [Migration("20251012075834_Initial")]
-    partial class Initial
+    [Migration("20251012143300_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +171,43 @@ namespace Tours.Infrastructure.Migrations
                     b.ToTable("TourDurations", "tours");
                 });
 
+            modelBuilder.Entity("Tours.Core.Domain.TourExecution", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<List<CompletedKeyPoint>>("CompletedKeyPoints")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("LastActivity")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("TourId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TouristId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourExecutions", "tours");
+                });
+
             modelBuilder.Entity("Tours.Core.Domain.TourReview", b =>
                 {
                     b.Property<long>("Id")
@@ -222,6 +260,15 @@ namespace Tours.Infrastructure.Migrations
                         .WithMany("Durations")
                         .HasForeignKey("TourId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Tours.Core.Domain.TourExecution", b =>
+                {
+                    b.HasOne("Tours.Core.Domain.Tour", null)
+                        .WithMany()
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tours.Core.Domain.TourReview", b =>

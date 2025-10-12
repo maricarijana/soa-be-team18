@@ -80,6 +80,8 @@ func main() {
 
 	// --- 3. REST gateway mux ---
 	gwmux := runtime.NewServeMux()
+	
+	rootMux := http.NewServeMux()
 
 	gwmux.HandlePath("GET", "/images/{path=**}", func(w http.ResponseWriter, r *http.Request, _ map[string]string) {
     target := "http://blog-service:8080" + r.URL.Path
@@ -204,14 +206,51 @@ func main() {
 			log.Println("PositionSimulator handler registered successfully")
 		}
 	}
+	// proxy REST zahteva ka TourExecutionController
+proxyToTours := func(w http.ResponseWriter, r *http.Request) {
+	log.Printf("[Gateway → Tours] %s %s", r.Method, r.URL.Path)
+
+	targetURL := "http://tours-service:5000" + r.URL.Path  // <--- promenjeno
+	if r.URL.RawQuery != "" {
+		targetURL += "?" + r.URL.RawQuery
+	}
+
+	req, err := http.NewRequest(r.Method, targetURL, r.Body)
+	if err != nil {
+		http.Error(w, "Failed to create request: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	req.Header = r.Header.Clone()
+
+	client := &http.Client{Timeout: 5 * time.Second}
+	resp, err := client.Do(req)
+	if err != nil {
+		http.Error(w, "Error contacting tours-service: "+err.Error(), http.StatusBadGateway)
+		return
+	}
+	defer resp.Body.Close()
+
+	for k, v := range resp.Header {
+		for _, vv := range v {
+			w.Header().Add(k, vv)
+		}
+	}
+	w.WriteHeader(resp.StatusCode)
+	_, _ = io.Copy(w, resp.Body)
+}
+
+// pokrivamo i /api/tour-execution i /api/tour-execution/
+rootMux.HandleFunc("/api/tour-execution", proxyToTours)
+rootMux.HandleFunc("/api/tour-execution/", proxyToTours)
 
 	
-	
+	rootMux.Handle("/", gwmux)
+
 
 	// --- 4. Start REST server ---
 	gwServer := &http.Server{
     Addr:    ":8090",
-    Handler: withCORS(gwmux),
+    Handler: withCORS(rootMux),
 }
 
 

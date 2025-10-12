@@ -13,6 +13,7 @@ public class ToursContext : DbContext
     public DbSet<PositionSimulator> Positions { get; set; }
     public DbSet<TourDuration> TourDurations { get; set; }
 
+    public DbSet<TourExecution> TourExecutions { get; set; }
 
 
 
@@ -22,9 +23,15 @@ public class ToursContext : DbContext
     {
         modelBuilder.HasDefaultSchema("tours");
 
+        modelBuilder.Entity<TourExecution>()
+       .Property(te => te.CompletedKeyPoints)
+       .HasColumnType("jsonb");
 
-        //modelBuilder.Entity<TourExecution>().Property(item => item.CompletedKeys).HasColumnType("jsonb"); //value object cuva kao json
-        //ConfigureTourExecution(modelBuilder);
+        modelBuilder.Entity<PositionSimulator>()
+                .HasIndex(ps => ps.TouristId)
+                .IsUnique();
+
+        ConfigureTourExecution(modelBuilder);
 
 
         //modelBuilder.Entity<PositionSimulator>()
@@ -37,8 +44,18 @@ public class ToursContext : DbContext
         //  .HasForeignKey(kp => kp.TourId);
 
         ConfigureTour(modelBuilder);
+   
     }
-    
+
+    private static void ConfigureTourExecution(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<TourExecution>()
+            .HasOne<Tour>()
+            .WithMany()
+            .HasForeignKey(s => s.TourId);
+
+    }
+
     private static void ConfigureTour(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Tour>()
@@ -56,9 +73,9 @@ public class ToursContext : DbContext
 
         //ili prebaci u on model creating
 
-        modelBuilder.Entity<PositionSimulator>()
-         .HasIndex(ps => ps.TouristId)
-         .IsUnique();
+        //modelBuilder.Entity<PositionSimulator>()
+        // .HasIndex(ps => ps.TouristId)
+        // .IsUnique();
 
         modelBuilder.Entity<Tour>()
         .HasMany(t => t.Durations)
