@@ -1,6 +1,6 @@
-﻿using Tours.Core.Domain;
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Tours.Core.Domain;
+using Tours.Core.Domain.Shopping;
 
 namespace Tours.Infrastructure.Database;
 
@@ -12,8 +12,9 @@ public class ToursContext : DbContext
     public DbSet<TourReview> TourReview { get; set; }
     public DbSet<PositionSimulator> Positions { get; set; }
     public DbSet<TourDuration> TourDurations { get; set; }
-
-
+    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+    public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+    public DbSet<TourPurchaseToken> TourPurchaseTokens { get; set; }
 
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) { }

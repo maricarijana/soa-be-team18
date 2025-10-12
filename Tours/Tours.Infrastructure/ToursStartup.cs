@@ -10,6 +10,7 @@ using Tours.Core.Domain.RepositoryInterfaces;
 using AutoMapper;
 using Tours.Core.UseCases;
 using Tours.Core.Domain.Execution;
+using Tours.Application.Public;
 
 
 namespace Tours.Infrastructure;
@@ -35,12 +36,10 @@ public static class ToursStartup
         services.AddScoped<ITourOverviewService, TourOverviewService>();
         services.AddScoped<ITourReviewService, TourReviewService>();
         services.AddScoped<IPositionSimulatorService, PositionSimulationService>();
+        services.AddScoped<IShoppingCartService, ShoppingCartService>();
+        services.AddScoped<IPurchaseService, PurchaseService>();
 
-
-        services.AddScoped<IImageService, ImageService>();
-
-
-
+        services.AddScoped<IImageService,ImageService>();
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -51,6 +50,8 @@ public static class ToursStartup
         services.AddScoped(typeof(ICrudRepository<Tour>), typeof(CrudDatabaseRepository<Tour, ToursContext>));
         //services.AddScoped(typeof(ICrudRepository<Core.Domain.Object>), typeof(CrudDatabaseRepository<Core.Domain.Object, ToursContext>));
         services.AddScoped(typeof(ICrudRepository<PositionSimulator>), typeof(CrudDatabaseRepository<PositionSimulator, ToursContext>));
+        services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
+        services.AddScoped<ITourPurchaseRepository, PurchaseRepository>();
 
 
         services.AddScoped<ITourRepository, TourRepository>();
