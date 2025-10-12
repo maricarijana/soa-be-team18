@@ -3,6 +3,7 @@ syntax = "proto3";
 //option go_package = "proto/tours";
 
 option csharp_namespace = "GrpcServiceTranscoding";
+import "google/protobuf/empty.proto";
 
 
 //package GrpcServiceTranscoding;
@@ -13,6 +14,14 @@ service ToursService {
   rpc AddTour (AddTourRequest) returns (Tour);
   rpc GetToursByUser (GetToursByUserRequest) returns (GetToursByUserResponse);
   rpc GetTourById (GetTourByIdRequest) returns (Tour);
+  rpc AddTourDuration (AddTourDurationRequest) returns (google.protobuf.Empty);
+  rpc PublishTour (PublishTourRequest) returns (google.protobuf.Empty);
+  rpc ArchiveTour (ArchiveTourRequest) returns (google.protobuf.Empty);
+  rpc ReactivateTour (ReactivateTourRequest) returns (google.protobuf.Empty);
+  rpc GetPublishedToursForTourists (google.protobuf.Empty) returns (GetPublishedToursForTouristsResponse);
+  rpc GetAllTours (google.protobuf.Empty) returns (GetToursByUserResponse);
+
+
 
 }
 
@@ -52,6 +61,26 @@ message Tour {
   string publishedTime = 10;
   string archiveTime = 11;
 }
+message TourWithKeyPoints {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  string difficulty = 4;
+  repeated string tags = 5;
+  string status = 6;
+  double price = 7;
+  int64 userId = 8;
+  double lengthInKm = 9;
+  string publishedTime = 10;
+  string archiveTime = 11;
+  repeated KeyPoint keyPoints = 12; 
+}
+message GetPublishedToursForTouristsResponse {
+  repeated TourWithKeyPoints tours = 1;
+}
+
+
+
 
 message AddTourRequest {
   string name = 1;
@@ -163,3 +192,22 @@ message PositionSimulatorResponse {
   double longitude = 3;
   string  updatedAt = 4;
 }
+
+message AddTourDurationRequest {
+  int64 tourId = 1;
+  string transport = 2; 
+  int32 durationInMinutes = 3;
+}
+message PublishTourRequest {
+  int64 tourId = 1;
+}
+message ArchiveTourRequest {
+  int64 tourId = 1;
+  int64 userId = 2;
+}
+
+message ReactivateTourRequest {
+  int64 tourId = 1;
+  int64 userId = 2;
+}
+

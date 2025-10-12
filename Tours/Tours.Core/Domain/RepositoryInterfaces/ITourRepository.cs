@@ -17,5 +17,11 @@ namespace Tours.Core.Domain.RepositoryInterfaces
         List<long> GetIdsByTag(TourTags tag);
         double SumOfTourLenght(List<long> completedTourIds);
         double FindMaxTourLength(List<long> completedTourIds);
+        void AddDuration(long tourId, TourDuration duration);
+        Tour GetByIdWithKeyPoints(long id);
+        List<Tour> GetPublishedWithKeyPoints();
+        List<Tour> GetAll();
+
+
     }
 }

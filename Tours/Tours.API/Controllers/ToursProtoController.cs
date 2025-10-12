@@ -3,6 +3,7 @@ using Tours.Application.Dtos;
 using Tours.Application.Public.Author;
 using System.Net;
 using GrpcServiceTranscoding;
+using Google.Protobuf.WellKnownTypes;
 
 namespace Tours.API.Controllers
 {
@@ -39,7 +40,7 @@ namespace Tours.API.Controllers
                 Description = request.Description,
                 Difficulty = request.Difficulty,
                 Tags = request.Tags
-    .Select(t => Enum.TryParse<TourTags>(t, true, out var tag) ? tag : default)
+    .Select(t => System.Enum.TryParse<TourTags>(t, true, out var tag) ? tag : default)
     .ToList(),
 
                 Status = (TourStatus)(int.TryParse(request.Status, out var status) ? status : 0), // ako status u requestu šalješ kao string
@@ -150,6 +151,165 @@ namespace Tours.API.Controllers
 
             return Task.FromResult(response);
         }
-    }
+
+        public override Task<Google.Protobuf.WellKnownTypes.Empty> AddTourDuration(
+        AddTourDurationRequest request,
+        ServerCallContext context)
+        {
+            _logger.LogInformation("AddTourDuration called for TourId {TourId}", request.TourId);
+
+            // mapiranje TransportType iz requesta (string -> enum)
+            if (!System.Enum.TryParse<TransportType>(request.Transport, true, out var transport))
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, $"Invalid transport type: {request.Transport}"));
+            }
+
+           
+            var result = _tourService.AddDuration(request.TourId, transport, request.DurationInMinutes);
+
+            if (!result.IsSuccess)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument, result.Errors.FirstOrDefault()?.Message ?? "Failed to add tour duration"));
+            }
+
+            _logger.LogInformation("Tour duration successfully added for TourId {TourId}", request.TourId);
+
+            return Task.FromResult(new Google.Protobuf.WellKnownTypes.Empty());
+        }
+
+        //publichovanej ture
+        public override Task<Google.Protobuf.WellKnownTypes.Empty> PublishTour(PublishTourRequest request,ServerCallContext context)
+        {
+            _logger.LogInformation("PublishTour called for TourId {TourId}", request.TourId);
+
+            var result = _tourService.Publish(request.TourId);
+
+            if (!result.IsSuccess)
+            {
+                var errorMessage = result.Errors.FirstOrDefault()?.Message ?? "Failed to publish tour";
+                throw new RpcException(new Status(StatusCode.InvalidArgument, errorMessage));
+            }
+
+            _logger.LogInformation("Tour {TourId} successfully published.", request.TourId);
+
+            return Task.FromResult(new Google.Protobuf.WellKnownTypes.Empty());
+        }
+
+        //arhiviranje ture
+        public override Task<Empty> ArchiveTour(ArchiveTourRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("ArchiveTour called for TourId {TourId} by User {UserId}", request.TourId, request.UserId);
+
+            var result = _tourService.Archive(request.TourId, request.UserId);
+
+            if (!result.IsSuccess)
+            {
+                var errorMessage = result.Errors.FirstOrDefault()?.Message ?? "Failed to archive tour.";
+                throw new RpcException(new Status(StatusCode.PermissionDenied, errorMessage));
+            }
+
+            _logger.LogInformation("Tour {TourId} successfully archived by User {UserId}.", request.TourId, request.UserId);
+
+            return Task.FromResult(new Empty());
+        }
+
+        //ponovna aktivacija ture
+        public override Task<Empty> ReactivateTour(ReactivateTourRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("ReactivateTour called for TourId {TourId} by User {UserId}", request.TourId, request.UserId);
+
+            var result = _tourService.Reactivate(request.TourId, request.UserId);
+
+            if (!result.IsSuccess)
+            {
+                var errorMessage = result.Errors.FirstOrDefault()?.Message ?? "Failed to reactivate tour.";
+                throw new RpcException(new Status(StatusCode.PermissionDenied, errorMessage));
+            }
+
+            _logger.LogInformation("Tour {TourId} successfully reactivated by User {UserId}.", request.TourId, request.UserId);
+
+            return Task.FromResult(new Empty());
+        }
+
+        //dobavi publishovane ture sa samo prvom kljucnom tackom
+        public override Task<GetPublishedToursForTouristsResponse> GetPublishedToursForTourists(
+    Empty request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetPublishedToursForTourists called");
+
+            var result = _tourService.GetPublishedForTourists();
+
+            if (!result.IsSuccess || result.Value == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, "No published tours found."));
+            }
+
+            var response = new GetPublishedToursForTouristsResponse();
+            response.Tours.AddRange(result.Value.Select(t => new TourWithKeyPoints
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Description = t.Description,
+                Difficulty = t.Difficulty,
+                Tags = { t.Tags.Select(tag => tag.ToString()) },
+                Status = t.Status.ToString(),
+                Price = t.Price,
+                UserId = t.UserId,
+                LengthInKm = t.LengthInKm,
+                PublishedTime = t.PublishedTime.ToString("o"),
+                ArchiveTime = t.ArchiveTime?.ToString("o") ?? "",
+                KeyPoints = {
+            t.KeyPoints.Select(kp => new KeyPoint
+            {
+                Id = kp.Id,
+                Name = kp.Name,
+                Longitude = kp.Longitude,
+                Latitude = kp.Latitude,
+                Description = kp.Description,
+                Image = kp.Image,
+                TourId = kp.TourId,
+                PublicStatus = (int)kp.PublicStatus
+            })
+        }
+            }));
+
+            return Task.FromResult(response);
+        }
+
+        public override Task<GetToursByUserResponse> GetAllTours( Google.Protobuf.WellKnownTypes.Empty request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetAllTours called.");
+
+            var result = _tourService.GetAllTours();
+
+            if (!result.IsSuccess || result.Value == null)
+                throw new RpcException(new Status(StatusCode.NotFound, "No tours found."));
+
+            var response = new GetToursByUserResponse();
+            response.Tours.AddRange(result.Value.Select(t => new GrpcServiceTranscoding.Tour
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Description = t.Description,
+                Difficulty = t.Difficulty,
+                Tags = { t.Tags.Select(tag => tag.ToString()) },
+                Status = t.Status.ToString(),
+                Price = t.Price,
+                UserId = t.UserId,
+                LengthInKm = t.LengthInKm,
+                PublishedTime = t.PublishedTime.ToString("o"),
+                ArchiveTime = t.ArchiveTime?.ToString("o") ?? ""
+            }));
+
+            return Task.FromResult(response);
+        }
+
+
+
+
+
+
 
     }
+
+}

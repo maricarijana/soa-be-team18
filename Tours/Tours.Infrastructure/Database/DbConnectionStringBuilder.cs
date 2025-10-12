@@ -1,5 +1,5 @@
 ﻿namespace Tours.Infrastructure.Database;
-
+                                                                                                      
 public static class DbConnectionStringBuilder
 {
     public static string Build(string schemaName)

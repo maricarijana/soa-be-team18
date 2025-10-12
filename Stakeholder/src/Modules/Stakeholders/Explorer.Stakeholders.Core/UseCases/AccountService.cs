@@ -66,10 +66,10 @@ namespace Explorer.Stakeholders.Core.UseCases
         {
 
             var user = _userRepository.Get(accountId);
-            if (user == null)
-            {
-                return Result.Fail(new Error("User not found.").WithMetadata("status", 404));
-            }
+            //if (user == null)
+            //{
+            //    return Result.Fail(new Error("User not found.").WithMetadata("status", 404));
+            //}
 
             if (!user.IsActive)
             {

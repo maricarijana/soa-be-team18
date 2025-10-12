@@ -27,6 +27,28 @@ namespace Tours.Infrastructure.Database.Repositories
             }
             return tour;
         }
+        //public List<Tour> GetPublishedWithFirstKeyPoint()
+        //{
+        //    return _dbContext.Tour
+        //        .Include(t => t.KeyPoints.OrderBy(kp => kp.Id).Take(1)) // samo prva kljucna
+        //        .Where(t => t.Status == TourStatus.Published)
+        //        .ToList();
+        //}
+
+        public List<Tour> GetPublishedWithKeyPoints()
+        {
+            return _dbContext.Tour
+                .Include(t => t.KeyPoints) 
+                .Where(t => t.Status == TourStatus.Published)
+                .ToList();
+        }
+
+        public List<Tour> GetAll()
+        {
+            return _dbContext.Tour.Include(t => t.KeyPoints).ToList();
+        }
+
+
 
         public PagedResult<Tour> GetByKeyPoints(List<KeyPoint> keyPoints, int page, int pageSize)
         {
@@ -45,9 +67,16 @@ namespace Tours.Infrastructure.Database.Repositories
 
             return new PagedResult<Tour>(ret, ret.Count());
         }
+        public void AddDuration(long tourId, TourDuration duration)
+        {
+            var tour = _dbSet.Include(t => t.Durations).FirstOrDefault(t => t.Id == tourId);
+            if (tour == null)
+                throw new ArgumentException("Tour not found.");
 
-
-
+            tour.AddDuration(duration);
+            _dbContext.Update(tour);
+            _dbContext.SaveChanges();
+        }
 
         public void Save()
         {
@@ -182,6 +211,14 @@ namespace Tours.Infrastructure.Database.Repositories
         private double DegreesToRadians(double degrees)
         {
             return degrees * Math.PI / 180.0;
+        }
+
+        public Tour GetByIdWithKeyPoints(long id)
+        {
+            return _dbContext.Tour
+                .Include(t => t.KeyPoints)
+                .Include(t => t.Durations)
+                .FirstOrDefault(t => t.Id == id);
         }
 
     }

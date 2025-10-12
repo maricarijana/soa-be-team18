@@ -36,12 +36,12 @@ namespace Tours.API.Controllers.Author
 
        
 
-        [HttpPut("archive/{tourId:int}")]
-        public ActionResult<TourDto> Archive(long tourId)
-        {
-            var result = _tourService.Archive(tourId);
-            return CreateResponse(result);
-        }
+        //[HttpPut("archive/{tourId:int}")]
+        //public ActionResult<TourDto> Archive(long tourId)
+        //{
+        //    var result = _tourService.Archive(tourId);
+        //    return CreateResponse(result);
+        //}
 
         [HttpPut("publish/{tourId:int}")]
         public ActionResult<TourDto> Publish(long tourId)
@@ -51,12 +51,12 @@ namespace Tours.API.Controllers.Author
         }
 
 
-        [HttpPut("reactivate/{tourId:int}")]
-        public ActionResult<TourDto> Reactivate(long tourId)
-        {
-            var result = _tourService.Reactivate(tourId);
-            return CreateResponse(result);
-        }
+        //[HttpPut("reactivate/{tourId:int}")]
+        //public ActionResult<TourDto> Reactivate(long tourId)
+        //{
+        //    var result = _tourService.Reactivate(tourId);
+        //    return CreateResponse(result);
+        //}
 
         [HttpPut("updateDistance/{tourId:int}")]
         public ActionResult<TourDto> UpdateDistance(long tourId, [FromBody] double distance)

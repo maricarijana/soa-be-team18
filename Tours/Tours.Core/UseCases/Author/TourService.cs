@@ -73,13 +73,33 @@ namespace Tours.Core.UseCases.Author
         //    return new PagedResult<EquipmentDto>(items, result.TotalCount);
         //}
 
-      
-        public Result Archive(long id)
+
+        //public Result Archive(long id)
+        //{
+        //    try
+        //    {
+        //        var tour = _tourRepository.GetById(id);
+        //        tour.Archive(tour.UserId);
+        //        _tourRepository.Save();
+        //        return Result.Ok();
+        //    }
+        //    catch (ArgumentException e)
+        //    {
+        //        return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        //    }
+        //    catch (UnauthorizedAccessException e)
+        //    {
+        //        return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+        //    }
+
+
+        //}
+        public Result Archive(long id, long userId)
         {
             try
             {
                 var tour = _tourRepository.GetById(id);
-                tour.Archive(tour.UserId);
+                tour.Archive(userId); // koristi proveru IsAuthor(userId)
                 _tourRepository.Save();
                 return Result.Ok();
             }
@@ -91,16 +111,32 @@ namespace Tours.Core.UseCases.Author
             {
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
-
-
         }
 
-        public Result Reactivate(long id)
+        //public Result Reactivate(long id)
+        //{
+        //    try
+        //    {
+        //        var tour = _tourRepository.GetById(id);
+        //        tour.Reactivate(tour.UserId);
+        //        _tourRepository.Save();
+        //        return Result.Ok();
+        //    }
+        //    catch (ArgumentException e)
+        //    {
+        //        return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        //    }
+        //    catch (UnauthorizedAccessException e)
+        //    {
+        //        return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+        //    }
+        //}
+        public Result Reactivate(long tourId, long userId)
         {
             try
             {
-                var tour = _tourRepository.GetById(id);
-                tour.Reactivate(tour.UserId);
+                var tour = _tourRepository.GetById(tourId);
+                tour.Reactivate(userId);
                 _tourRepository.Save();
                 return Result.Ok();
             }
@@ -113,12 +149,13 @@ namespace Tours.Core.UseCases.Author
                 return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
             }
         }
+
 
         public Result Publish(long id)
         {
             try
             {
-                var tour = _tourRepository.GetById(id);
+                var tour = _tourRepository.GetByIdWithKeyPoints(id);
                 tour.Publish(tour.UserId);
                 _tourRepository.Save();
                 return Result.Ok();
@@ -139,7 +176,7 @@ namespace Tours.Core.UseCases.Author
         {
             try
             {
-                var tour = _tourRepository.GetById(id);
+                var tour = _tourRepository.GetByIdWithKeyPoints(id);
                 tour.UpdateLength(distance);
                 _tourRepository.Save();
                 return Result.Ok();
@@ -183,6 +220,8 @@ namespace Tours.Core.UseCases.Author
         public Result GetById(long id)
         {
             var tour = _tourRepository.GetById(id);
+         
+
             return Result.Ok();
         }
 
@@ -206,11 +245,169 @@ namespace Tours.Core.UseCases.Author
                 return Result.Fail<TourDto>(e.Message);
             }
         }
+
         public Result<TourDto> GetTourById(long id)
         {
             var tour = _tourRepository.GetById(id);
             return MapToDto(tour);
         }
+        //public Result<List<TourDto>> GetPublishedForTourists()
+        //{
+        //    try
+        //    {
+        //        var tours = _tourRepository.GetPublished(0, 0).Results;
+
+        //        // mapiraj i uzmi samo prvu kljucnu tacku
+        //        var tourDtos = tours.Select(t => new TourDto
+        //        {
+        //            Id = t.Id,
+        //            Name = t.Name,
+        //            Description = t.Description,
+        //            Difficulty = t.Difficulty,
+        //            Tags = t.Tags.Select(tag => (TourTags)tag).ToList(),
+        //            UserId = t.UserId,
+        //            Status = (TourStatus)t.Status,
+        //            Price = t.Price,
+        //            LengthInKm = t.LengthInKm,
+        //            PublishedTime = t.PublishedTime,
+        //            KeyPoints = t.KeyPoints.OrderBy(kp => kp.Id).Take(1) // samo prva kljucna
+        //                .Select(kp => new KeyPointDto
+        //                {
+        //                    Id = kp.Id,
+        //                    Name = kp.Name,
+        //                    Longitude = kp.Longitude,
+        //                    Latitude = kp.Latitude,
+        //                    Description = kp.Description,
+        //                    Image = kp.Image,
+        //                    TourId = kp.TourId
+        //                }).ToList()
+        //        }).ToList();
+
+        //        return Result.Ok(tourDtos);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Result.Fail<List<TourDto>>(e.Message);
+        //    }
+        //}
+        public Result<List<TourDto>> GetPublishedForTourists()
+        {
+            try
+            {
+                var tours = _tourRepository.GetPublishedWithKeyPoints();
+
+                var tourDtos = tours.Select(t => new TourDto
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    Difficulty = t.Difficulty,
+                    Tags = t.Tags?.Select(tag => (TourTags)tag).ToList() ?? new List<TourTags>(),
+                    UserId = t.UserId,
+                    Status = (TourStatus)t.Status,
+                    Price = t.Price,
+                    LengthInKm = t.LengthInKm,
+                    PublishedTime = t.PublishedTime,
+
+                    //samo prva kljucna
+                    KeyPoints = (t.KeyPoints != null && t.KeyPoints.Any())
+                        ? new List<KeyPointDto>
+                        {
+                    new KeyPointDto
+                    {
+                        Id = t.KeyPoints.OrderBy(kp => kp.Id).First().Id,
+                        Name = t.KeyPoints.OrderBy(kp => kp.Id).First().Name,
+                        Longitude = t.KeyPoints.OrderBy(kp => kp.Id).First().Longitude,
+                        Latitude = t.KeyPoints.OrderBy(kp => kp.Id).First().Latitude,
+                        Description = t.KeyPoints.OrderBy(kp => kp.Id).First().Description,
+                        Image = t.KeyPoints.OrderBy(kp => kp.Id).First().Image,
+                        TourId = t.KeyPoints.OrderBy(kp => kp.Id).First().TourId
+                    }
+                        }
+                        : new List<KeyPointDto>()
+                }).ToList();
+
+                return Result.Ok(tourDtos);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail<List<TourDto>>(e.Message);
+            }
+        }
+
+
+        public Result AddDuration(long tourId, Application.Dtos.TransportType transport, int durationInMinutes)
+        {
+            try
+            {
+                //var tour = _tourRepository.GetById(tourId);
+                var tour=_tourRepository.GetByIdWithKeyPoints(tourId);
+                if (tour == null)
+                {
+                    return Result.Fail("Tour not found.");
+                }
+
+                var domainTransport = (Tours.Core.Domain.TransportType)transport;
+                var duration = new TourDuration(domainTransport, durationInMinutes);
+                tour.AddDuration(duration);
+                _tourRepository.Save();
+                return Result.Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail(e.Message);
+            }
+        }
+
+        public Result<List<TourDto>> GetAllTours()
+        {
+            try
+            {
+                var tours = _tourRepository.GetAll(); 
+
+                var tourDtos = tours.Select(t => new TourDto
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    Difficulty = t.Difficulty,
+                    Tags = t.Tags.Select(tag => (TourTags)tag).ToList(),
+                    UserId = t.UserId,
+                    Status = (TourStatus)t.Status,
+                    Price = t.Price,
+                    EquipmentIds = t.EquipmentIds,
+                    LengthInKm = t.LengthInKm,
+                    PublishedTime = t.PublishedTime,
+                    ArchiveTime = t.ArchiveTime,
+                    KeyPoints = t.KeyPoints?.Select(kp => new KeyPointDto
+                    {
+                        Id = kp.Id,
+                        Name = kp.Name,
+                        Longitude = kp.Longitude,
+                        Latitude = kp.Latitude,
+                        Description = kp.Description,
+                        Image = kp.Image,
+                        TourId = kp.TourId
+                    }).ToList() ?? new List<KeyPointDto>()
+                }).ToList();
+
+                return Result.Ok(tourDtos);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail<List<TourDto>>(e.Message);
+            }
+        }
+
+
 
         //public Result<List<TourDto>> GetPublised()
         //{
