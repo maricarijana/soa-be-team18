@@ -3,6 +3,7 @@ using GrpcServiceTranscoding;
 using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
 using Tours.Application.Dtos;
+using Tours.Application.Public;
 using Tours.Application.Public.Author;
 using Tours.Core.UseCases;
 

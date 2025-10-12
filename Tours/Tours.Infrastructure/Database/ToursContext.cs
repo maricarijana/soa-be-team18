@@ -1,7 +1,7 @@
 ﻿using Tours.Core.Domain;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Tours.Core.Domain.Shopping;
 
 namespace Tours.Infrastructure.Database;
 
@@ -16,6 +16,9 @@ public class ToursContext : DbContext
 
     public DbSet<TourExecution> TourExecutions { get; set; }
 
+    public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+    public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+    public DbSet<TourPurchaseToken> TourPurchaseTokens { get; set; }
 
 
     public ToursContext(DbContextOptions<ToursContext> options) : base(options) { }
