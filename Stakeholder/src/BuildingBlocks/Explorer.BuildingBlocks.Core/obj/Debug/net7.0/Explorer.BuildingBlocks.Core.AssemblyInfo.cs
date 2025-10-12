@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Explorer.BuildingBlocks.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0346fd6f6c5e6190bc6accfe728c6d23d4562256")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29a4f75f1824b4c53644728691d1dd3ccf6cd557")]
 [assembly: System.Reflection.AssemblyProductAttribute("Explorer.BuildingBlocks.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Explorer.BuildingBlocks.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

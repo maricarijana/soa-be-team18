@@ -2,11 +2,11 @@ package grpcsrv
 
 import (
 	"context"
-	"time"
-
+	"fmt"
 	"soa/blog/model"
-	"soa/blog/proto/blog"
+	blog "soa/blog/proto/blog"
 	"soa/blog/service"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -63,14 +63,25 @@ func (s *Server) CreateBlog(ctx context.Context, req *blog.CreateBlogRequest) (*
 	m := &model.Blog{
 		Title:       req.Title,
 		Description: req.Description,
-		ImageUrl:    req.ImageUrl,
 		Status:      model.BlogStatus(req.Status),
 		UserId:      req.UserId,
 		CreatedAt:   time.Now(),
 	}
+	// ✅ Sačuvaj sliku ako postoji base64 string
+	if req.ImageBase64 != "" {
+		imageService := service.NewImageService("./wwwroot")
+		imagePath, err := imageService.SaveBase64Image(req.ImageBase64, "blogs")
+		if err != nil {
+			return nil, fmt.Errorf("failed to save image: %v", err)
+		}
+		m.ImageUrl = imagePath
+	}
+
+	// ✅ Kreiraj blog u bazi
 	if err := s.BlogSvc.Create(m); err != nil {
 		return nil, err
 	}
+
 	return &blog.CreateBlogResponse{Blog: toProtoBlog(m)}, nil
 }
 
