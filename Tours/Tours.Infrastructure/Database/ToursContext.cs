@@ -1,6 +1,7 @@
 ﻿using Tours.Core.Domain;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Tours.Infrastructure.Database;
 
@@ -30,6 +31,27 @@ public class ToursContext : DbContext
         modelBuilder.Entity<PositionSimulator>()
                 .HasIndex(ps => ps.TouristId)
                 .IsUnique();
+
+        //modelBuilder.Entity<TourReview>()
+        //       .Property(tr => tr.Images)
+        //       .HasConversion(
+        //           v => string.Join(';', v),  
+        //           v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList() 
+        //       );
+        modelBuilder.Entity<TourReview>()
+            .Property(tr => tr.Images)
+        .HasConversion(
+        v => string.Join(';', v),
+        v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+    )
+    .Metadata.SetValueComparer(
+        new ValueComparer<List<string>>(
+            (c1, c2) => c1.SequenceEqual(c2),      // poređenje elemenata liste
+            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())), // hash
+            c => c.ToList()                        // kloniranje liste
+        )
+    );
+
 
         ConfigureTourExecution(modelBuilder);
 

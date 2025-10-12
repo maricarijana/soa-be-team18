@@ -52,7 +52,10 @@ namespace Tours.API.Controllers
             {
                 try
                 {
-                    var imgBytes = Convert.FromBase64String(base64.Split(',').Last());
+                    //var imgBytes = Convert.FromBase64String(base64.Split(',').Last());
+                    var base64Data = base64.Contains(",") ? base64.Substring(base64.IndexOf(",") + 1) : base64;
+                    var imgBytes = Convert.FromBase64String(base64Data);
+
                     var folder = Path.Combine(_env.WebRootPath, "images", "reviews");
                     var savedPath = _imageService.SaveImage(folder, imgBytes, "reviews");
 

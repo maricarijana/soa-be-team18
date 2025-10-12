@@ -228,9 +228,9 @@ namespace Tours.Infrastructure.Migrations
                     b.Property<long>("IdTourist")
                         .HasColumnType("bigint");
 
-                    b.Property<List<string>>("Images")
+                    b.Property<string>("Images")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("text");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");

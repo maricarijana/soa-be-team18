@@ -149,7 +149,7 @@ namespace Tours.Infrastructure.Migrations
                     Comment = table.Column<string>(type: "text", nullable: true),
                     DateTour = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DateComment = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Images = table.Column<List<string>>(type: "text[]", nullable: false)
+                    Images = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

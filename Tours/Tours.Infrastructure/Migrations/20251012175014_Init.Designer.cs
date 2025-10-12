@@ -14,7 +14,7 @@ using Tours.Infrastructure.Database;
 namespace Tours.Infrastructure.Migrations
 {
     [DbContext(typeof(ToursContext))]
-    [Migration("20251012143300_Init")]
+    [Migration("20251012175014_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -231,9 +231,9 @@ namespace Tours.Infrastructure.Migrations
                     b.Property<long>("IdTourist")
                         .HasColumnType("bigint");
 
-                    b.Property<List<string>>("Images")
+                    b.Property<string>("Images")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("text");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
