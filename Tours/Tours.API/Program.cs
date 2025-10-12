@@ -72,6 +72,9 @@ app.MapGrpcService<TourReviewProtoController>();
 Console.WriteLine("TourReview gRPC service mapped: TourReviewProtoController");
 app.MapGrpcService<PositionSimulatorProtoController>();
 Console.WriteLine("TourReview gRPC service mapped: PositionSimulatorProtoController");
+app.MapGrpcService<ShoppingCartProtoController>();
+Console.WriteLine("ShoppingCart gRPC service mapped: ShoppingCartProtoController");
+
 
 
 var connStr = builder.Configuration.GetConnectionString("DefaultConnection");

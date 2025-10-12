@@ -12,25 +12,25 @@ import (
 // RegisterFollowerRoutes registruje REST proxy rute za follower servis
 func RegisterFollowerRoutes(mux *runtime.ServeMux) {
 
-	mux.HandlePath("POST", "/follower/follow", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+	mux.HandlePath("POST", "/api/follow", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		proxyRequest(w, r, "http://follower-service:9091/follow")
 	})
 
-	mux.HandlePath("POST", "/follower/unfollow", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+	mux.HandlePath("POST", "/api/unfollow", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		proxyRequest(w, r, "http://follower-service:9091/unfollow")
 	})
 
-	mux.HandlePath("GET", "/follower/followers/{id}", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+	mux.HandlePath("GET", "/api/followers/{id}", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		id := pathParams["id"]
 		proxyGetRequest(w, r, "http://follower-service:9091/followers/"+id)
 	})
 
-	mux.HandlePath("GET", "/follower/following/{id}", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+	mux.HandlePath("GET", "/api/following/{id}", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		id := pathParams["id"]
 		proxyGetRequest(w, r, "http://follower-service:9091/following/"+id)
 	})
 
-	mux.HandlePath("GET", "/follower/recommendations/{id}", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
+	mux.HandlePath("GET", "/api/recommendations/{id}", func(w http.ResponseWriter, r *http.Request, pathParams map[string]string) {
 		id := pathParams["id"]
 		proxyGetRequest(w, r, "http://follower-service:9091/recommendations/"+id)
 	})
