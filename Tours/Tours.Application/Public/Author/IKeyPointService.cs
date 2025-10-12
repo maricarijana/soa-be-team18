@@ -14,5 +14,7 @@ public interface IKeyPointService
     Result<List<KeyPointDto>> GetRequestedPublic();
     //Result<List<KeyPointDto>> GetByCoordinated(long v1, long v2, int v3);
     Result<List<KeyPointDto>> GetByTourId(long tourId);
+    double CalculateDistance(double lat1, double lon1, double lat2, double lon2);
+
 
 }

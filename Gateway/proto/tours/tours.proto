@@ -4,6 +4,8 @@ option go_package = "proto/tours";
 option csharp_namespace = "GrpcServiceTranscoding";
 
 import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
 
 package tours;
 
@@ -28,6 +30,25 @@ service ToursService {
     get: "/api/tour/{id}"
   };
 }
+  rpc AddTourDuration (AddTourDurationRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/tours/duration"
+      body: "*"
+    };
+  }
+  rpc PublishTour (PublishTourRequest) returns (google.protobuf.Empty) {
+  option (google.api.http) = {
+    post: "/api/tours/publish"
+    body: "*"
+  };
+}
+rpc ArchiveTour (ArchiveTourRequest) returns (google.protobuf.Empty) {
+  option (google.api.http) = {
+    put: "/api/tours/archive"
+    body: "*"
+  };
+}
+
 }
 
 // =================== KeyPoint Service ===================
@@ -75,6 +96,23 @@ service TourReviewService {
     option (google.api.http) = {
       post: "/api/tour-reviews"
       body: "*"
+    };
+  }
+}
+
+service PositionSimulatorService {
+  // GET metoda za preuzimanje trenutne pozicije turiste
+  rpc GetPosition (PositionSimulatorRequest) returns (PositionSimulatorResponse) {
+    option (google.api.http) = {
+      get: "/api/position-simulator/{touristId}"   
+    };
+  }
+
+  // POST metoda za ažuriranje pozicije turiste
+  rpc UpdatePosition (UpdatePositionRequest) returns (PositionSimulatorResponse) {
+    option (google.api.http) = {
+      post: "/api/position-simulator/update"       
+      body: "*"                                    
     };
   }
 }
@@ -187,4 +225,33 @@ message GetKeyPointsByTourResponse {
 
 message GetTourByIdRequest {
   int64 id = 1;
+}
+
+message PositionSimulatorRequest {
+  int64 touristId = 1;
+}
+
+message UpdatePositionRequest {
+  int64 touristId = 1;
+  double latitude = 2;
+  double longitude = 3;
+}
+
+message PositionSimulatorResponse {
+  int64 touristId = 1;
+  double latitude = 2;
+  double longitude = 3;
+  string  updatedAt = 4;
+}
+message AddTourDurationRequest {
+  int64 tourId = 1;
+  string transport = 2; 
+  int32 durationInMinutes = 3;
+}
+message PublishTourRequest {
+  int64 tourId = 1;
+}
+message ArchiveTourRequest {
+  int64 tourId = 1;
+  int64 userId = 2;
 }

@@ -17,6 +17,23 @@ namespace Tours.Infrastructure.Migrations
                 name: "tours");
 
             migrationBuilder.CreateTable(
+                name: "Positions",
+                schema: "tours",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    TouristId = table.Column<long>(type: "bigint", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Positions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tour",
                 schema: "tours",
                 columns: table => new
@@ -69,6 +86,29 @@ namespace Tours.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TourDurations",
+                schema: "tours",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Transport = table.Column<int>(type: "integer", nullable: false),
+                    DurationInMinutes = table.Column<int>(type: "integer", nullable: false),
+                    TourId = table.Column<long>(type: "bigint", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TourDurations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TourDurations_Tour_TourId",
+                        column: x => x.TourId,
+                        principalSchema: "tours",
+                        principalTable: "Tour",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TourReview",
                 schema: "tours",
                 columns: table => new
@@ -102,6 +142,19 @@ namespace Tours.Infrastructure.Migrations
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Positions_TouristId",
+                schema: "tours",
+                table: "Positions",
+                column: "TouristId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TourDurations_TourId",
+                schema: "tours",
+                table: "TourDurations",
+                column: "TourId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TourReview_IdTour",
                 schema: "tours",
                 table: "TourReview",
@@ -113,6 +166,14 @@ namespace Tours.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "KeyPoints",
+                schema: "tours");
+
+            migrationBuilder.DropTable(
+                name: "Positions",
+                schema: "tours");
+
+            migrationBuilder.DropTable(
+                name: "TourDurations",
                 schema: "tours");
 
             migrationBuilder.DropTable(

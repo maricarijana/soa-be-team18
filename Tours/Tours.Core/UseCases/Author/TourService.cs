@@ -94,6 +94,24 @@ namespace Tours.Core.UseCases.Author
 
 
         }
+        //public Result Archive(long id, long userId)
+        //{
+        //    try
+        //    {
+        //        var tour = _tourRepository.GetById(id);
+        //        tour.Archive(userId); // koristi proveru IsAuthor(userId)
+        //        _tourRepository.Save();
+        //        return Result.Ok();
+        //    }
+        //    catch (ArgumentException e)
+        //    {
+        //        return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+        //    }
+        //    catch (UnauthorizedAccessException e)
+        //    {
+        //        return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+        //    }
+        //}
 
         public Result Reactivate(long id)
         {
@@ -118,7 +136,7 @@ namespace Tours.Core.UseCases.Author
         {
             try
             {
-                var tour = _tourRepository.GetById(id);
+                var tour = _tourRepository.GetByIdWithKeyPoints(id);
                 tour.Publish(tour.UserId);
                 _tourRepository.Save();
                 return Result.Ok();
@@ -139,7 +157,7 @@ namespace Tours.Core.UseCases.Author
         {
             try
             {
-                var tour = _tourRepository.GetById(id);
+                var tour = _tourRepository.GetByIdWithKeyPoints(id);
                 tour.UpdateLength(distance);
                 _tourRepository.Save();
                 return Result.Ok();
@@ -183,6 +201,8 @@ namespace Tours.Core.UseCases.Author
         public Result GetById(long id)
         {
             var tour = _tourRepository.GetById(id);
+         
+
             return Result.Ok();
         }
 
@@ -211,6 +231,38 @@ namespace Tours.Core.UseCases.Author
             var tour = _tourRepository.GetById(id);
             return MapToDto(tour);
         }
+        public Result AddDuration(long tourId, Application.Dtos.TransportType transport, int durationInMinutes)
+        {
+            try
+            {
+                //var tour = _tourRepository.GetById(tourId);
+                var tour=_tourRepository.GetByIdWithKeyPoints(tourId);
+                if (tour == null)
+                {
+                    return Result.Fail("Tour not found.");
+                }
+
+                var domainTransport = (Tours.Core.Domain.TransportType)transport;
+                var duration = new TourDuration(domainTransport, durationInMinutes);
+                tour.AddDuration(duration);
+                _tourRepository.Save();
+                return Result.Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return Result.Fail(FailureCode.InvalidArgument).WithError(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return Result.Fail(FailureCode.Forbidden).WithError(e.Message);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail(e.Message);
+            }
+        }
+
+
 
         //public Result<List<TourDto>> GetPublised()
         //{

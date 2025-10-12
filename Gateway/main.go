@@ -185,6 +185,11 @@ func main() {
 		} else {
 			log.Println("TourReviews handler registered successfully")
 		}
+		if err := tours.RegisterPositionSimulatorServiceHandler(context.Background(), gwmux, connTours); err != nil {
+			log.Printf("Failed to register PositionSimulator gateway: %v", err)
+		} else {
+			log.Println("PositionSimulator handler registered successfully")
+		}
 	}
 
 	// --- 4. Start REST server ---

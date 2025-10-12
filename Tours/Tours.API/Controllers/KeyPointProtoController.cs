@@ -67,6 +67,7 @@ namespace Tours.API.Controllers
             });
         }
 
+
         public override Task<KeyPoint> UpdateKeyPoint(KeyPoint request, ServerCallContext context)
         {
             _logger.LogInformation("UpdateKeyPoint called for id {Id}", request.Id);

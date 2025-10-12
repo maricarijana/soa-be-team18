@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,9 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ToursService_AddTour_FullMethodName        = "/tours.ToursService/AddTour"
-	ToursService_GetToursByUser_FullMethodName = "/tours.ToursService/GetToursByUser"
-	ToursService_GetTourById_FullMethodName    = "/tours.ToursService/GetTourById"
+	ToursService_AddTour_FullMethodName         = "/tours.ToursService/AddTour"
+	ToursService_GetToursByUser_FullMethodName  = "/tours.ToursService/GetToursByUser"
+	ToursService_GetTourById_FullMethodName     = "/tours.ToursService/GetTourById"
+	ToursService_AddTourDuration_FullMethodName = "/tours.ToursService/AddTourDuration"
+	ToursService_PublishTour_FullMethodName     = "/tours.ToursService/PublishTour"
 )
 
 // ToursServiceClient is the client API for ToursService service.
@@ -34,6 +37,8 @@ type ToursServiceClient interface {
 	AddTour(ctx context.Context, in *AddTourRequest, opts ...grpc.CallOption) (*Tour, error)
 	GetToursByUser(ctx context.Context, in *GetToursByUserRequest, opts ...grpc.CallOption) (*GetToursByUserResponse, error)
 	GetTourById(ctx context.Context, in *GetTourByIdRequest, opts ...grpc.CallOption) (*Tour, error)
+	AddTourDuration(ctx context.Context, in *AddTourDurationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	PublishTour(ctx context.Context, in *PublishTourRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type toursServiceClient struct {
@@ -74,6 +79,26 @@ func (c *toursServiceClient) GetTourById(ctx context.Context, in *GetTourByIdReq
 	return out, nil
 }
 
+func (c *toursServiceClient) AddTourDuration(ctx context.Context, in *AddTourDurationRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ToursService_AddTourDuration_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *toursServiceClient) PublishTour(ctx context.Context, in *PublishTourRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ToursService_PublishTour_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ToursServiceServer is the server API for ToursService service.
 // All implementations must embed UnimplementedToursServiceServer
 // for forward compatibility.
@@ -84,6 +109,8 @@ type ToursServiceServer interface {
 	AddTour(context.Context, *AddTourRequest) (*Tour, error)
 	GetToursByUser(context.Context, *GetToursByUserRequest) (*GetToursByUserResponse, error)
 	GetTourById(context.Context, *GetTourByIdRequest) (*Tour, error)
+	AddTourDuration(context.Context, *AddTourDurationRequest) (*emptypb.Empty, error)
+	PublishTour(context.Context, *PublishTourRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedToursServiceServer()
 }
 
@@ -102,6 +129,12 @@ func (UnimplementedToursServiceServer) GetToursByUser(context.Context, *GetTours
 }
 func (UnimplementedToursServiceServer) GetTourById(context.Context, *GetTourByIdRequest) (*Tour, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTourById not implemented")
+}
+func (UnimplementedToursServiceServer) AddTourDuration(context.Context, *AddTourDurationRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddTourDuration not implemented")
+}
+func (UnimplementedToursServiceServer) PublishTour(context.Context, *PublishTourRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PublishTour not implemented")
 }
 func (UnimplementedToursServiceServer) mustEmbedUnimplementedToursServiceServer() {}
 func (UnimplementedToursServiceServer) testEmbeddedByValue()                      {}
@@ -178,6 +211,42 @@ func _ToursService_GetTourById_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ToursService_AddTourDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddTourDurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToursServiceServer).AddTourDuration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ToursService_AddTourDuration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToursServiceServer).AddTourDuration(ctx, req.(*AddTourDurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ToursService_PublishTour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PublishTourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ToursServiceServer).PublishTour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ToursService_PublishTour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ToursServiceServer).PublishTour(ctx, req.(*PublishTourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ToursService_ServiceDesc is the grpc.ServiceDesc for ToursService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +265,14 @@ var ToursService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTourById",
 			Handler:    _ToursService_GetTourById_Handler,
+		},
+		{
+			MethodName: "AddTourDuration",
+			Handler:    _ToursService_AddTourDuration_Handler,
+		},
+		{
+			MethodName: "PublishTour",
+			Handler:    _ToursService_PublishTour_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -594,6 +671,151 @@ var TourReviewService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddTourReview",
 			Handler:    _TourReviewService_AddTourReview_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "tours/tours.proto",
+}
+
+const (
+	PositionSimulatorService_GetPosition_FullMethodName    = "/tours.PositionSimulatorService/GetPosition"
+	PositionSimulatorService_UpdatePosition_FullMethodName = "/tours.PositionSimulatorService/UpdatePosition"
+)
+
+// PositionSimulatorServiceClient is the client API for PositionSimulatorService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type PositionSimulatorServiceClient interface {
+	// GET metoda za preuzimanje trenutne pozicije turiste
+	GetPosition(ctx context.Context, in *PositionSimulatorRequest, opts ...grpc.CallOption) (*PositionSimulatorResponse, error)
+	// POST metoda za ažuriranje pozicije turiste
+	UpdatePosition(ctx context.Context, in *UpdatePositionRequest, opts ...grpc.CallOption) (*PositionSimulatorResponse, error)
+}
+
+type positionSimulatorServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPositionSimulatorServiceClient(cc grpc.ClientConnInterface) PositionSimulatorServiceClient {
+	return &positionSimulatorServiceClient{cc}
+}
+
+func (c *positionSimulatorServiceClient) GetPosition(ctx context.Context, in *PositionSimulatorRequest, opts ...grpc.CallOption) (*PositionSimulatorResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PositionSimulatorResponse)
+	err := c.cc.Invoke(ctx, PositionSimulatorService_GetPosition_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *positionSimulatorServiceClient) UpdatePosition(ctx context.Context, in *UpdatePositionRequest, opts ...grpc.CallOption) (*PositionSimulatorResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PositionSimulatorResponse)
+	err := c.cc.Invoke(ctx, PositionSimulatorService_UpdatePosition_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PositionSimulatorServiceServer is the server API for PositionSimulatorService service.
+// All implementations must embed UnimplementedPositionSimulatorServiceServer
+// for forward compatibility.
+type PositionSimulatorServiceServer interface {
+	// GET metoda za preuzimanje trenutne pozicije turiste
+	GetPosition(context.Context, *PositionSimulatorRequest) (*PositionSimulatorResponse, error)
+	// POST metoda za ažuriranje pozicije turiste
+	UpdatePosition(context.Context, *UpdatePositionRequest) (*PositionSimulatorResponse, error)
+	mustEmbedUnimplementedPositionSimulatorServiceServer()
+}
+
+// UnimplementedPositionSimulatorServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedPositionSimulatorServiceServer struct{}
+
+func (UnimplementedPositionSimulatorServiceServer) GetPosition(context.Context, *PositionSimulatorRequest) (*PositionSimulatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPosition not implemented")
+}
+func (UnimplementedPositionSimulatorServiceServer) UpdatePosition(context.Context, *UpdatePositionRequest) (*PositionSimulatorResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatePosition not implemented")
+}
+func (UnimplementedPositionSimulatorServiceServer) mustEmbedUnimplementedPositionSimulatorServiceServer() {
+}
+func (UnimplementedPositionSimulatorServiceServer) testEmbeddedByValue() {}
+
+// UnsafePositionSimulatorServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PositionSimulatorServiceServer will
+// result in compilation errors.
+type UnsafePositionSimulatorServiceServer interface {
+	mustEmbedUnimplementedPositionSimulatorServiceServer()
+}
+
+func RegisterPositionSimulatorServiceServer(s grpc.ServiceRegistrar, srv PositionSimulatorServiceServer) {
+	// If the following call pancis, it indicates UnimplementedPositionSimulatorServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&PositionSimulatorService_ServiceDesc, srv)
+}
+
+func _PositionSimulatorService_GetPosition_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PositionSimulatorRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PositionSimulatorServiceServer).GetPosition(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PositionSimulatorService_GetPosition_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PositionSimulatorServiceServer).GetPosition(ctx, req.(*PositionSimulatorRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PositionSimulatorService_UpdatePosition_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdatePositionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PositionSimulatorServiceServer).UpdatePosition(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PositionSimulatorService_UpdatePosition_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PositionSimulatorServiceServer).UpdatePosition(ctx, req.(*UpdatePositionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// PositionSimulatorService_ServiceDesc is the grpc.ServiceDesc for PositionSimulatorService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var PositionSimulatorService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "tours.PositionSimulatorService",
+	HandlerType: (*PositionSimulatorServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetPosition",
+			Handler:    _PositionSimulatorService_GetPosition_Handler,
+		},
+		{
+			MethodName: "UpdatePosition",
+			Handler:    _PositionSimulatorService_UpdatePosition_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

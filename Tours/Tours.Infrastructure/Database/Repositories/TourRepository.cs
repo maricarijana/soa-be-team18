@@ -45,9 +45,16 @@ namespace Tours.Infrastructure.Database.Repositories
 
             return new PagedResult<Tour>(ret, ret.Count());
         }
+        public void AddDuration(long tourId, TourDuration duration)
+        {
+            var tour = _dbSet.Include(t => t.Durations).FirstOrDefault(t => t.Id == tourId);
+            if (tour == null)
+                throw new ArgumentException("Tour not found.");
 
-
-
+            tour.AddDuration(duration);
+            _dbContext.Update(tour);
+            _dbContext.SaveChanges();
+        }
 
         public void Save()
         {
@@ -182,6 +189,14 @@ namespace Tours.Infrastructure.Database.Repositories
         private double DegreesToRadians(double degrees)
         {
             return degrees * Math.PI / 180.0;
+        }
+
+        public Tour GetByIdWithKeyPoints(long id)
+        {
+            return _dbContext.Tour
+                .Include(t => t.KeyPoints)
+                .Include(t => t.Durations)
+                .FirstOrDefault(t => t.Id == id);
         }
 
     }

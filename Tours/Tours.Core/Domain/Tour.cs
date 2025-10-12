@@ -21,6 +21,7 @@
         public List<long> EquipmentIds { get; set; }
 
         public ICollection<KeyPoint> KeyPoints { get; private set; } = new List<KeyPoint>();
+        public List<TourDuration> Durations { get; private set; } = new List<TourDuration>();
 
 
         public Tour(string name, string? description, string? difficulty,List<TourTags> tags, long userId)
@@ -58,13 +59,44 @@
             Status = TourStatus.Archived;
         }
 
+        //public void Publish(long authorId)
+        //{
+        //    if (Status == TourStatus.Archived) throw new ArgumentException("Archived tour can't be published");
+        //    IsAuthor(authorId);
+
+
+        //    Status = TourStatus.Published;
+        //}
         public void Publish(long authorId)
         {
-            if (Status == TourStatus.Archived) throw new ArgumentException("Archived tour can't be published");
+            if (Status == TourStatus.Archived)
+                throw new ArgumentException("Archived tour can't be published");
+
             IsAuthor(authorId);
 
+            // Uslov 1: osnovni podaci
+            if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Description) || string.IsNullOrWhiteSpace(Difficulty) || Tags.Count == 0)
+                throw new InvalidOperationException("Tour must have name, description, difficulty and tags to be published.");
 
+            //  Uslov 2: najmanje dve kljucne tacke
+            if (KeyPoints == null || KeyPoints.Count < 2)
+                throw new InvalidOperationException("Tour must have at least two key points to be published.");
+
+            // Uslov 3: bar jedno definisano vreme trajanja ture
+            if (Durations == null || Durations.Count == 0)
+                throw new InvalidOperationException("Tour must have at least one defined duration to be published.");
+
+            // Ako su svi uslovi ispunjeni:
             Status = TourStatus.Published;
+            PublishedTime = DateTime.UtcNow;
+        }
+
+        public void AddDuration(TourDuration duration)
+        {
+            if (Durations.Any(d => d.Transport == duration.Transport))
+                throw new InvalidOperationException("Duration for this transport type already exists.");
+
+            Durations.Add(duration);
         }
 
         private void IsAuthor(long userId)
