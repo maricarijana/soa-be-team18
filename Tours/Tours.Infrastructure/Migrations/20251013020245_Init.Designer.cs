@@ -14,7 +14,7 @@ using Tours.Infrastructure.Database;
 namespace Tours.Infrastructure.Migrations
 {
     [DbContext(typeof(ToursContext))]
-    [Migration("20251012182637_Init")]
+    [Migration("20251013020245_Init")]
     partial class Init
     {
         /// <inheritdoc />

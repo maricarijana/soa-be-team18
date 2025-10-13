@@ -40,6 +40,9 @@ services:
       - blog-service
       - stakeholders-service
       - follower-service
+      - tours-service     # ⬅️ DODAJ OVO
+    environment:
+      - TOURS_SERVICE_URL=tours-service:90
 
   stakeholders-service:
     build:

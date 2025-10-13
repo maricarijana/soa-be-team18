@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io"
 	"log"
 	"os"
 
@@ -18,6 +19,8 @@ import (
 
 func main() {
 	// --- 1. Tracing setup ---
+	gin.DefaultWriter = io.MultiWriter(os.Stdout)
+	log.SetOutput(gin.DefaultWriter)
 	tp, err := tracing.InitTracer("follower-service")
 	if err != nil {
 		log.Fatalf("❌ Failed to initialize tracer: %v", err)

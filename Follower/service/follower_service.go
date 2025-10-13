@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -33,6 +34,8 @@ func (s *FollowerService) FollowUser(c *gin.Context) {
 		FollowerId int64 `json:"followerId"`
 		FolloweeId int64 `json:"followeeId"`
 	}
+	log.Printf("Parsed request: followerId=%d, followeeId=%d", req.FollowerId, req.FolloweeId)
+
 	if err := c.BindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -119,6 +122,7 @@ func (s *FollowerService) UnfollowUser(c *gin.Context) {
 
 // GET /following/:id
 func (s *FollowerService) GetFollowing(c *gin.Context) {
+	fmt.Println("🔥🔥🔥 Entered GetFollowing endpoint")
 	ctx, span := tracer.Start(c.Request.Context(), "GetFollowing")
 	defer span.End()
 
@@ -151,11 +155,17 @@ func (s *FollowerService) GetFollowing(c *gin.Context) {
 }
 
 // GET /followers/:id
+// GET /followers/:id
 func (s *FollowerService) GetFollowers(c *gin.Context) {
+	fmt.Println("🔥🔥🔥 Entered GetFollowing endpoint")
 	ctx, span := tracer.Start(c.Request.Context(), "GetFollowers")
 	defer span.End()
 
+	// 📍 loguj ulazak u endpoint
+	log.Printf("➡️  %s %s", c.Request.Method, c.Request.URL.Path)
+
 	userId, _ := strconv.ParseInt(c.Param("id"), 10, 64)
+	log.Printf("🔎 Fetching followers for userId=%d", userId)
 
 	session := s.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
 	defer session.Close(ctx)
@@ -166,20 +176,27 @@ func (s *FollowerService) GetFollowers(c *gin.Context) {
 			`MATCH (a:User)-[:FOLLOWS]->(b:User {id: $userId})
 			 RETURN a.id AS id`, map[string]any{"userId": userId})
 		if err != nil {
+			log.Printf("❌ Neo4j query error in GetFollowers: %v", err)
 			return nil, err
 		}
 		for result.Next(ctx) {
 			if id, ok := result.Record().Values[0].(int64); ok {
+				log.Printf("🧩 Found follower ID=%d for user %d", id, userId)
 				ids = append(ids, id)
 			}
+		}
+		if result.Err() != nil {
+			log.Printf("⚠️ Result iteration error: %v", result.Err())
 		}
 		return nil, result.Err()
 	})
 	if err != nil {
+		log.Printf("❌ Database read failed in GetFollowers: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
+	log.Printf("✅ Returning followers for user %d: %v", userId, ids)
 	c.JSON(http.StatusOK, gin.H{"followers": ids})
 }
 
@@ -214,5 +231,5 @@ func (s *FollowerService) GetRecommendations(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"recommendations": ids})
+	c.JSON(http.StatusOK, gin.H{"userIds": ids})
 }

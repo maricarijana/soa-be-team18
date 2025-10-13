@@ -145,6 +145,47 @@ service PositionSimulatorService {
   }
 }
 
+// =================== Shopping Cart & Purchase ===================
+service ShoppingCartService {
+  // Dodavanje ture u korpu
+  rpc AddToCart (ShoppingCartItemCreationRequest) returns (ShoppingCartItemResponse) {
+    option (google.api.http) = {
+      post: "/api/tourist/shopping-cart"
+      body: "*"
+    };
+  }
+
+  // Dohvatanje korpe po korisniku
+  rpc GetShoppingCart (GetShoppingCartRequest) returns (ShoppingCartResponse) {
+    option (google.api.http) = {
+      get: "/api/tourist/shopping-cart/user/{userId}"
+    };
+  }
+
+  // Uklanjanje ture iz korpe
+  rpc RemoveFromCart (RemoveFromCartRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/api/tourist/shopping-cart/user/{userId}/tour/{tourId}"
+    };
+  }
+
+  // Kupovina svih tura u korpi
+  rpc PurchaseCart (PurchaseCartRequest) returns (PurchaseCartResponse) {
+    option (google.api.http) = {
+      post: "/api/tourist/purchase"
+      body: "*"
+    };
+  }
+
+  // Provera da li je tura kupljena
+  rpc IsPurchased (IsPurchasedRequest) returns (IsPurchasedResponse) {
+    option (google.api.http) = {
+      get: "/api/tourist/purchase/user/{userId}/tour/{tourId}/is-purchased"
+    };
+  }
+}
+
+
 // Tour
 message Tour {
   int64 id = 1;
@@ -313,4 +354,55 @@ message GetReviewsByTourRequest {
 
 message GetReviewsByTourResponse {
   repeated TourReview reviews = 1;
+}
+
+
+// =================== Shopping Cart Messages ===================
+message ShoppingCartItemCreationRequest {
+  int64 userId = 1;
+  int64 tourId = 2;
+  string tourName = 3;
+  double price = 4;
+}
+
+message ShoppingCartItemResponse {
+  int64 id = 1;
+  int64 shoppingCartId = 2;
+  int64 tourId = 3;
+  string tourName = 4;
+  double price = 5;
+}
+
+message GetShoppingCartRequest {
+  int64 userId = 1;
+}
+
+message ShoppingCartResponse {
+  int64 id = 1;
+  int64 userId = 2;
+  double totalPrice = 3;
+  repeated ShoppingCartItemResponse items = 4;
+}
+
+message RemoveFromCartRequest {
+  int64 userId = 1;
+  int64 tourId = 2;
+}
+
+// =================== Purchase Messages ===================
+message PurchaseCartRequest {
+  int64 userId = 1;
+}
+
+message PurchaseCartResponse {
+  repeated int64 purchasedTourIds = 1;
+}
+
+message IsPurchasedRequest {
+  int64 userId = 1;
+  int64 tourId = 2;
+}
+
+message IsPurchasedResponse {
+  bool purchased = 1;
 }

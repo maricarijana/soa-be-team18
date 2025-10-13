@@ -146,6 +146,13 @@ func main() {
 		} else {
 			log.Println("PositionSimulator handler registered successfully")
 		}
+
+		if err := tours.RegisterShoppingCartServiceHandler(context.Background(), gwmux, connTours); err != nil {
+    log.Printf("Failed to register ShoppingCart gateway: %v", err)
+} else {
+    log.Println("ShoppingCart handler registered successfully")
+}
+
 	}
 	// proxy REST zahteva ka TourExecutionController
 proxyToTours := func(w http.ResponseWriter, r *http.Request) {

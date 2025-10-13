@@ -1011,3 +1011,271 @@ var PositionSimulatorService_ServiceDesc = grpc.ServiceDesc{
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "tours/tours.proto",
 }
+
+const (
+	ShoppingCartService_AddToCart_FullMethodName       = "/tours.ShoppingCartService/AddToCart"
+	ShoppingCartService_GetShoppingCart_FullMethodName = "/tours.ShoppingCartService/GetShoppingCart"
+	ShoppingCartService_RemoveFromCart_FullMethodName  = "/tours.ShoppingCartService/RemoveFromCart"
+	ShoppingCartService_PurchaseCart_FullMethodName    = "/tours.ShoppingCartService/PurchaseCart"
+	ShoppingCartService_IsPurchased_FullMethodName     = "/tours.ShoppingCartService/IsPurchased"
+)
+
+// ShoppingCartServiceClient is the client API for ShoppingCartService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+//
+// =================== Shopping Cart & Purchase ===================
+type ShoppingCartServiceClient interface {
+	// Dodavanje ture u korpu
+	AddToCart(ctx context.Context, in *ShoppingCartItemCreationRequest, opts ...grpc.CallOption) (*ShoppingCartItemResponse, error)
+	// Dohvatanje korpe po korisniku
+	GetShoppingCart(ctx context.Context, in *GetShoppingCartRequest, opts ...grpc.CallOption) (*ShoppingCartResponse, error)
+	// Uklanjanje ture iz korpe
+	RemoveFromCart(ctx context.Context, in *RemoveFromCartRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Kupovina svih tura u korpi
+	PurchaseCart(ctx context.Context, in *PurchaseCartRequest, opts ...grpc.CallOption) (*PurchaseCartResponse, error)
+	// Provera da li je tura kupljena
+	IsPurchased(ctx context.Context, in *IsPurchasedRequest, opts ...grpc.CallOption) (*IsPurchasedResponse, error)
+}
+
+type shoppingCartServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewShoppingCartServiceClient(cc grpc.ClientConnInterface) ShoppingCartServiceClient {
+	return &shoppingCartServiceClient{cc}
+}
+
+func (c *shoppingCartServiceClient) AddToCart(ctx context.Context, in *ShoppingCartItemCreationRequest, opts ...grpc.CallOption) (*ShoppingCartItemResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ShoppingCartItemResponse)
+	err := c.cc.Invoke(ctx, ShoppingCartService_AddToCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shoppingCartServiceClient) GetShoppingCart(ctx context.Context, in *GetShoppingCartRequest, opts ...grpc.CallOption) (*ShoppingCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ShoppingCartResponse)
+	err := c.cc.Invoke(ctx, ShoppingCartService_GetShoppingCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shoppingCartServiceClient) RemoveFromCart(ctx context.Context, in *RemoveFromCartRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, ShoppingCartService_RemoveFromCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shoppingCartServiceClient) PurchaseCart(ctx context.Context, in *PurchaseCartRequest, opts ...grpc.CallOption) (*PurchaseCartResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PurchaseCartResponse)
+	err := c.cc.Invoke(ctx, ShoppingCartService_PurchaseCart_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *shoppingCartServiceClient) IsPurchased(ctx context.Context, in *IsPurchasedRequest, opts ...grpc.CallOption) (*IsPurchasedResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(IsPurchasedResponse)
+	err := c.cc.Invoke(ctx, ShoppingCartService_IsPurchased_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// ShoppingCartServiceServer is the server API for ShoppingCartService service.
+// All implementations must embed UnimplementedShoppingCartServiceServer
+// for forward compatibility.
+//
+// =================== Shopping Cart & Purchase ===================
+type ShoppingCartServiceServer interface {
+	// Dodavanje ture u korpu
+	AddToCart(context.Context, *ShoppingCartItemCreationRequest) (*ShoppingCartItemResponse, error)
+	// Dohvatanje korpe po korisniku
+	GetShoppingCart(context.Context, *GetShoppingCartRequest) (*ShoppingCartResponse, error)
+	// Uklanjanje ture iz korpe
+	RemoveFromCart(context.Context, *RemoveFromCartRequest) (*emptypb.Empty, error)
+	// Kupovina svih tura u korpi
+	PurchaseCart(context.Context, *PurchaseCartRequest) (*PurchaseCartResponse, error)
+	// Provera da li je tura kupljena
+	IsPurchased(context.Context, *IsPurchasedRequest) (*IsPurchasedResponse, error)
+	mustEmbedUnimplementedShoppingCartServiceServer()
+}
+
+// UnimplementedShoppingCartServiceServer must be embedded to have
+// forward compatible implementations.
+//
+// NOTE: this should be embedded by value instead of pointer to avoid a nil
+// pointer dereference when methods are called.
+type UnimplementedShoppingCartServiceServer struct{}
+
+func (UnimplementedShoppingCartServiceServer) AddToCart(context.Context, *ShoppingCartItemCreationRequest) (*ShoppingCartItemResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddToCart not implemented")
+}
+func (UnimplementedShoppingCartServiceServer) GetShoppingCart(context.Context, *GetShoppingCartRequest) (*ShoppingCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetShoppingCart not implemented")
+}
+func (UnimplementedShoppingCartServiceServer) RemoveFromCart(context.Context, *RemoveFromCartRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromCart not implemented")
+}
+func (UnimplementedShoppingCartServiceServer) PurchaseCart(context.Context, *PurchaseCartRequest) (*PurchaseCartResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PurchaseCart not implemented")
+}
+func (UnimplementedShoppingCartServiceServer) IsPurchased(context.Context, *IsPurchasedRequest) (*IsPurchasedResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IsPurchased not implemented")
+}
+func (UnimplementedShoppingCartServiceServer) mustEmbedUnimplementedShoppingCartServiceServer() {}
+func (UnimplementedShoppingCartServiceServer) testEmbeddedByValue()                             {}
+
+// UnsafeShoppingCartServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ShoppingCartServiceServer will
+// result in compilation errors.
+type UnsafeShoppingCartServiceServer interface {
+	mustEmbedUnimplementedShoppingCartServiceServer()
+}
+
+func RegisterShoppingCartServiceServer(s grpc.ServiceRegistrar, srv ShoppingCartServiceServer) {
+	// If the following call pancis, it indicates UnimplementedShoppingCartServiceServer was
+	// embedded by pointer and is nil.  This will cause panics if an
+	// unimplemented method is ever invoked, so we test this at initialization
+	// time to prevent it from happening at runtime later due to I/O.
+	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
+		t.testEmbeddedByValue()
+	}
+	s.RegisterService(&ShoppingCartService_ServiceDesc, srv)
+}
+
+func _ShoppingCartService_AddToCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ShoppingCartItemCreationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShoppingCartServiceServer).AddToCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ShoppingCartService_AddToCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShoppingCartServiceServer).AddToCart(ctx, req.(*ShoppingCartItemCreationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ShoppingCartService_GetShoppingCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetShoppingCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShoppingCartServiceServer).GetShoppingCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ShoppingCartService_GetShoppingCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShoppingCartServiceServer).GetShoppingCart(ctx, req.(*GetShoppingCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ShoppingCartService_RemoveFromCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveFromCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShoppingCartServiceServer).RemoveFromCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ShoppingCartService_RemoveFromCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShoppingCartServiceServer).RemoveFromCart(ctx, req.(*RemoveFromCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ShoppingCartService_PurchaseCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PurchaseCartRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShoppingCartServiceServer).PurchaseCart(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ShoppingCartService_PurchaseCart_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShoppingCartServiceServer).PurchaseCart(ctx, req.(*PurchaseCartRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ShoppingCartService_IsPurchased_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IsPurchasedRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ShoppingCartServiceServer).IsPurchased(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ShoppingCartService_IsPurchased_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ShoppingCartServiceServer).IsPurchased(ctx, req.(*IsPurchasedRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// ShoppingCartService_ServiceDesc is the grpc.ServiceDesc for ShoppingCartService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var ShoppingCartService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "tours.ShoppingCartService",
+	HandlerType: (*ShoppingCartServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "AddToCart",
+			Handler:    _ShoppingCartService_AddToCart_Handler,
+		},
+		{
+			MethodName: "GetShoppingCart",
+			Handler:    _ShoppingCartService_GetShoppingCart_Handler,
+		},
+		{
+			MethodName: "RemoveFromCart",
+			Handler:    _ShoppingCartService_RemoveFromCart_Handler,
+		},
+		{
+			MethodName: "PurchaseCart",
+			Handler:    _ShoppingCartService_PurchaseCart_Handler,
+		},
+		{
+			MethodName: "IsPurchased",
+			Handler:    _ShoppingCartService_IsPurchased_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "tours/tours.proto",
+}
