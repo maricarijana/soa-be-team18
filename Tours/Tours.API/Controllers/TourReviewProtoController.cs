@@ -43,7 +43,7 @@ namespace Tours.API.Controllers
                 ? DateTime.SpecifyKind(DateTime.Parse(request.DateTour, null, DateTimeStyles.AdjustToUniversal), DateTimeKind.Utc)
                 : DateTime.UtcNow,
 
-                    DateComment = !string.IsNullOrEmpty(request.DateComment)
+                DateComment = !string.IsNullOrEmpty(request.DateComment)
                 ? DateTime.SpecifyKind(DateTime.Parse(request.DateComment, null, DateTimeStyles.AdjustToUniversal), DateTimeKind.Utc)
                 : DateTime.UtcNow,
             };
@@ -53,7 +53,10 @@ namespace Tours.API.Controllers
             {
                 try
                 {
-                    var imgBytes = Convert.FromBase64String(base64.Split(',').Last());
+                    //var imgBytes = Convert.FromBase64String(base64.Split(',').Last());
+                    var base64Data = base64.Contains(",") ? base64.Substring(base64.IndexOf(",") + 1) : base64;
+                    var imgBytes = Convert.FromBase64String(base64Data);
+
                     var folder = Path.Combine(_env.WebRootPath, "images", "reviews");
                     var savedPath = _imageService.SaveImage(folder, imgBytes, "reviews");
 
@@ -85,5 +88,36 @@ namespace Tours.API.Controllers
                 Images = { review.Images }
             });
         }
+        public override Task<GetReviewsByTourResponse> GetReviewsByTour(GetReviewsByTourRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("GetReviewsByTour called for TourId: {TourId}", request.TourId);
+
+            var result = _reviewService.GetByTourId(request.TourId);
+            if (!result.IsSuccess)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound,
+                    result.Errors.FirstOrDefault()?.Message ?? "Reviews not found"));
+            }
+
+            var response = new GetReviewsByTourResponse();
+            foreach (var review in result.Value)
+            {
+                var protoReview = new TourReview
+                {
+                    Id = review.Id,
+                    IdTour = review.IdTour,
+                    IdTourist = review.IdTourist,
+                    Rating = review.Rating,
+                    Comment = review.Comment ?? "",
+                    DateTour = review.DateTour?.ToString("o") ?? "",
+                    DateComment = review.DateComment?.ToString("o") ?? "",
+                    Images = { review.Images }
+                };
+                response.Reviews.Add(protoReview);
+            }
+
+            return Task.FromResult(response);
+        }
+
     }
 }

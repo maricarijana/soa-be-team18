@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Tours.Core.Domain;
 using Tours.Infrastructure.Database;
 
 #nullable disable
@@ -234,6 +235,43 @@ namespace Tours.Infrastructure.Migrations
                     b.ToTable("TourDurations", "tours");
                 });
 
+            modelBuilder.Entity("Tours.Core.Domain.TourExecution", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<List<CompletedKeyPoint>>("CompletedKeyPoints")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<DateTime?>("FinishedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("LastActivity")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("StartedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("TourId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("TouristId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TourId");
+
+                    b.ToTable("TourExecutions", "tours");
+                });
+
             modelBuilder.Entity("Tours.Core.Domain.TourReview", b =>
                 {
                     b.Property<long>("Id")
@@ -257,9 +295,9 @@ namespace Tours.Infrastructure.Migrations
                     b.Property<long>("IdTourist")
                         .HasColumnType("bigint");
 
-                    b.Property<List<string>>("Images")
+                    b.Property<string>("Images")
                         .IsRequired()
-                        .HasColumnType("text[]");
+                        .HasColumnType("text");
 
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
@@ -314,6 +352,15 @@ namespace Tours.Infrastructure.Migrations
                         .WithMany("Durations")
                         .HasForeignKey("TourId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Tours.Core.Domain.TourExecution", b =>
+                {
+                    b.HasOne("Tours.Core.Domain.Tour", null)
+                        .WithMany()
+                        .HasForeignKey("TourId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Tours.Core.Domain.TourReview", b =>

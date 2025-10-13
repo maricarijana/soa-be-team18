@@ -39,7 +39,11 @@ public static class ToursStartup
         services.AddScoped<IShoppingCartService, ShoppingCartService>();
         services.AddScoped<IPurchaseService, PurchaseService>();
 
-        services.AddScoped<IImageService,ImageService>();
+        services.AddScoped<ITourExecutionService, TourExecutionService>();
+
+
+        services.AddScoped<IImageService, ImageService>();
+
     }
 
     private static void SetupInfrastructure(IServiceCollection services)
@@ -58,6 +62,7 @@ public static class ToursStartup
         services.AddScoped<IKeyPointRepository, KeyPointRepository>();
         services.AddScoped<ITourReviewRepository, TourReviewRepository>();
         services.AddScoped<IPositionSimulatorRepository, PositionSimulatorRepository>();
+        services.AddScoped<ITourExecutionRepository, TourExecutionRepository>();
 
 
         services.AddDbContext<ToursContext>(opt =>

@@ -19,6 +19,8 @@ builder.WebHost.ConfigureKestrel(options =>
     });
 
 });
+
+
 // Add services to the container.
 //builder.Services.AddDbContext<ToursContext>(options =>
 //    options.UseNpgsql(DbConnectionStringBuilder.Build("tours")));
@@ -27,11 +29,12 @@ builder.WebHost.UseWebRoot("wwwroot");
 
 builder.Services.AddControllers();
 builder.Services.ConfigureSwagger(builder.Configuration);
-const string corsPolicy = "_corsPolicy";
-builder.Services.ConfigureCors(corsPolicy);
+//const string corsPolicy = "_corsPolicy"; -prob
+//builder.Services.ConfigureCors(corsPolicy); -prob
 builder.Services.ConfigureAuth();
 
 builder.Services.RegisterModules();
+
 //// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -57,12 +60,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors(corsPolicy);
+//app.UseCors(corsPolicy); -prob
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+
 
 app.MapGrpcService<ToursProtoController>();
 Console.WriteLine("Stakeholders gRPC service mapped: StakeholdersProtoController");
