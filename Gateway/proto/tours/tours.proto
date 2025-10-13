@@ -118,6 +118,14 @@ service TourReviewService {
       body: "*"
     };
   }
+    rpc GetReviewsByTour (GetReviewsByTourRequest) returns (GetReviewsByTourResponse) {
+    option (google.api.http) = {
+      get: "/api/tour-reviews/tour/{tourId}"
+    };
+  }
+
+
+
 }
 
 service PositionSimulatorService {
@@ -297,4 +305,12 @@ message ArchiveTourRequest {
 message ReactivateTourRequest {
   int64 tourId = 1;
   int64 userId = 2;
+}
+
+message GetReviewsByTourRequest {
+  int64 tourId = 1;
+}
+
+message GetReviewsByTourResponse {
+  repeated TourReview reviews = 1;
 }

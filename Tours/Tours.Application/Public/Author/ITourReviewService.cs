@@ -16,5 +16,6 @@ namespace Tours.Application.Public.Author
         Result<TourReviewDto> Create(TourReviewDto tourReview);
         Result<TourReviewDto> Update(TourReviewDto tourReview);
         Result Delete(int id);
+        Result<List<TourReviewDto>> GetByTourId(long tourId);
     }
 }

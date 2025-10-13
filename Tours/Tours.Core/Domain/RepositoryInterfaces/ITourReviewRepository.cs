@@ -11,5 +11,6 @@ namespace Tours.Core.Domain.RepositoryInterfaces
     {
         public PagedResult<TourReview> GetByTourId(long tourId, int page, int pageSize);
         public TourReview Get(long userId, long tourId);
+        IEnumerable<TourReview> GetByTourId(long tourId);
     }
 }

@@ -47,5 +47,16 @@ namespace Tours.Infrastructure.Database.Repositories
 
             return new PagedResult<TourReview>(reviews, reviews.Count());
         }
+
+        public IEnumerable<TourReview> GetByTourId(long tourId)
+        {
+            return _dbContext.TourReview
+                .Where(tr => tr.IdTour == tourId)
+                .OrderByDescending(tr => tr.DateComment)
+                .ToList();
+        }
+
+
+
     }
 }

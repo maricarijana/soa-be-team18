@@ -29,8 +29,8 @@ builder.WebHost.UseWebRoot("wwwroot");
 
 builder.Services.AddControllers();
 builder.Services.ConfigureSwagger(builder.Configuration);
-const string corsPolicy = "_corsPolicy";
-builder.Services.ConfigureCors(corsPolicy);
+//const string corsPolicy = "_corsPolicy"; -prob
+//builder.Services.ConfigureCors(corsPolicy); -prob
 builder.Services.ConfigureAuth();
 
 builder.Services.RegisterModules();
@@ -60,7 +60,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseCors(corsPolicy);
+//app.UseCors(corsPolicy); -prob
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

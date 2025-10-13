@@ -1653,6 +1653,94 @@ func (x *ReactivateTourRequest) GetUserId() int64 {
 	return 0
 }
 
+type GetReviewsByTourRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TourId        int64                  `protobuf:"varint,1,opt,name=tourId,proto3" json:"tourId,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetReviewsByTourRequest) Reset() {
+	*x = GetReviewsByTourRequest{}
+	mi := &file_tours_tours_proto_msgTypes[25]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetReviewsByTourRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReviewsByTourRequest) ProtoMessage() {}
+
+func (x *GetReviewsByTourRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_tours_tours_proto_msgTypes[25]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReviewsByTourRequest.ProtoReflect.Descriptor instead.
+func (*GetReviewsByTourRequest) Descriptor() ([]byte, []int) {
+	return file_tours_tours_proto_rawDescGZIP(), []int{25}
+}
+
+func (x *GetReviewsByTourRequest) GetTourId() int64 {
+	if x != nil {
+		return x.TourId
+	}
+	return 0
+}
+
+type GetReviewsByTourResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Reviews       []*TourReview          `protobuf:"bytes,1,rep,name=reviews,proto3" json:"reviews,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetReviewsByTourResponse) Reset() {
+	*x = GetReviewsByTourResponse{}
+	mi := &file_tours_tours_proto_msgTypes[26]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetReviewsByTourResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReviewsByTourResponse) ProtoMessage() {}
+
+func (x *GetReviewsByTourResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_tours_tours_proto_msgTypes[26]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReviewsByTourResponse.ProtoReflect.Descriptor instead.
+func (*GetReviewsByTourResponse) Descriptor() ([]byte, []int) {
+	return file_tours_tours_proto_rawDescGZIP(), []int{26}
+}
+
+func (x *GetReviewsByTourResponse) GetReviews() []*TourReview {
+	if x != nil {
+		return x.Reviews
+	}
+	return nil
+}
+
 var File_tours_tours_proto protoreflect.FileDescriptor
 
 const file_tours_tours_proto_rawDesc = "" +
@@ -1789,7 +1877,11 @@ const file_tours_tours_proto_rawDesc = "" +
 	"\x06userId\x18\x02 \x01(\x03R\x06userId\"G\n" +
 	"\x15ReactivateTourRequest\x12\x16\n" +
 	"\x06tourId\x18\x01 \x01(\x03R\x06tourId\x12\x16\n" +
-	"\x06userId\x18\x02 \x01(\x03R\x06userId2\x8c\a\n" +
+	"\x06userId\x18\x02 \x01(\x03R\x06userId\"1\n" +
+	"\x17GetReviewsByTourRequest\x12\x16\n" +
+	"\x06tourId\x18\x01 \x01(\x03R\x06tourId\"G\n" +
+	"\x18GetReviewsByTourResponse\x12+\n" +
+	"\areviews\x18\x01 \x03(\v2\x11.tours.TourReviewR\areviews2\x8c\a\n" +
 	"\fToursService\x12D\n" +
 	"\aAddTour\x12\x15.tours.AddTourRequest\x1a\v.tours.Tour\"\x15\x82\xd3\xe4\x93\x02\x0f:\x01*\"\n" +
 	"/api/tours\x12o\n" +
@@ -1807,9 +1899,10 @@ const file_tours_tours_proto_rawDesc = "" +
 	"\x0eDeleteKeyPoint\x12\x1c.tours.DeleteKeyPointRequest\x1a\x1d.tours.DeleteKeyPointResponse\"\x1b\x82\xd3\xe4\x93\x02\x15*\x13/api/keypoints/{id}\x12\x7f\n" +
 	"\x12GetKeyPointsByUser\x12 .tours.GetKeyPointsByUserRequest\x1a!.tours.GetKeyPointsByUserResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/api/keypoints/user/{userId}\x12^\n" +
 	"\x0fGetKeyPointById\x12\x1d.tours.GetKeyPointByIdRequest\x1a\x0f.tours.KeyPoint\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/api/keypoints/{id}\x12\x7f\n" +
-	"\x12GetKeyPointsByTour\x12 .tours.GetKeyPointsByTourRequest\x1a!.tours.GetKeyPointsByTourResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/api/keypoints/tour/{tourId}2r\n" +
+	"\x12GetKeyPointsByTour\x12 .tours.GetKeyPointsByTourRequest\x1a!.tours.GetKeyPointsByTourResponse\"$\x82\xd3\xe4\x93\x02\x1e\x12\x1c/api/keypoints/tour/{tourId}2\xf0\x01\n" +
 	"\x11TourReviewService\x12]\n" +
-	"\rAddTourReview\x12\x1b.tours.AddTourReviewRequest\x1a\x11.tours.TourReview\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/api/tour-reviews2\x96\x02\n" +
+	"\rAddTourReview\x12\x1b.tours.AddTourReviewRequest\x1a\x11.tours.TourReview\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/api/tour-reviews\x12|\n" +
+	"\x10GetReviewsByTour\x12\x1e.tours.GetReviewsByTourRequest\x1a\x1f.tours.GetReviewsByTourResponse\"'\x82\xd3\xe4\x93\x02!\x12\x1f/api/tour-reviews/tour/{tourId}2\x96\x02\n" +
 	"\x18PositionSimulatorService\x12}\n" +
 	"\vGetPosition\x12\x1f.tours.PositionSimulatorRequest\x1a .tours.PositionSimulatorResponse\"+\x82\xd3\xe4\x93\x02%\x12#/api/position-simulator/{touristId}\x12{\n" +
 	"\x0eUpdatePosition\x12\x1c.tours.UpdatePositionRequest\x1a .tours.PositionSimulatorResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/position-simulator/updateB&Z\vproto/tours\xaa\x02\x16GrpcServiceTranscodingb\x06proto3"
@@ -1826,7 +1919,7 @@ func file_tours_tours_proto_rawDescGZIP() []byte {
 	return file_tours_tours_proto_rawDescData
 }
 
-var file_tours_tours_proto_msgTypes = make([]protoimpl.MessageInfo, 25)
+var file_tours_tours_proto_msgTypes = make([]protoimpl.MessageInfo, 27)
 var file_tours_tours_proto_goTypes = []any{
 	(*Tour)(nil),              // 0: tours.Tour
 	(*TourWithKeyPoints)(nil), // 1: tours.TourWithKeyPoints
@@ -1853,7 +1946,9 @@ var file_tours_tours_proto_goTypes = []any{
 	(*PublishTourRequest)(nil),                   // 22: tours.PublishTourRequest
 	(*ArchiveTourRequest)(nil),                   // 23: tours.ArchiveTourRequest
 	(*ReactivateTourRequest)(nil),                // 24: tours.ReactivateTourRequest
-	(*emptypb.Empty)(nil),                        // 25: google.protobuf.Empty
+	(*GetReviewsByTourRequest)(nil),              // 25: tours.GetReviewsByTourRequest
+	(*GetReviewsByTourResponse)(nil),             // 26: tours.GetReviewsByTourResponse
+	(*emptypb.Empty)(nil),                        // 27: google.protobuf.Empty
 }
 var file_tours_tours_proto_depIdxs = []int32{
 	6,  // 0: tours.TourWithKeyPoints.keyPoints:type_name -> tours.KeyPoint
@@ -1861,47 +1956,50 @@ var file_tours_tours_proto_depIdxs = []int32{
 	0,  // 2: tours.GetToursByUserResponse.tours:type_name -> tours.Tour
 	6,  // 3: tours.GetKeyPointsByUserResponse.keyPoints:type_name -> tours.KeyPoint
 	6,  // 4: tours.GetKeyPointsByTourResponse.keyPoints:type_name -> tours.KeyPoint
-	3,  // 5: tours.ToursService.AddTour:input_type -> tours.AddTourRequest
-	4,  // 6: tours.ToursService.GetToursByUser:input_type -> tours.GetToursByUserRequest
-	17, // 7: tours.ToursService.GetTourById:input_type -> tours.GetTourByIdRequest
-	21, // 8: tours.ToursService.AddTourDuration:input_type -> tours.AddTourDurationRequest
-	22, // 9: tours.ToursService.PublishTour:input_type -> tours.PublishTourRequest
-	23, // 10: tours.ToursService.ArchiveTour:input_type -> tours.ArchiveTourRequest
-	24, // 11: tours.ToursService.ReactivateTour:input_type -> tours.ReactivateTourRequest
-	25, // 12: tours.ToursService.GetPublishedToursForTourists:input_type -> google.protobuf.Empty
-	25, // 13: tours.ToursService.GetAllTours:input_type -> google.protobuf.Empty
-	7,  // 14: tours.KeyPointService.AddKeyPoint:input_type -> tours.AddKeyPointRequest
-	6,  // 15: tours.KeyPointService.UpdateKeyPoint:input_type -> tours.KeyPoint
-	8,  // 16: tours.KeyPointService.DeleteKeyPoint:input_type -> tours.DeleteKeyPointRequest
-	10, // 17: tours.KeyPointService.GetKeyPointsByUser:input_type -> tours.GetKeyPointsByUserRequest
-	12, // 18: tours.KeyPointService.GetKeyPointById:input_type -> tours.GetKeyPointByIdRequest
-	15, // 19: tours.KeyPointService.GetKeyPointsByTour:input_type -> tours.GetKeyPointsByTourRequest
-	13, // 20: tours.TourReviewService.AddTourReview:input_type -> tours.AddTourReviewRequest
-	18, // 21: tours.PositionSimulatorService.GetPosition:input_type -> tours.PositionSimulatorRequest
-	19, // 22: tours.PositionSimulatorService.UpdatePosition:input_type -> tours.UpdatePositionRequest
-	0,  // 23: tours.ToursService.AddTour:output_type -> tours.Tour
-	5,  // 24: tours.ToursService.GetToursByUser:output_type -> tours.GetToursByUserResponse
-	0,  // 25: tours.ToursService.GetTourById:output_type -> tours.Tour
-	25, // 26: tours.ToursService.AddTourDuration:output_type -> google.protobuf.Empty
-	25, // 27: tours.ToursService.PublishTour:output_type -> google.protobuf.Empty
-	25, // 28: tours.ToursService.ArchiveTour:output_type -> google.protobuf.Empty
-	25, // 29: tours.ToursService.ReactivateTour:output_type -> google.protobuf.Empty
-	2,  // 30: tours.ToursService.GetPublishedToursForTourists:output_type -> tours.GetPublishedToursForTouristsResponse
-	5,  // 31: tours.ToursService.GetAllTours:output_type -> tours.GetToursByUserResponse
-	6,  // 32: tours.KeyPointService.AddKeyPoint:output_type -> tours.KeyPoint
-	6,  // 33: tours.KeyPointService.UpdateKeyPoint:output_type -> tours.KeyPoint
-	9,  // 34: tours.KeyPointService.DeleteKeyPoint:output_type -> tours.DeleteKeyPointResponse
-	11, // 35: tours.KeyPointService.GetKeyPointsByUser:output_type -> tours.GetKeyPointsByUserResponse
-	6,  // 36: tours.KeyPointService.GetKeyPointById:output_type -> tours.KeyPoint
-	16, // 37: tours.KeyPointService.GetKeyPointsByTour:output_type -> tours.GetKeyPointsByTourResponse
-	14, // 38: tours.TourReviewService.AddTourReview:output_type -> tours.TourReview
-	20, // 39: tours.PositionSimulatorService.GetPosition:output_type -> tours.PositionSimulatorResponse
-	20, // 40: tours.PositionSimulatorService.UpdatePosition:output_type -> tours.PositionSimulatorResponse
-	23, // [23:41] is the sub-list for method output_type
-	5,  // [5:23] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	14, // 5: tours.GetReviewsByTourResponse.reviews:type_name -> tours.TourReview
+	3,  // 6: tours.ToursService.AddTour:input_type -> tours.AddTourRequest
+	4,  // 7: tours.ToursService.GetToursByUser:input_type -> tours.GetToursByUserRequest
+	17, // 8: tours.ToursService.GetTourById:input_type -> tours.GetTourByIdRequest
+	21, // 9: tours.ToursService.AddTourDuration:input_type -> tours.AddTourDurationRequest
+	22, // 10: tours.ToursService.PublishTour:input_type -> tours.PublishTourRequest
+	23, // 11: tours.ToursService.ArchiveTour:input_type -> tours.ArchiveTourRequest
+	24, // 12: tours.ToursService.ReactivateTour:input_type -> tours.ReactivateTourRequest
+	27, // 13: tours.ToursService.GetPublishedToursForTourists:input_type -> google.protobuf.Empty
+	27, // 14: tours.ToursService.GetAllTours:input_type -> google.protobuf.Empty
+	7,  // 15: tours.KeyPointService.AddKeyPoint:input_type -> tours.AddKeyPointRequest
+	6,  // 16: tours.KeyPointService.UpdateKeyPoint:input_type -> tours.KeyPoint
+	8,  // 17: tours.KeyPointService.DeleteKeyPoint:input_type -> tours.DeleteKeyPointRequest
+	10, // 18: tours.KeyPointService.GetKeyPointsByUser:input_type -> tours.GetKeyPointsByUserRequest
+	12, // 19: tours.KeyPointService.GetKeyPointById:input_type -> tours.GetKeyPointByIdRequest
+	15, // 20: tours.KeyPointService.GetKeyPointsByTour:input_type -> tours.GetKeyPointsByTourRequest
+	13, // 21: tours.TourReviewService.AddTourReview:input_type -> tours.AddTourReviewRequest
+	25, // 22: tours.TourReviewService.GetReviewsByTour:input_type -> tours.GetReviewsByTourRequest
+	18, // 23: tours.PositionSimulatorService.GetPosition:input_type -> tours.PositionSimulatorRequest
+	19, // 24: tours.PositionSimulatorService.UpdatePosition:input_type -> tours.UpdatePositionRequest
+	0,  // 25: tours.ToursService.AddTour:output_type -> tours.Tour
+	5,  // 26: tours.ToursService.GetToursByUser:output_type -> tours.GetToursByUserResponse
+	0,  // 27: tours.ToursService.GetTourById:output_type -> tours.Tour
+	27, // 28: tours.ToursService.AddTourDuration:output_type -> google.protobuf.Empty
+	27, // 29: tours.ToursService.PublishTour:output_type -> google.protobuf.Empty
+	27, // 30: tours.ToursService.ArchiveTour:output_type -> google.protobuf.Empty
+	27, // 31: tours.ToursService.ReactivateTour:output_type -> google.protobuf.Empty
+	2,  // 32: tours.ToursService.GetPublishedToursForTourists:output_type -> tours.GetPublishedToursForTouristsResponse
+	5,  // 33: tours.ToursService.GetAllTours:output_type -> tours.GetToursByUserResponse
+	6,  // 34: tours.KeyPointService.AddKeyPoint:output_type -> tours.KeyPoint
+	6,  // 35: tours.KeyPointService.UpdateKeyPoint:output_type -> tours.KeyPoint
+	9,  // 36: tours.KeyPointService.DeleteKeyPoint:output_type -> tours.DeleteKeyPointResponse
+	11, // 37: tours.KeyPointService.GetKeyPointsByUser:output_type -> tours.GetKeyPointsByUserResponse
+	6,  // 38: tours.KeyPointService.GetKeyPointById:output_type -> tours.KeyPoint
+	16, // 39: tours.KeyPointService.GetKeyPointsByTour:output_type -> tours.GetKeyPointsByTourResponse
+	14, // 40: tours.TourReviewService.AddTourReview:output_type -> tours.TourReview
+	26, // 41: tours.TourReviewService.GetReviewsByTour:output_type -> tours.GetReviewsByTourResponse
+	20, // 42: tours.PositionSimulatorService.GetPosition:output_type -> tours.PositionSimulatorResponse
+	20, // 43: tours.PositionSimulatorService.UpdatePosition:output_type -> tours.PositionSimulatorResponse
+	25, // [25:44] is the sub-list for method output_type
+	6,  // [6:25] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_tours_tours_proto_init() }
@@ -1915,7 +2013,7 @@ func file_tours_tours_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_tours_tours_proto_rawDesc), len(file_tours_tours_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   25,
+			NumMessages:   27,
 			NumExtensions: 0,
 			NumServices:   4,
 		},

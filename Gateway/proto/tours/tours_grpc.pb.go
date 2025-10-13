@@ -728,7 +728,8 @@ var KeyPointService_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	TourReviewService_AddTourReview_FullMethodName = "/tours.TourReviewService/AddTourReview"
+	TourReviewService_AddTourReview_FullMethodName    = "/tours.TourReviewService/AddTourReview"
+	TourReviewService_GetReviewsByTour_FullMethodName = "/tours.TourReviewService/GetReviewsByTour"
 )
 
 // TourReviewServiceClient is the client API for TourReviewService service.
@@ -736,6 +737,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TourReviewServiceClient interface {
 	AddTourReview(ctx context.Context, in *AddTourReviewRequest, opts ...grpc.CallOption) (*TourReview, error)
+	GetReviewsByTour(ctx context.Context, in *GetReviewsByTourRequest, opts ...grpc.CallOption) (*GetReviewsByTourResponse, error)
 }
 
 type tourReviewServiceClient struct {
@@ -756,11 +758,22 @@ func (c *tourReviewServiceClient) AddTourReview(ctx context.Context, in *AddTour
 	return out, nil
 }
 
+func (c *tourReviewServiceClient) GetReviewsByTour(ctx context.Context, in *GetReviewsByTourRequest, opts ...grpc.CallOption) (*GetReviewsByTourResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetReviewsByTourResponse)
+	err := c.cc.Invoke(ctx, TourReviewService_GetReviewsByTour_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TourReviewServiceServer is the server API for TourReviewService service.
 // All implementations must embed UnimplementedTourReviewServiceServer
 // for forward compatibility.
 type TourReviewServiceServer interface {
 	AddTourReview(context.Context, *AddTourReviewRequest) (*TourReview, error)
+	GetReviewsByTour(context.Context, *GetReviewsByTourRequest) (*GetReviewsByTourResponse, error)
 	mustEmbedUnimplementedTourReviewServiceServer()
 }
 
@@ -773,6 +786,9 @@ type UnimplementedTourReviewServiceServer struct{}
 
 func (UnimplementedTourReviewServiceServer) AddTourReview(context.Context, *AddTourReviewRequest) (*TourReview, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddTourReview not implemented")
+}
+func (UnimplementedTourReviewServiceServer) GetReviewsByTour(context.Context, *GetReviewsByTourRequest) (*GetReviewsByTourResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReviewsByTour not implemented")
 }
 func (UnimplementedTourReviewServiceServer) mustEmbedUnimplementedTourReviewServiceServer() {}
 func (UnimplementedTourReviewServiceServer) testEmbeddedByValue()                           {}
@@ -813,6 +829,24 @@ func _TourReviewService_AddTourReview_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TourReviewService_GetReviewsByTour_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReviewsByTourRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TourReviewServiceServer).GetReviewsByTour(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: TourReviewService_GetReviewsByTour_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TourReviewServiceServer).GetReviewsByTour(ctx, req.(*GetReviewsByTourRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TourReviewService_ServiceDesc is the grpc.ServiceDesc for TourReviewService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -823,6 +857,10 @@ var TourReviewService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddTourReview",
 			Handler:    _TourReviewService_AddTourReview_Handler,
+		},
+		{
+			MethodName: "GetReviewsByTour",
+			Handler:    _TourReviewService_GetReviewsByTour_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -40,6 +40,8 @@ service KeyPointService {
 }
 service TourReviewService {
   rpc AddTourReview (AddTourReviewRequest) returns (TourReview);
+  rpc GetReviewsByTour (GetReviewsByTourRequest) returns (GetReviewsByTourResponse);
+
 }
 
 service PositionSimulatorService {
@@ -210,4 +212,13 @@ message ReactivateTourRequest {
   int64 tourId = 1;
   int64 userId = 2;
 }
+
+message GetReviewsByTourRequest {
+  int64 tourId = 1;
+}
+
+message GetReviewsByTourResponse {
+  repeated TourReview reviews = 1;
+}
+
 

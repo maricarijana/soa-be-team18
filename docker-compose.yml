@@ -2,7 +2,7 @@ version: "3.7"
 x-logging: &fluent-bit
   driver: fluentd
   options:
-    fluentd-address: 172.18.0.3:24224
+    fluentd-address: 172.18.0.7:24224
 
 services:
   blog-service:

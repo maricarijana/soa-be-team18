@@ -47,6 +47,28 @@ namespace Tours.Core.UseCases.Author
             };
             return Result.Ok(tourReviewDto);
         }
+        public Result<List<TourReviewDto>> GetByTourId(long tourId)
+        {
+            var reviews = _tourReviewRepository.GetByTourId(tourId);
+
+            if (reviews == null || !reviews.Any())
+                return Result.Ok(new List<TourReviewDto>());
+
+            var reviewDtos = reviews.Select(r => new TourReviewDto
+            {
+                Id = r.Id,
+                IdTour = r.IdTour,
+                IdTourist = r.IdTourist,
+                Rating = r.Rating,
+                Comment = r.Comment,
+                DateTour = r.DateTour,
+                DateComment = r.DateComment,
+                Images = r.Images
+            }).ToList();
+
+            return Result.Ok(reviewDtos);
+        }
+
 
 
 
